@@ -6,23 +6,23 @@
 
 #include <iostream>
 
-#include "/home/eduardo/approximate-vector-accelerator/includes/sw-ops/mataccum_sw.hpp"
-#include "/home/eduardo/approximate-vector-accelerator/includes/sw-ops/matadd_sw.hpp"
-#include "/home/eduardo/approximate-vector-accelerator/includes/sw-ops/matmul_sw.hpp"
-#include "/home/eduardo/approximate-vector-accelerator/includes/sw-ops/operations_top_sw.hpp"
+#include "../../../includes/sw-ops/matmac.hpp"
+#include "../../../includes/sw-ops/matadd.hpp"
+#include "../../../includes/sw-ops/matmul.hpp"
+#include "../../../includes/sw-ops/operations_top_sw.hpp"
 
 void operations_top_sw(int selection, const float a[kRows][kCols],
                     const float b[kRows][kCols], const float c[kRows][kCols],
                     float res[kRows][kCols]) {
   switch (selection) {
     case 0:
-      matadd<float, kRows, kCols>(a, b, res);
+      ama::sw::matadd<float, kRows, kCols>(a, b, res);
       break;
     case 1:
-      matmul<float, kRows, kCols>(a, b, res);
+      ama::sw::matmul<float, kRows, kCols>(a, b, res);
       break;
     case 2:
-      mat_mul_add<float, kRows, kCols>(a, b, c, res);
+      ama::sw::matmac<float, kRows, kCols>(a, b, c, res);
       break;
   }
 } 
