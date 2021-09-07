@@ -5,9 +5,9 @@
  */
 
 #include "operations_top_accel.hpp"
-#include "/home/eduardo/approximate-vector-accelerator/includes/hw-ops/mataccum_accel.hpp"
-#include "/home/eduardo/approximate-vector-accelerator/includes/hw-ops/matadd_accel.hpp"
-#include "/home/eduardo/approximate-vector-accelerator/includes/hw-ops/matmul_accel.hpp"
+#include "C:\Users\Eduardo\Desktop\TEC\TFG\approximate-vector-accelerator\includes\hw-ops\matmac.hpp"
+#include "C:\Users\Eduardo\Desktop\TEC\TFG\approximate-vector-accelerator\includes\hw-ops\matadd.hpp"
+#include "C:\Users\Eduardo\Desktop\TEC\TFG\approximate-vector-accelerator\includes\hw-ops\matmul.hpp"
 
 /**
  * @brief Matrix multiplication test
@@ -25,13 +25,13 @@ void operations_top_accel(int selection, const float a[kRows][kCols],
                           float res[kRows][kCols]) {
   switch (selection) {
     case 0:
-      matadd<float, kRows, kCols>(a, b, res);
+      ama::hw::matadd<float, kRows, kCols>(a, b, res);
       break;
     case 1:
-      matmul<float, kRows, kCols>(a, b, res);
+      ama::hw::matmul<float, kRows, kCols>(a, b, res);
       break;
     case 2:
-      mat_mul_add<float, kRows, kCols>(a, b, c, res);
+      ama::hw::matmac<float, kRows, kCols>(a, b, c, res);
       break;
   }
 }
