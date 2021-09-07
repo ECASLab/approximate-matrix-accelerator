@@ -5,9 +5,9 @@
  */
 
 #include "operations_top_accel.hpp"
-#include "C:\Users\Eduardo\Desktop\TEC\TFG\approximate-vector-accelerator\includes\hw-ops\matmac.hpp"
-#include "C:\Users\Eduardo\Desktop\TEC\TFG\approximate-vector-accelerator\includes\hw-ops\matadd.hpp"
-#include "C:\Users\Eduardo\Desktop\TEC\TFG\approximate-vector-accelerator\includes\hw-ops\matmul.hpp"
+#include "../../includes/hw-ops/matadd.hpp"
+#include "../../includes/hw-ops/matmac.hpp"
+#include "../../includes/hw-ops/matmul.hpp"
 
 /**
  * @brief Matrix multiplication test
