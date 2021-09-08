@@ -6,8 +6,8 @@
 
 #pragma once
 
+#define kRows 4
 #define kCols 3
-#define kRows 3
 
 /**
  * @brief Matrix multiplication test
@@ -20,5 +20,5 @@
  * @param res Matrix with the result
  */
 void operations_top_sw(int selection, const float a[kRows][kCols],
-                       const float b[kRows][kCols], const float c[kRows][kCols],
-                       float res[kRows][kCols]);
+                       const float b[kCols][kRows], const float c[kRows][kRows],
+                       float res[kRows][kRows]);

@@ -17,11 +17,11 @@ template <typename T, int M, int N>
  * @param b Right Matrix to multiply
  * @param res Matrix with the result
  */
-void matmul(const T a[M][N], const T b[M][N], T res[M][N]) {
+void matmul(const T a[M][N], const T b[N][M], T res[M][M]) {
   for (int i = 0; i < M; i++) {
-    for (int j = 0; j < N; j++) {
+    for (int j = 0; j < M; j++) {
       res[i][j] = 0;
-      for (int k = 0; k < M; k++) {
+      for (int k = 0; k < N; k++) {
         res[i][j] += a[i][k] * b[k][j];
       }
     }

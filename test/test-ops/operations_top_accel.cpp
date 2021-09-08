@@ -20,12 +20,11 @@
  * @param res Matrix with the result
  */
 void operations_top_accel(int selection, const float a[kRows][kCols],
-                          const float b[kRows][kCols],
-                          const float c[kRows][kCols],
-                          float res[kRows][kCols]) {
+                    const float b[kCols][kRows], const float c[kRows][kRows],
+                    float res[kRows][kRows]){
   switch (selection) {
     case 0:
-      ama::hw::matadd<float, kRows, kCols>(a, b, res);
+      ama::hw::matadd<float, kRows>(c, c, res);
       break;
     case 1:
       ama::hw::matmul<float, kRows, kCols>(a, b, res);
