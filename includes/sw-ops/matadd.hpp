@@ -9,7 +9,7 @@
 namespace ama {
 namespace sw {
 
-template <typename T, int M>
+template <typename T, int M, int N>
 /**
  * @brief Matrix addition
  * It performs the addition of two matrices.
@@ -17,9 +17,9 @@ template <typename T, int M>
  * @param b Right Matrix to add
  * @param res Matrix with the result
  */
-void matadd(const T a[M][M], const T b[M][M], T res[M][M]) {
+void matadd(const T a[M][N], const T b[M][N], T res[M][N]) {
   for (int i = 0; i < M; i++) {
-    for (int j = 0; j < M; j++) {
+    for (int j = 0; j < N; j++) {
       res[i][j] = a[i][j] + b[i][j];
     }
   }

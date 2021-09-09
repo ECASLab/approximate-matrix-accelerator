@@ -16,7 +16,7 @@ void operations_top_sw(int selection, const float a[kRows][kCols],
                        float res[kRows][kRows]) {
   switch (selection) {
     case 0:
-      ama::sw::matadd<float, kRows>(c, c, res);
+      ama::sw::matadd<float, kRows, kRows>(c, c, res);
       break;
     case 1:
       ama::sw::matmul<float, kRows, kCols>(a, b, res);
@@ -57,7 +57,7 @@ int main() {
                         {4.2, 6.4, 8.6, 10.8}};
 
   float res[4][4];
-  operations_top_sw(2, a, b, c, res);
+  operations_top_sw(1, a, b, c, res);
   print_matrix(res);
   return 0;
 }

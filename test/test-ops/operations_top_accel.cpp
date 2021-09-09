@@ -24,7 +24,7 @@ void operations_top_accel(int selection, const float a[kRows][kCols],
                     float res[kRows][kRows]){
   switch (selection) {
     case 0:
-      ama::hw::matadd<float, kRows>(c, c, res);
+      ama::hw::matadd<float, kRows, kRows>(c, c, res);
       break;
     case 1:
       ama::hw::matmul<float, kRows, kCols>(a, b, res);

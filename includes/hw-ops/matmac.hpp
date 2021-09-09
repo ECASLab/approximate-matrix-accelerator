@@ -25,7 +25,7 @@ template <typename T, int M, int N>
 void matmac(const T a[M][N], const T b[N][M], const T c[M][M],
                  T res[M][M]) {
   matmul<T, M, N>(a, b, res);
-  matadd<T, M>(c, res, res);
+  matadd<T, M, M>(c, res, res);
 }
 };
 };
