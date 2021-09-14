@@ -8,8 +8,8 @@
 
 #pragma once
 
-#define kCols 5
-#define kRows 4
+#define kCols 16
+#define kRows 16
 
 void operations_top_accel(int selection, const float a[kRows][kCols],
                     const float b[kCols][kRows], const float c[kRows][kRows],
