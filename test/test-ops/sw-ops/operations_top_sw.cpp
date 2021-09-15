@@ -57,7 +57,7 @@ int main() {
                         {4.2, 6.4, 8.6, 10.8}};
 
   float res[4][4];
-  operations_top_sw(1, a, b, c, res);
+  operations_top_sw(2, a, b, c, res);
   print_matrix(res);
   return 0;
 }
