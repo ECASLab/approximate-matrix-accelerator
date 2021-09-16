@@ -6,16 +6,15 @@
 
 #include <iostream>
 #include <ctime>
+#include <cmath>
 
 #include "operations_top_accel.hpp"
 
 using namespace std;
 
-using ExactType = float;
-
 #define M 16
 #define N 16
-
+#define TOLERANCE 0.05
 /**
  * @brief Matrix addition test
  * It compares the results of two matrices
@@ -71,7 +70,7 @@ int main(int argc, char **argv) {
   ExactType in_mat_b[N][M];
   ExactType in_mat_c[M][M];
 
-  srand(time(nullptr));
+  //srand(time(nullptr));
   for (int i = 0; i < M; i++) {
     for (int j = 0; j < N; j++) {
       in_mat_a[i][j] = 10 * (ExactType)rand() / (ExactType)RAND_MAX;
@@ -139,11 +138,13 @@ void matmul_tb(const ExactType in_mat_a[M][N], const ExactType in_mat_b[N][M],
 
 void compare_results(int selection, ExactType hw_result[M][M],
                      ExactType sw_result[M][M], int &err_cnt) {
+  ExactType relative_error = 0;
   int sub_err_cnt = 0;
   string word[3] = {"sum", "multiplication", "accumulator"};
   for (int i = 0; i < M; i++) {
     for (int j = 0; j < M; j++) {
-      if (hw_result[i][j] != sw_result[i][j]) {
+      relative_error = abs(hw_result[i][j] - sw_result[i][j]) / sw_result[i][j];
+      if (relative_error > TOLERANCE) {
         cout << "It occurs a mismatches in indices " << '[' << i << ']' << '['
              << j << ']' << endl;
         sub_err_cnt++;
