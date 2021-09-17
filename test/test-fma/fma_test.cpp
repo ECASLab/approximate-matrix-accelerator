@@ -46,8 +46,9 @@ int main(int argc, char **argv) {
   ama::sw::fma<ExactType,M,N>(in_mat_a, in_mat_b, in_mat_c, sw_result);
   fma_top_accel(in_mat_a, in_mat_b, in_mat_c, hw_result);
 
-  compare_results<ExactType,M,N>(hw_result, sw_result, err_cnt);
-  print_matrices<ExactType,M,N>(hw_result, sw_result);
+  ama::utils::compare_results<ExactType,M,N>(hw_result, sw_result, err_cnt, 0.05);
+  ama::utils::print_matrices<ExactType,M,N>(hw_result);
+  ama::utils::print_matrices<ExactType,M,N>(sw_result);
 
   if (err_cnt)
     cout << "ERROR: " << err_cnt << " mismatches detected!" << endl;

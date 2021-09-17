@@ -4,8 +4,6 @@
  * Supervisor: Luis G. Leon-Vega <lleon95@estudiantec.cr>
  */
 
-#define HW_COSIM
-
 #pragma once
 
 using ExactType = float;

@@ -14,20 +14,6 @@ void fma_top_sw(const ExactType a[kRows][kCols], const ExactType b[kCols][kRows]
   ama::sw::fma<ExactType, kRows, kCols>(a, b, c, res);
 }
 
-/**
- * @brief Prints a matrix
- * @param res print the result matrix
- */
-void print_matrix(const ExactType res[kRows][kRows]) {
-  for (int i = 0; i < kRows; i++) {
-    for (int j = 0; j < kRows; j++) {
-      std::cout << res[i][j] << ' ';
-    }
-    std::cout << std::endl;
-  }
-  std::cout << std::endl;
-}
-
 int main() {
   ExactType a[kRows][kCols];
   ExactType b[kCols][kRows];
@@ -43,8 +29,8 @@ int main() {
       c[i][k] = 10 * (ExactType)rand() / (ExactType)RAND_MAX;
     }
   }
-  float res[kRows][kRows];
+  ExactType res[kRows][kRows];
   fma_top_sw(a, b, c, res);
-  print_matrix(res);
+  ama::utils::print_matrices<ExactType,kRows,kRows>(res);
   return 0;
 }
