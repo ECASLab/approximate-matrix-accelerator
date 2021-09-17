@@ -19,18 +19,18 @@
  * @param c Matrix of MxN dimensions
  * @param res Matrix with the result
  */
-void operations_top_accel(int selection, const float a[kRows][kCols],
-                    const float b[kCols][kRows], const float c[kRows][kRows],
-                    float res[kRows][kRows]){
+void operations_top_accel(int selection, const ExactType a[kRows][kCols],
+                    const ExactType b[kCols][kRows], const ExactType c[kRows][kRows],
+                    ExactType res[kRows][kRows]){
   switch (selection) {
     case 0:
-      ama::hw::matadd<float, kRows, kRows>(c, c, res);
+      ama::hw::matadd<ExactType, kRows, kRows>(c, c, res);
       break;
     case 1:
-      ama::hw::matmul<float, kRows, kCols>(a, b, res);
+      ama::hw::matmul<ExactType, kRows, kCols>(a, b, res);
       break;
     case 2:
-      ama::hw::matmac<float, kRows, kCols>(a, b, c, res);
+      ama::hw::matmac<ExactType, kRows, kCols>(a, b, c, res);
       break;
   }
 }

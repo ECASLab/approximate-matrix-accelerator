@@ -4,15 +4,17 @@
  * Supervisor: Luis G. Leon-Vega <lleon95@estudiantec.cr>
  */
 
+#include <ctime>
+#include <cmath>
 #include <iostream>
 
 #include "operations_top_accel.hpp"
 
 using namespace std;
 
-#define M 4 
-#define N 5
-
+#define M 16
+#define N 16
+#define TOLERANCE 0.05
 /**
  * @brief Matrix addition test
  * It compares the results of two matrices
@@ -20,8 +22,8 @@ using namespace std;
  * @param in_mat_b Right Matrix to add
  * @param res Matrix with the result
  */
-void matadd_tb(const float in_mat_a[M][M], const float in_mat_b[M][M],
-               float res[M][M]);
+void matadd_tb(const ExactType in_mat_a[M][M], const ExactType in_mat_b[M][M],
+               ExactType res[M][M]);
 
 /**
  * @brief Matrix multiplication test
@@ -30,8 +32,8 @@ void matadd_tb(const float in_mat_a[M][M], const float in_mat_b[M][M],
  * @param in_mat_b Right Matrix to multiply
  * @param res Matrix with the result
  */
-void matmul_tb(const float in_mat_a[M][N], const float in_mat_b[N][M],
-               float res[M][M]);
+void matmul_tb(const ExactType in_mat_a[M][N], const ExactType in_mat_b[N][M],
+               ExactType res[M][M]);
 
 /**
  * @brief Results test comparison
@@ -46,8 +48,8 @@ void matmul_tb(const float in_mat_a[M][N], const float in_mat_b[N][M],
  * implementation
  * @param err_cnt accumulate the total amount of errors
  */
-void compare_results(int selection, float hw_result[M][M],
-                     float sw_result[M][M], int &err_cnt);
+void compare_results(int selection, ExactType hw_result[M][M],
+                     ExactType sw_result[M][M], int &err_cnt);
 
 /**
  * @brief Prints a matrix
@@ -60,27 +62,26 @@ void compare_results(int selection, float hw_result[M][M],
  * @param sw_result A result matrix produced in
  * the software implementation
  */
-void print_matrices(int selection, const int flag[2], float hw_result[M][M],
-                    float sw_result[M][M]);
+void print_matrices(int selection, const int flag[2], ExactType hw_result[M][M],
+                    ExactType sw_result[M][M]);
 
 int main(int argc, char **argv) {
-  const float in_mat_a[M][N] = {
-      {2.3, 4.5, 1.8, 14.6, 19.9}, 
-      {3.3, 0.7, 0.0, 22.2, 17.7}, 
-      {5.0, 6.8, 9.9, 16.7, 13.3},
-      {10.2, 11.1, 12.5, 15.2, 22.2}};
-  const float in_mat_b[N][M] = {
-      {1.4, 8.2, 14.1, 22.2 }, 
-      {0.2, 1.4, 1.0, 15.2 }, 
-      {11.11, 6.3, 7.2, 14.6},
-      {5.0, 6.8, 2.3, 4.5},
-      {17.7, 22.2, 19.9, 5.0}};
-  const float in_mat_c[M][M] = {
-      {1.9, 6.7, 2.2, 8.2}, 
-      {7.7, 8.8, 1.1, 6.3}, 
-      {3.3, 4.4, 5.5, 6.8},
-      {1.8, 14.6, 11.1, 12.5}};
-  float hw_result[M][M], sw_result[M][M];
+  ExactType in_mat_a[M][N];
+  ExactType in_mat_b[N][M];
+  ExactType in_mat_c[M][M];
+
+  //srand(time(nullptr));
+  for (int i = 0; i < M; i++) {
+    for (int j = 0; j < N; j++) {
+      in_mat_a[i][j] = 10 * (ExactType)rand() / (ExactType)RAND_MAX;
+      in_mat_b[j][i] = 10 * (ExactType)rand() / (ExactType)RAND_MAX;
+    }
+    for (int k = 0; k < M; k++) {
+      in_mat_c[i][k] = 10 * (ExactType)rand() / (ExactType)RAND_MAX;
+    }
+  }
+
+  ExactType hw_result[M][M], sw_result[M][M];
   const int flag[2] = {0, 1};
   int err_cnt = 0;
 
@@ -114,8 +115,8 @@ int main(int argc, char **argv) {
   return err_cnt;
 }
 
-void matadd_tb(const float in_mat_a[M][M], const float in_mat_b[M][M],
-               float res[M][M]) {
+void matadd_tb(const ExactType in_mat_a[M][M], const ExactType in_mat_b[M][M],
+               ExactType res[M][M]) {
   for (int i = 0; i < M; i++) {
     for (int j = 0; j < M; j++) {
       res[i][j] = in_mat_a[i][j] + in_mat_b[i][j];
@@ -123,8 +124,8 @@ void matadd_tb(const float in_mat_a[M][M], const float in_mat_b[M][M],
   }
 }
 
-void matmul_tb(const float in_mat_a[M][N], const float in_mat_b[N][M],
-               float res[M][M]) {
+void matmul_tb(const ExactType in_mat_a[M][N], const ExactType in_mat_b[N][M],
+               ExactType res[M][M]) {
   for (int i = 0; i < M; i++) {
     for (int j = 0; j < M; j++) {
       res[i][j] = 0;
@@ -135,13 +136,15 @@ void matmul_tb(const float in_mat_a[M][N], const float in_mat_b[N][M],
   }
 }
 
-void compare_results(int selection, float hw_result[M][M],
-                     float sw_result[M][M], int &err_cnt) {
+void compare_results(int selection, ExactType hw_result[M][M],
+                     ExactType sw_result[M][M], int &err_cnt) {
+  ExactType relative_error = 0;
   int sub_err_cnt = 0;
   string word[3] = {"sum", "multiplication", "accumulator"};
   for (int i = 0; i < M; i++) {
     for (int j = 0; j < M; j++) {
-      if (hw_result[i][j] != sw_result[i][j]) {
+      relative_error = abs(hw_result[i][j] - sw_result[i][j]) / sw_result[i][j];
+      if (relative_error > TOLERANCE) {
         cout << "It occurs a mismatches in indices " << '[' << i << ']' << '['
              << j << ']' << endl;
         sub_err_cnt++;
@@ -155,8 +158,8 @@ void compare_results(int selection, float hw_result[M][M],
   }
 }
 
-void print_matrices(int selection, const int flag[2], float hw_result[M][M],
-                    float sw_result[M][M]) {
+void print_matrices(int selection, const int flag[2], ExactType hw_result[M][M],
+                    ExactType sw_result[M][M]) {
   string word[3] = {"sum", "multiplication", "accumulator"};
   string words[2] = {"hardware", "software"};
 

@@ -6,6 +6,8 @@
 
 #pragma once
 
+using ExactType = float;
+
 #define kRows 4
 #define kCols 3
 
@@ -19,6 +21,6 @@
  * @param c Matrix of MxN dimensions
  * @param res Matrix with the result
  */
-void operations_top_sw(int selection, const float a[kRows][kCols],
-                       const float b[kCols][kRows], const float c[kRows][kRows],
-                       float res[kRows][kRows]);
+void operations_top_sw(int selection, const ExactType a[kRows][kCols],
+                       const ExactType b[kCols][kRows], const ExactType c[kRows][kRows],
+                       ExactType res[kRows][kRows]);
