@@ -4,13 +4,10 @@
  * Supervisor: Luis G. Leon-Vega <lleon95@estudiantec.cr>
  */
 
-#include <iostream>
 #include <ctime>
+#include <iostream>
 
-#include "../../../includes/sw-fma/fma.hpp"
-#include "../../../includes/sw-fma/fma_top_sw.hpp"
-
-
+#include "../../../includes/operations.hpp"
 
 void fma_top_sw(const ExactType a[kRows][kCols], const ExactType b[kCols][kRows],
                 const ExactType c[kRows][kRows], ExactType res[kRows][kRows]) {
@@ -46,7 +43,7 @@ int main() {
       c[i][k] = 10 * (ExactType)rand() / (ExactType)RAND_MAX;
     }
   }
-  float res[4][4];
+  float res[kRows][kRows];
   fma_top_sw(a, b, c, res);
   print_matrix(res);
   return 0;

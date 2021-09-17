@@ -7,7 +7,7 @@
 #include <iostream>
 #include <ctime>
 
-#include "../../includes/hw-fma/fma.hpp"
+#include "../../includes/operations.hpp"
 #include "fma_top_accel.hpp"
 
 void fma_top_accel(const ExactType a[kRows][kCols], const ExactType b[kCols][kRows],
