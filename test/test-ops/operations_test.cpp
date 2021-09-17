@@ -4,9 +4,9 @@
  * Supervisor: Luis G. Leon-Vega <lleon95@estudiantec.cr>
  */
 
-#include <iostream>
 #include <ctime>
 #include <cmath>
+#include <iostream>
 
 #include "operations_top_accel.hpp"
 
