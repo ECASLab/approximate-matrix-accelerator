@@ -12,8 +12,8 @@
 
 using namespace std;
 
-#define M 16
-#define N 16
+#define M 12
+#define N 12
 
 int main(int argc, char **argv) {
   ExactType in_mat_a[M][N];

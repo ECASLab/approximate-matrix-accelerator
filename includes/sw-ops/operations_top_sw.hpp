@@ -8,8 +8,8 @@
 
 using ExactType = float;
 
-#define kRows 4
-#define kCols 3
+#define kRows 16
+#define kCols 16
 
 /**
  * @brief Matrix multiplication test

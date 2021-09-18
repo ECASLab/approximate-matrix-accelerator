@@ -8,8 +8,8 @@
 
 using ExactType = float;
 
-#define kRows 16
-#define kCols 16
+#define kRows 12
+#define kCols 12
 
 /**
  * @brief Fused Multiply-Add test

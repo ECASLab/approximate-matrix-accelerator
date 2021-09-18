@@ -7,9 +7,7 @@
 #include <ctime>
 #include <iostream>
 
-#include "../../../includes/sw-ops/matadd.hpp"
-#include "../../../includes/sw-ops/matmac.hpp"
-#include "../../../includes/sw-ops/matmul.hpp"
+#include "../../../includes/operations.hpp"
 #include "../../../includes/sw-ops/operations_top_sw.hpp"
 
 void operations_top_sw(int selection, const ExactType a[kRows][kCols],
@@ -27,20 +25,6 @@ void operations_top_sw(int selection, const ExactType a[kRows][kCols],
       ama::sw::matmac<ExactType, kRows, kCols>(a, b, c, res);
       break;
   }
-}
-
-/**
- * @brief Prints a matrix
- * @param res print the result matrix
- */
-void print_matrix(const ExactType res[kRows][kRows]) {
-  for (int i = 0; i < kRows; i++) {
-    for (int j = 0; j < kRows; j++) {
-      std::cout << res[i][j] << ' ';
-    }
-    std::cout << std::endl;
-  }
-  std::cout << std::endl;
 }
 
 int main() {
@@ -61,6 +45,6 @@ int main() {
 
   ExactType res[kRows][kRows];
   operations_top_sw(2, a, b, c, res);
-  print_matrix(res);
+  ama::utils::print_matrices<ExactType,kRows,kRows>(res);
   return 0;
 }
