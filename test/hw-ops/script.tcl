@@ -12,5 +12,5 @@ create_clock -period 10 -name default
 source "$::env(DIRECTIVE_FILE)"
 csim_design -clean
 csynth_design
-#cosim_design
+cosim_design
 exit

@@ -6,12 +6,15 @@
 
 #pragma once
 
+#include <cmath>
 #include <iostream>
+
+#include <hls_math.h>
 
 namespace ama {
 namespace utils {
 
-template <typename T, int M, int N>
+template <int M, int N, typename TS, typename TH>
 /**
  * @brief Results test comparison
  * @param hw_result Left Matrix to compare
@@ -22,16 +25,19 @@ template <typename T, int M, int N>
  * implementation
  * @param err_cnt accumulate the total amount of errors
  */
-void compare_results(const T hw_result[M][M], const T sw_result[M][M],
-                     int &err_cnt, const T tolerance) {
+void compare_results(const TH hw_result[M * N], const TS sw_result[M * N],
+                     int &err_cnt, const float tolerance) {
   float relative_error = 0;
+  float maxerr = 0;
+
   for (int i = 0; i < M; i++) {
-    for (int j = 0; j < M; j++) {
-      if (sw_result[i][j] != 0) {
+    for (int j = 0; j < N; j++) {
+      int index = i * N + j;
+      if (sw_result[index] != 0) {
         relative_error =
-            abs(hw_result[i][j] - sw_result[i][j]) / sw_result[i][j];
+            hls::abs((float)hw_result[index] - sw_result[index]) / sw_result[index];
       } else {
-        relative_error = abs(hw_result[i][j] - sw_result[i][j]) / float{1.f};
+        relative_error = hls::abs((float)hw_result[index] - sw_result[index]) / 1.f;
       }
       if (relative_error > tolerance) {
         std::cout << relative_error << std::endl;
@@ -39,8 +45,11 @@ void compare_results(const T hw_result[M][M], const T sw_result[M][M],
                   << '[' << j << ']' << std::endl;
         err_cnt++;
       }
+      maxerr = std::max(maxerr, relative_error);
     }
   }
+
+  std::cout << "MaxErrorTh: " << maxerr << std::endl;
 }
 }  // namespace utils
 }  // namespace ama

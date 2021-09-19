@@ -4,35 +4,40 @@
  * Supervisor: Luis G. Leon-Vega <lleon95@estudiantec.cr>
  */
 
+#include <cstdlib>
 #include <ctime>
 #include <iostream>
 
 #include "linear.hpp"
 #include "matadd_top_accel.hpp"
 
-using namespace std;
-
 int main(int argc, char **argv) {
-  ExactType in_mat_a[kRows][kCols];
-  ExactType in_mat_b[kRows][kCols];
+  float in_mat_a[kRows * kCols];
+  float in_mat_b[kRows * kCols];
+  float sw_result[kRows * kCols];
+  ExactType hw_in_mat_a[kRows * kCols];
+  ExactType hw_in_mat_b[kRows * kCols];
+  ExactType hw_result[kRows * kCols];
+  int err_cnt = 0;
 
-  // srand(time(nullptr));
+  srand(kSeed);
   for (int i = 0; i < kRows; i++) {
     for (int j = 0; j < kCols; j++) {
-      in_mat_a[i][j] = 10 * (ExactType)rand() / (ExactType)RAND_MAX;
-      in_mat_b[j][i] = 10 * (ExactType)rand() / (ExactType)RAND_MAX;
-      in_mat_a[i][j] *= j % 2 ? -1 : 1;
-      in_mat_b[j][i] *= j % 3 ? -1 : 1;
+      int index = i * kCols + j;
+      in_mat_a[index] = 0.5f * (float)std::rand() / (float)RAND_MAX;
+      in_mat_b[index] = 0.5f * (float)std::rand() / (float)RAND_MAX;
+      in_mat_a[index] *= (j % 2 == 0 ? -1 : 1);
+      in_mat_b[index] *= (j % 3 == 0 ? -1 : 1);
+      hw_in_mat_a[index] = in_mat_a[index];
+      hw_in_mat_b[index] = in_mat_b[index];
     }
   }
 
-  int err_cnt = 0;
-  ExactType hw_result[kRows][kCols], sw_result[kRows][kCols];
-  ama::sw::matadd<ExactType, kRows, kCols>(in_mat_a, in_mat_b, sw_result);
-  matadd_top_accel(in_mat_a, in_mat_b, hw_result);
+  ama::sw::matadd<float, kRows, kCols>(in_mat_a, in_mat_b, sw_result);
+  matadd_top_accel(hw_in_mat_a, hw_in_mat_b, hw_result);
 
-  ama::utils::compare_results<ExactType, kRows, kCols>(hw_result, sw_result,
-                                                       err_cnt, 0.05);
+  ama::utils::compare_results<kRows, kCols>(hw_result, sw_result, err_cnt,
+                                            0.05);
   ama::utils::print_matrices<ExactType, kRows, kCols>(hw_result);
-  ama::utils::print_matrices<ExactType, kRows, kCols>(sw_result);
+  ama::utils::print_matrices<float, kRows, kCols>(sw_result);
 }

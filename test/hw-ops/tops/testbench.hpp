@@ -6,6 +6,8 @@
 
 #pragma once
 
+#include <ap_fixed.h>
+
 #ifndef kRows
 #define kRows 12
 #endif
@@ -14,4 +16,8 @@
 #define kCols 12
 #endif
 
-using ExactType = float;
+#ifndef kSeed
+#define kSeed 10
+#endif
+
+using ExactType = ap_fixed<16, 5>;

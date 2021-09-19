@@ -15,6 +15,5 @@
  * @param b Matrix of MxN dimensions
  * @param res Matrix with the result
  */
-void matadd_top_accel(const ExactType a[kRows][kCols],
-                      const ExactType b[kRows][kCols],
-                      ExactType res[kRows][kCols]);
+void matadd_top_accel(ExactType a[kCols * kRows], ExactType b[kCols * kRows],
+                      ExactType res[kCols * kRows]);
