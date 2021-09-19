@@ -13,9 +13,8 @@
 #include "hw-ops/matmul.hpp"
 
 /* Software ops */
-#include "sw-ops/matfma.hpp"
-#include "sw-ops/matfma_top_sw.hpp"
 #include "sw-ops/matadd.hpp"
+#include "sw-ops/matfma.hpp"
 #include "sw-ops/matmac.hpp"
 #include "sw-ops/matmul.hpp"
 

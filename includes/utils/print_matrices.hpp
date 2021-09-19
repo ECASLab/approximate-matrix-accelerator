@@ -30,5 +30,5 @@ void print_matrices(const T result[M][M]) {
   }
   std::cout << std::endl;
 }
-};
-};
+}  // namespace utils
+}  // namespace ama

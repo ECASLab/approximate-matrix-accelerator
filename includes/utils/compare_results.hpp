@@ -42,5 +42,5 @@ void compare_results(const T hw_result[M][M], const T sw_result[M][M],
     }
   }
 }
-};
-};
+}  // namespace utils
+}  // namespace ama

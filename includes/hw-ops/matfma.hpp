@@ -27,5 +27,5 @@ void matfma(const T a[M][N], const T b[N][M], const T c[M][M], T res[M][M]) {
     }
   }
 }
-};
-};
+}  // namespace hw
+}  // namespace ama

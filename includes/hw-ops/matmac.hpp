@@ -22,10 +22,9 @@ template <typename T, int M, int N>
  * @param c Right Matrix to add
  * @param res Matrix with the result
  */
-void matmac(const T a[M][N], const T b[N][M], const T c[M][M],
-                 T res[M][M]) {
+void matmac(const T a[M][N], const T b[N][M], const T c[M][M], T res[M][M]) {
   matmul<T, M, N>(a, b, res);
   matadd<T, M, M>(c, res, res);
 }
-};
-};
+}  // namespace hw
+}  // namespace ama
