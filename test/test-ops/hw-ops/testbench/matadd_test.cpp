@@ -16,8 +16,6 @@ using namespace std;
 int main(int argc, char **argv) {
   ExactType in_mat_a[kRows][kCols];
   ExactType in_mat_b[kRows][kCols];
-  ExactType res[kRows][kCols];
-
 
   //srand(time(nullptr));
   for (int i = 0; i < kRows; i++) {

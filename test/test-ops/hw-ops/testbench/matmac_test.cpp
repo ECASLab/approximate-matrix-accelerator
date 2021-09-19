@@ -17,8 +17,6 @@ int main(int argc, char **argv) {
   ExactType in_mat_a[kRows][kCols];
   ExactType in_mat_b[kCols][kRows];
   ExactType in_mat_c[kRows][kRows];
-  ExactType res[kRows][kRows];
-
 
   //srand(time(nullptr));
   for (int i = 0; i < kRows; i++) {

@@ -4,7 +4,7 @@
  * Supervisor: Luis G. Leon-Vega <lleon95@estudiantec.cr>
  */
 
-#include "../../includes/linear.hpp"
+#include "../../../../includes/linear.hpp"
 #include "matfma_top_accel.hpp"
 
 void matfma_top_accel(const ExactType a[kRows][kCols], const ExactType b[kCols][kRows],

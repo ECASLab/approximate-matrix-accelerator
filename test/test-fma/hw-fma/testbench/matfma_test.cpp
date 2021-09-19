@@ -8,8 +8,8 @@
 #include <cmath> 
 #include <iostream>
 
+#include "../../../../includes/linear.hpp"
 #include "../tops/matfma_top_accel.hpp"
-#include "../../includes/linear.hpp"
 
 using namespace std;
 
