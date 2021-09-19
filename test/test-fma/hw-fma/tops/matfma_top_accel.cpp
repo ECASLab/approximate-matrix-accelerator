@@ -4,9 +4,6 @@
  * Supervisor: Luis G. Leon-Vega <lleon95@estudiantec.cr>
  */
 
-#include <iostream>
-#include <ctime>
-
 #include "../../includes/linear.hpp"
 #include "matfma_top_accel.hpp"
 

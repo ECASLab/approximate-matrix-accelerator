@@ -8,16 +8,21 @@
 
 using ExactType = float;
 
+#ifndef kRows
 #define kRows 12
+#endif
+
+#ifndef kCols
 #define kCols 12
+#endif
 
 /**
- * @brief Fused Multiply-Add test
+ * @brief MAC top
  * It calls the function to perform
  * @param a Matrix of MxN dimensions
- * @param b Matrix of MxN dimensions
- * @param c Matrix of MxN dimensions
+ * @param b Matrix of NxM dimensions
  * @param res Matrix with the result
  */
-void fma_top_sw(const ExactType a[kRows][kCols], const ExactType b[kCols][kRows],
-                const ExactType c[kRows][kRows], ExactType res[kRows][kRows]);
+void matmul_top_accel(const ExactType a[kRows][kCols],
+                      const ExactType b[kCols][kRows],
+                      ExactType res[kRows][kRows]);
