@@ -4,12 +4,12 @@
  * Supervisor: Luis G. Leon-Vega <lleon95@estudiantec.cr>
  */
 
+#include <cmath>
 #include <ctime>
-#include <cmath> 
 #include <iostream>
 
-#include "../../../../includes/linear.hpp"
-#include "../tops/matfma_top_accel.hpp"
+#include "linear.hpp"
+#include "matfma_top_accel.hpp"
 
 using namespace std;
 
@@ -20,8 +20,8 @@ int main(int argc, char **argv) {
 
   /*
   srand(time(nullptr));
-  The previous code line is commented because when is used an error 
-  ocurrs in the cosimulation step. It generates that the software 
+  The previous code line is commented because when is used an error
+  ocurrs in the cosimulation step. It generates that the software
   implementation matrix to be very different from the RTL implementation,
   that is, the hardware matrix
   */
@@ -41,12 +41,14 @@ int main(int argc, char **argv) {
   ExactType hw_result[kRows][kRows], sw_result[kRows][kRows];
   int err_cnt = 0;
 
-  ama::sw::matfma<ExactType,kRows,kCols>(in_mat_a, in_mat_b, in_mat_c, sw_result);
+  ama::sw::matfma<ExactType, kRows, kCols>(in_mat_a, in_mat_b, in_mat_c,
+                                           sw_result);
   matfma_top_accel(in_mat_a, in_mat_b, in_mat_c, hw_result);
 
-  ama::utils::compare_results<ExactType,kRows,kCols>(hw_result, sw_result, err_cnt, 0.05);
-  ama::utils::print_matrices<ExactType,kRows,kCols>(hw_result);
-  ama::utils::print_matrices<ExactType,kRows,kCols>(sw_result);
+  ama::utils::compare_results<ExactType, kRows, kCols>(hw_result, sw_result,
+                                                       err_cnt, 0.05);
+  ama::utils::print_matrices<ExactType, kRows, kCols>(hw_result);
+  ama::utils::print_matrices<ExactType, kRows, kCols>(sw_result);
 
   if (err_cnt)
     cout << "ERROR: " << err_cnt << " mismatches detected!" << endl;

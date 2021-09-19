@@ -6,15 +6,7 @@
 
 #pragma once
 
-using ExactType = float;
-
-#ifndef kRows
-#define kRows 12
-#endif
-
-#ifndef kCols
-#define kCols 12
-#endif
+#include "testbench.hpp"
 
 /**
  * @brief MAC top
@@ -28,4 +20,3 @@ void matmac_top_accel(const ExactType a[kRows][kCols],
                       const ExactType b[kCols][kRows],
                       const ExactType c[kRows][kCols],
                       ExactType res[kRows][kRows]);
-                    

@@ -4,8 +4,9 @@
  * Supervisor: Luis G. Leon-Vega <lleon95@estudiantec.cr>
  */
 
-#include "../../../../includes/linear.hpp"
 #include "matadd_top_accel.hpp"
+
+#include "linear.hpp"
 
 void matadd_top_accel(const ExactType a[kRows][kCols],
                       const ExactType b[kCols][kRows],

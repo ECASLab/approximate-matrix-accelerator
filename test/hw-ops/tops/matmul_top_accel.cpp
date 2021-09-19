@@ -4,11 +4,11 @@
  * Supervisor: Luis G. Leon-Vega <lleon95@estudiantec.cr>
  */
 
-#include "../../../../includes/linear.hpp"
+#include "linear.hpp"
 #include "matmac_top_accel.hpp"
 
 void matmul_top_accel(const ExactType a[kRows][kCols],
                       const ExactType b[kCols][kRows],
-                      ExactType res[kRows][kRows]){
-    ama::hw::matmul<ExactType,kRows,kCols>(a, b, res);
+                      ExactType res[kRows][kRows]) {
+  ama::hw::matmul<ExactType, kRows, kCols>(a, b, res);
 }
