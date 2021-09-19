@@ -9,6 +9,16 @@
 
 #include "../../../includes/linear.hpp"
 
+using ExactType = float;
+
+#ifndef kRows 
+#define kRows 12
+#endif
+
+#ifndef kCols
+#define kCols 12
+#endif
+
 void matfma_top_sw(const ExactType a[kRows][kCols], const ExactType b[kCols][kRows],
                 const ExactType c[kRows][kRows], ExactType res[kRows][kRows]) {
   ama::sw::matfma<ExactType, kRows, kCols>(a, b, c, res);
