@@ -7,15 +7,8 @@
 #include <ctime>
 #include <iostream>
 
-#include "../../../includes/linear.hpp"
-
-#ifndef kRows
-#define kRows 12
-#endif
-
-#ifndef kCols
-#define kCols 12
-#endif
+#include "linear.hpp"
+#include "testbench.hpp"
 
 int main() {
   ExactType a[kRows][kCols];
@@ -31,6 +24,6 @@ int main() {
     }
   }
 
-    ama::sw::matmul<ExactType, kRows, kCols>(a, b, res);
-    ama::utils::print_matrices<ExactType, kRows, kRows>(res);
+  ama::sw::matmul<ExactType, kRows, kCols>(a, b, res);
+  ama::utils::print_matrices<ExactType, kRows, kRows>(res);
 }

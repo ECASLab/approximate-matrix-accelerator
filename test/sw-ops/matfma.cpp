@@ -7,20 +7,13 @@
 #include <ctime>
 #include <iostream>
 
-#include "../../../includes/linear.hpp"
+#include "linear.hpp"
+#include "testbench.hpp"
 
-using ExactType = float;
-
-#ifndef kRows 
-#define kRows 12
-#endif
-
-#ifndef kCols
-#define kCols 12
-#endif
-
-void matfma_top_sw(const ExactType a[kRows][kCols], const ExactType b[kCols][kRows],
-                const ExactType c[kRows][kRows], ExactType res[kRows][kRows]) {
+void matfma_top_sw(const ExactType a[kRows][kCols],
+                   const ExactType b[kCols][kRows],
+                   const ExactType c[kRows][kRows],
+                   ExactType res[kRows][kRows]) {
   ama::sw::matfma<ExactType, kRows, kCols>(a, b, c, res);
 }
 
@@ -44,6 +37,6 @@ int main() {
   }
   ExactType res[kRows][kRows];
   matfma_top_sw(a, b, c, res);
-  ama::utils::print_matrices<ExactType,kRows,kRows>(res);
+  ama::utils::print_matrices<ExactType, kRows, kRows>(res);
   return 0;
 }
