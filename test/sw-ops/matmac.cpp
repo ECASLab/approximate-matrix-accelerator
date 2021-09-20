@@ -1,13 +1,21 @@
+/*
+ * Copyright 2021
+ * Author: Eduardo Salazar Villalobos <eduarsalazar@estudiantec.cr>
+ * Supervisor: Luis G. Leon-Vega <lleon95@estudiantec.cr>
+ */
+
+#include <ctime>
 #include <iostream>
+#include <stdlib.h>
 
 #include "linear.hpp"
 #include "testbench.hpp"
 
 int main() {
   ExactType a[kRows][kCols];
-  ExactType b[kRows][kCols];
-  ExactType c[kRows][kCols];
-  ExactType res[kRows][kCols];
+  ExactType b[kCols][kRows];
+  ExactType c[kRows][kRows];
+  ExactType res[kRows][kRows];
 
   for (int i = 0; i < kRows; i++) {
     for (int j = 0; j < kCols; j++) {

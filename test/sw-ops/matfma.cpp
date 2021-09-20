@@ -6,6 +6,7 @@
 
 #include <ctime>
 #include <iostream>
+#include <stdlib.h>
 
 #include "linear.hpp"
 #include "testbench.hpp"
@@ -22,7 +23,7 @@ int main() {
   ExactType b[kCols][kRows];
   ExactType c[kRows][kRows];
 
-  srand(time(nullptr));
+  //srand(time(nullptr));
   for (int i = 0; i < kRows; i++) {
     for (int j = 0; j < kCols; j++) {
       a[i][j] = 10 * (ExactType)rand() / (ExactType)RAND_MAX;

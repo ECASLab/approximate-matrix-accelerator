@@ -21,11 +21,10 @@ template <typename T, int M, int N>
  * @param sw_result A result matrix produced in
  * the software implementation
  */
-void print_matrices(const T result[M * N]) {
+void print_matrices(const T result[M][N]) {
   for (int i = 0; i < M; i++) {
     for (int j = 0; j < N; j++) {
-      int index = i * N + j;
-      std::cout << result[index] << ' ';
+      std::cout << result[M][N] << ' ';
     }
     std::cout << std::endl;
   }

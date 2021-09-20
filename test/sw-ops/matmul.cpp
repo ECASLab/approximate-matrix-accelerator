@@ -6,6 +6,7 @@
 
 #include <ctime>
 #include <iostream>
+#include <stdlib.h>
 
 #include "linear.hpp"
 #include "testbench.hpp"

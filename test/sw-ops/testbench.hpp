@@ -14,4 +14,4 @@
 #define kCols 12
 #endif
 
-using ExactType = float;
+typedef float ExactType;
