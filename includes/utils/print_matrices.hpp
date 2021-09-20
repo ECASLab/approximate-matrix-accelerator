@@ -14,8 +14,6 @@ namespace utils {
 template <typename T, int M, int N>
 /**
  * @brief Prints a matrix
- * @param flag A flag to determine which word between software
- * or hardware prints
  * @param hw_result A result matrix produced in
  * the hardware implementation to be printed
  * @param sw_result A result matrix produced in
@@ -24,7 +22,7 @@ template <typename T, int M, int N>
 void print_matrices(const T result[M][N]) {
   for (int i = 0; i < M; i++) {
     for (int j = 0; j < N; j++) {
-      std::cout << result[M][N] << ' ';
+      std::cout << result[i][j] << ' ';
     }
     std::cout << std::endl;
   }

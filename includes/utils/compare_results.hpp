@@ -9,12 +9,12 @@
 #include <cmath>
 #include <iostream>
 
-#include <hls_math.h>
+//#include <hls_math.h>
 
 namespace ama {
 namespace utils {
 
-template <int M, int N, typename TS, typename TH>
+template <typename TH, typename TS, int M, int N>
 /**
  * @brief Results test comparison
  * @param hw_result Left Matrix to compare
@@ -25,19 +25,18 @@ template <int M, int N, typename TS, typename TH>
  * implementation
  * @param err_cnt accumulate the total amount of errors
  */
-void compare_results(const TH hw_result[M * N], const TS sw_result[M * N],
+void compare_results(const TH hw_result[M][N], const TS sw_result[M][N],
                      int &err_cnt, const float tolerance) {
   float relative_error = 0;
   float maxerr = 0;
 
   for (int i = 0; i < M; i++) {
     for (int j = 0; j < N; j++) {
-      int index = i * N + j;
-      if (sw_result[index] != 0) {
+      if (sw_result[i][j] != 0) {
         relative_error =
-            hls::abs((float)hw_result[index] - sw_result[index]) / sw_result[index];
+            abs((float)hw_result[i][j] - sw_result[i][j]) / sw_result[i][j];
       } else {
-        relative_error = hls::abs((float)hw_result[index] - sw_result[index]) / 1.f;
+        relative_error = abs((float)hw_result[i][j] - sw_result[i][j]) / 1.f;
       }
       if (relative_error > tolerance) {
         std::cout << relative_error << std::endl;
