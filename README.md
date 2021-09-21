@@ -66,6 +66,8 @@ and where the environment variables are:
 * TEST: name of the tests. Please, inspect `tests/hw-ops/tops/*.cpp` for the possible tests. You can also use `make help`.
 * Q_kRows: Number of rows. Default: 12
 * Q_kCols: Number of columns. Default: 12
+* Q_kSeed: Seed for generating random numbers. Default: 10
+* Q_USE_HLS_MATH: enables the hls math library. Default: 0
 * SYN_TOOL: name of the synthesis tool. By default, it is `vivado_hls`
 
 > If something fails and it is related to `vivado_hls not found`, please, make sure of having it in the environment. Usually, it requires:

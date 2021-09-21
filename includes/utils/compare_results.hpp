@@ -9,7 +9,14 @@
 #include <cmath>
 #include <iostream>
 
-//#include <hls_math.h>
+
+#if USE_HLS_MATH == 1
+#define HLS 1
+#include <hls_math.h>
+#else 
+#define HLS 0
+#endif
+
 
 namespace ama {
 namespace utils {
@@ -33,10 +40,21 @@ void compare_results(const TH hw_result[M][N], const TS sw_result[M][N],
   for (int i = 0; i < M; i++) {
     for (int j = 0; j < N; j++) {
       if (sw_result[i][j] != 0) {
-        relative_error =
-            abs((float)hw_result[i][j] - sw_result[i][j]) / sw_result[i][j];
+        #if HLS == 1 
+          relative_error =
+              hls::abs((float)hw_result[i][j] - sw_result[i][j]) / sw_result[i][j];
+              std::cout << "hola" << std::endl;
+        #else
+          relative_error =
+              abs((float)hw_result[i][j] - sw_result[i][j]) / sw_result[i][j];
+        #endif
       } else {
-        relative_error = abs((float)hw_result[i][j] - sw_result[i][j]) / 1.f;
+        #if HLS == 1
+          relative_error = hls::abs((float)hw_result[i][j] - sw_result[i][j]) / 1.f;
+          std::cout << "hola" << std::endl;
+        #else
+          relative_error = abs((float)hw_result[i][j] - sw_result[i][j]) / 1.f;
+        #endif
       }
       if (relative_error > tolerance) {
         std::cout << relative_error << std::endl;

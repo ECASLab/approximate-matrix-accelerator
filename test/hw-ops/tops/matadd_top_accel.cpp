@@ -8,7 +8,7 @@
 
 #include "linear.hpp"
 
-void matadd_top_accel(ExactType a[kCols * kRows], ExactType b[kCols * kRows],
-                      ExactType res[kCols * kRows]) {
+void matadd_top_accel(ExactType a[kRows][kCols], ExactType b[kRows][kCols],
+                      ExactType res[kRows][kCols]) {
   ama::hw::matadd<ExactType, kRows, kCols>(a, b, res);
 }
