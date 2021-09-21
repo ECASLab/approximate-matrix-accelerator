@@ -9,14 +9,12 @@
 #include <cmath>
 #include <iostream>
 
-
-#if USE_HLS_MATH == 1
-#define HLS 1
+#if USE_HLS_MATH
 #include <hls_math.h>
-#else 
-#define HLS 0
+#define ABS(x) hls::abs(x)
+#else
+#define ABS(x) abs(x)
 #endif
-
 
 namespace ama {
 namespace utils {
@@ -40,21 +38,10 @@ void compare_results(const TH hw_result[M][N], const TS sw_result[M][N],
   for (int i = 0; i < M; i++) {
     for (int j = 0; j < N; j++) {
       if (sw_result[i][j] != 0) {
-        #if HLS == 1 
-          relative_error =
-              hls::abs((float)hw_result[i][j] - sw_result[i][j]) / sw_result[i][j];
-              std::cout << "hola" << std::endl;
-        #else
-          relative_error =
-              abs((float)hw_result[i][j] - sw_result[i][j]) / sw_result[i][j];
-        #endif
+        relative_error =
+            ABS((float)hw_result[i][j] - sw_result[i][j]) / sw_result[i][j];
       } else {
-        #if HLS == 1
-          relative_error = hls::abs((float)hw_result[i][j] - sw_result[i][j]) / 1.f;
-          std::cout << "hola" << std::endl;
-        #else
-          relative_error = abs((float)hw_result[i][j] - sw_result[i][j]) / 1.f;
-        #endif
+        relative_error = ABS((float)hw_result[i][j] - sw_result[i][j]) / 1.f;
       }
       if (relative_error > tolerance) {
         std::cout << relative_error << std::endl;
