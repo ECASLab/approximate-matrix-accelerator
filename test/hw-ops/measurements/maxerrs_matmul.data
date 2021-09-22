@@ -1,8 +1,8 @@
-matmul 10 10 
-matmul 12 12 
-matmul 14 14 
-matmul 16 16 
-matmul 2 2 
-matmul 4 4 
-matmul 6 6 
-matmul 8 8 
+matmul 10 10 0.405738
+matmul 12 12 8.97663
+matmul 14 14 0.860626
+matmul 16 16 0.521222
+matmul 2 2 0.00904495
+matmul 4 4 0.118378
+matmul 6 6 0.155198
+matmul 8 8 0.328958

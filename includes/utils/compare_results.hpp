@@ -44,7 +44,6 @@ void compare_results(const TH hw_result[M][N], const TS sw_result[M][N],
         relative_error = ABS((float)hw_result[i][j] - sw_result[i][j]) / 1.f;
       }
       if (relative_error > tolerance) {
-        std::cout << relative_error << std::endl;
         std::cout << "It occurs a mismatches in indices " << '[' << i << ']'
                   << '[' << j << ']' << std::endl;
         err_cnt++;

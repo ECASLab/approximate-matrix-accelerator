@@ -35,8 +35,8 @@ int main(int argc, char **argv) {
   ama::sw::matadd<float, kRows, kCols>(in_mat_a, in_mat_b, sw_result);
   matadd_top_accel(hw_in_mat_a, hw_in_mat_b, hw_result);
 
-  ama::utils::compare_results<ExactType, float,kRows, kCols>(hw_result, sw_result, err_cnt,
-                                            0.05);
+  ama::utils::compare_results<ExactType, float, kRows, kCols>(
+      hw_result, sw_result, err_cnt, 0.05);
   ama::utils::print_matrices<ExactType, kRows, kCols>(hw_result);
   ama::utils::print_matrices<float, kRows, kCols>(sw_result);
 }

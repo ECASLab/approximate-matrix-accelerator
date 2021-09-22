@@ -10,7 +10,7 @@ For compiling the code, no-dependencies are needed so far. You may only need the
 sudo apt update
 sudo apt install python3 python3-pip ninja-build
 sudo pip3 install meson
-sudo apt install openmpi-common libopenmpi2
+sudo apt install openmpi-common libopenmpi2 or libopenmpi-dev
 pip3 install matplotlib numpy
 ```
 
@@ -67,7 +67,7 @@ and where the environment variables are:
 * Q_kRows: Number of rows. Default: 12
 * Q_kCols: Number of columns. Default: 12
 * Q_kSeed: Seed for generating random numbers. Default: 10
-* Q_USE_HLS_MATH: enables the hls math library. Default: 0
+* Q_USE_HLS_MATH: enables the hls math library. Default: 1
 * SYN_TOOL: name of the synthesis tool. By default, it is `vivado_hls`
 
 > If something fails and it is related to `vivado_hls not found`, please, make sure of having it in the environment. Usually, it requires:

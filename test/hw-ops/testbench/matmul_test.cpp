@@ -13,26 +13,31 @@
 using namespace std;
 
 int main(int argc, char **argv) {
-  ExactType in_mat_a[kRows][kCols];
-  ExactType in_mat_b[kCols][kRows];
+  float in_mat_a[kRows][kCols];
+  float in_mat_b[kCols][kRows];
+  float sw_result[kRows][kRows];
+  ExactType hw_in_mat_a[kRows][kCols];
+  ExactType hw_in_mat_b[kCols][kRows];
+  ExactType hw_result[kRows][kRows];
+  int err_cnt = 0;
 
-  // srand(time(nullptr));
+  srand(kSeed);
   for (int i = 0; i < kRows; i++) {
     for (int j = 0; j < kCols; j++) {
-      in_mat_a[i][j] = 10 * (ExactType)rand() / (ExactType)RAND_MAX;
-      in_mat_b[j][i] = 10 * (ExactType)rand() / (ExactType)RAND_MAX;
-      in_mat_a[i][j] *= j % 2 ? -1 : 1;
-      in_mat_b[j][i] *= j % 3 ? -1 : 1;
+      in_mat_a[i][j] = 0.5f * (float)std::rand() / (float)RAND_MAX;
+      in_mat_b[j][i] = 0.5f * (float)std::rand() / (float)RAND_MAX;
+      in_mat_a[i][j] *= (j % 2 ? -1 : 1);
+      in_mat_b[j][i] *= (j % 3 ? -1 : 1);
+      hw_in_mat_a[i][j] = in_mat_a[i][j];
+      hw_in_mat_b[j][i] = in_mat_b[j][i];
     }
   }
 
-  int err_cnt = 0;
-  ExactType hw_result[kRows][kCols], sw_result[kRows][kCols];
-  ama::sw::matmul<ExactType, kRows, kCols>(in_mat_a, in_mat_b, sw_result);
-  matmul_top_accel(in_mat_a, in_mat_b, hw_result);
+  ama::sw::matmul<float, kRows, kCols>(in_mat_a, in_mat_b, sw_result);
+  matmul_top_accel(hw_in_mat_a, hw_in_mat_b, hw_result);
 
-  ama::utils::compare_results<ExactType, kRows, kCols>(hw_result, sw_result,
-                                                       err_cnt, 0.05);
+  ama::utils::compare_results<ExactType, float, kRows, kCols>(
+      hw_result, sw_result, err_cnt, 0.05);
   ama::utils::print_matrices<ExactType, kRows, kCols>(hw_result);
-  ama::utils::print_matrices<ExactType, kRows, kCols>(sw_result);
+  ama::utils::print_matrices<float, kRows, kCols>(sw_result);
 }
