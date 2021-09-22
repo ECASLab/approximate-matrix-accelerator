@@ -28,3 +28,4 @@ void matmac_top_accel(const ExactType a[kRows][kCols],
                       const ExactType b[kCols][kRows],
                       const ExactType c[kRows][kCols],
                       ExactType res[kRows][kRows]);
+                    

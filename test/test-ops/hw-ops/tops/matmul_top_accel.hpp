@@ -26,3 +26,4 @@ using ExactType = float;
 void matmul_top_accel(const ExactType a[kRows][kCols],
                       const ExactType b[kCols][kRows],
                       ExactType res[kRows][kRows]);
+                      

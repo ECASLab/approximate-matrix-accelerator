@@ -26,3 +26,4 @@ using ExactType = float;
 void matadd_top_accel(const ExactType a[kRows][kCols],
                       const ExactType b[kRows][kCols],
                       ExactType res[kRows][kCols]);
+                      
