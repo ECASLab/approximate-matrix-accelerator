@@ -13,6 +13,31 @@ sudo pip3 install meson
 sudo apt install openmpi-common libopenmpi2 or libopenmpi-dev
 pip3 install matplotlib numpy
 ```
+#### Note for Ubuntu 16.04
+
+We have found some difficulties while installing Python, Meson and Ninja on Ubuntu 16.04. Please, follow these steps to deal with the versioning issues.
+
+1. For Python3 and Pip3
+
+Installing miniconda:
+
+```bash
+wget https://repo.anaconda.com/miniconda/Miniconda3-py38_4.10.3-Linux-x86_64.sh
+bash Miniconda3-py38_4.10.3-Linux-x86_64.sh
+```
+
+During the installation, it will ask for installation details. Just accept the defaults. At the end, your console will reload with a conda environment. You should be able to install meson without any issues by using `pip3`.
+
+2. For Ninja
+
+The `apt` repos are really out-dated. Install ninja by doing:
+
+```bash
+wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-linux.zip
+sudo unzip ninja-linux.zip -d /usr/local/bin/
+```
+
+From now on, `ninja` has been installed.
 
 After installing the building system, compile the code:
 
