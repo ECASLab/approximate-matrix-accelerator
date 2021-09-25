@@ -7,11 +7,11 @@
 #include <ctime>
 #include <iostream>
 
-#include "../../../includes/operations.hpp"
+#include "../../../includes/linear.hpp"
 
-void fma_top_sw(const ExactType a[kRows][kCols], const ExactType b[kCols][kRows],
+void matfma_top_sw(const ExactType a[kRows][kCols], const ExactType b[kCols][kRows],
                 const ExactType c[kRows][kRows], ExactType res[kRows][kRows]) {
-  ama::sw::fma<ExactType, kRows, kCols>(a, b, c, res);
+  ama::sw::matfma<ExactType, kRows, kCols>(a, b, c, res);
 }
 
 int main() {
@@ -24,13 +24,16 @@ int main() {
     for (int j = 0; j < kCols; j++) {
       a[i][j] = 10 * (ExactType)rand() / (ExactType)RAND_MAX;
       b[j][i] = 10 * (ExactType)rand() / (ExactType)RAND_MAX;
+      a[i][j] *= j % 2 ? -1 : 1;
+      b[j][i] *= j % 3 ? -1 : 1;
     }
     for (int k = 0; k < kRows; k++) {
       c[i][k] = 10 * (ExactType)rand() / (ExactType)RAND_MAX;
+      c[i][k] *= k % 5 ? -1 : 1;
     }
   }
   ExactType res[kRows][kRows];
-  fma_top_sw(a, b, c, res);
+  matfma_top_sw(a, b, c, res);
   ama::utils::print_matrices<ExactType,kRows,kRows>(res);
   return 0;
 }

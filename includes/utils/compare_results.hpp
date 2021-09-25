@@ -4,13 +4,13 @@
  * Supervisor: Luis G. Leon-Vega <lleon95@estudiantec.cr>
  */
 
-#pragma once 
+#pragma once
 
 #include <iostream>
 
-namespace ama{
-namespace utils{
-  
+namespace ama {
+namespace utils {
+
 template <typename T, int M, int N>
 /**
  * @brief Results test comparison
@@ -27,16 +27,16 @@ void compare_results(const T hw_result[M][M], const T sw_result[M][M],
   float relative_error = 0;
   for (int i = 0; i < M; i++) {
     for (int j = 0; j < M; j++) {
-      if(sw_result[i][j] != 0){
-        relative_error = abs(hw_result[i][j] - sw_result[i][j]) / sw_result[i][j];
-      }
-      else{
+      if (sw_result[i][j] != 0) {
+        relative_error =
+            abs(hw_result[i][j] - sw_result[i][j]) / sw_result[i][j];
+      } else {
         relative_error = abs(hw_result[i][j] - sw_result[i][j]) / float{1.f};
       }
       if (relative_error > tolerance) {
-    	std::cout << relative_error << std::endl;
-        std::cout << "It occurs a mismatches in indices " << '[' << i << ']' << '['
-             << j << ']' << std::endl;
+        std::cout << relative_error << std::endl;
+        std::cout << "It occurs a mismatches in indices " << '[' << i << ']'
+                  << '[' << j << ']' << std::endl;
         err_cnt++;
       }
     }
@@ -44,4 +44,3 @@ void compare_results(const T hw_result[M][M], const T sw_result[M][M],
 }
 };
 };
-

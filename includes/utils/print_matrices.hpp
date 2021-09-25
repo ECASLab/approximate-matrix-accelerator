@@ -24,7 +24,7 @@ template <typename T, int M, int N>
 void print_matrices(const T result[M][M]) {
   for (int i = 0; i < M; i++) {
     for (int j = 0; j < M; j++) {
-      std::cout<<result[i][j] <<' ';
+      std::cout << result[i][j] << ' ';
     }
     std::cout << std::endl;
   }

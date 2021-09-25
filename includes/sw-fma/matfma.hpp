@@ -7,7 +7,7 @@
 #pragma once
 
 namespace ama {
-namespace hw {
+namespace sw {
 template <typename T, int M, int N>
 /**
  * @brief Fused Multiply-Add
@@ -17,7 +17,7 @@ template <typename T, int M, int N>
  * @param c Right Matrix to add
  * @param res Matrix with the result
  */
-void fma(const T a[M][N], const T b[N][M], const T c[M][M], T res[M][M]) {
+void matfma(const T a[M][N], const T b[N][M], const T c[M][M], T res[M][M]) {
   for (int i = 0; i < M; i++) {
     for (int j = 0; j < M; j++) {
       res[i][j] = c[i][j];
