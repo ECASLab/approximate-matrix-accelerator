@@ -27,5 +27,5 @@ void matmul(const T a[M][N], const T b[N][M], T res[M][M]) {
     }
   }
 }
-};
-};
+}  // namespace sw
+}  // namespace ama

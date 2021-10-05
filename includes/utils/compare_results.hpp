@@ -6,12 +6,20 @@
 
 #pragma once
 
+#include <cmath>
 #include <iostream>
+
+#if USE_HLS_MATH
+#include <hls_math.h>
+#define ABS(x) hls::abs(x)
+#else
+#define ABS(x) abs(x)
+#endif
 
 namespace ama {
 namespace utils {
 
-template <typename T, int M, int N>
+template <typename TH, typename TS, int M, int N>
 /**
  * @brief Results test comparison
  * @param hw_result Left Matrix to compare
@@ -22,25 +30,29 @@ template <typename T, int M, int N>
  * implementation
  * @param err_cnt accumulate the total amount of errors
  */
-void compare_results(const T hw_result[M][M], const T sw_result[M][M],
-                     int &err_cnt, const T tolerance) {
+void compare_results(const TH hw_result[M][N], const TS sw_result[M][N],
+                     int &err_cnt, const float tolerance) {
   float relative_error = 0;
+  float maxerr = 0;
+
   for (int i = 0; i < M; i++) {
-    for (int j = 0; j < M; j++) {
+    for (int j = 0; j < N; j++) {
       if (sw_result[i][j] != 0) {
         relative_error =
-            abs(hw_result[i][j] - sw_result[i][j]) / sw_result[i][j];
+            ABS((float)hw_result[i][j] - sw_result[i][j]) / sw_result[i][j];
       } else {
-        relative_error = abs(hw_result[i][j] - sw_result[i][j]) / float{1.f};
+        relative_error = ABS((float)hw_result[i][j] - sw_result[i][j]) / 1.f;
       }
       if (relative_error > tolerance) {
-        std::cout << relative_error << std::endl;
         std::cout << "It occurs a mismatches in indices " << '[' << i << ']'
                   << '[' << j << ']' << std::endl;
         err_cnt++;
       }
+      maxerr = std::max(maxerr, relative_error);
     }
   }
+
+  std::cout << "MaxErrorTh: " << maxerr << std::endl;
 }
-};
-};
+}  // namespace utils
+}  // namespace ama

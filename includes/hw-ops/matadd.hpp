@@ -24,5 +24,5 @@ void matadd(const T a[M][N], const T b[M][N], T res[M][N]) {
     }
   }
 }
-};
-};
+}  // namespace hw
+}  // namespace ama
