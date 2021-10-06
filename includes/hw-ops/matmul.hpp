@@ -32,7 +32,7 @@ void matmul(const T a[M][N], const T b[N][M], T res[M][M]) {
 	T tmp = 0;
   Row: for (int i = 0; i < M; i++) {
     Col: for (int j = 0; j < M; j++) {
-#pragma HLS PIPELINE
+#pragma HLS PIPELINE II = 2
       tmp = 0;
       Res: for (int k = 0; k < N; k++) {
         tmp += mul(a[i][k], b[k][j]);
