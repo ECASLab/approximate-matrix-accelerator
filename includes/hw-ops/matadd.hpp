@@ -8,6 +8,13 @@
 
 namespace ama {
 namespace hw {
+
+/**
+ * @brief Template Parameters
+ * @param T Data type
+ * @param M Rows size of matrices
+ * @param N Columns size of matrices
+ */
 template <typename T, int M, int N>
 /**
  * @brief Matrix addition
@@ -17,13 +24,15 @@ template <typename T, int M, int N>
  * @param res Matrix with the result
  */
 void matadd(const T a[M][N], const T b[M][N], T res[M][N]) {
-#pragma HLS ARRAY_RESHAPE variable=res complete dim=0
-#pragma HLS ARRAY_RESHAPE variable=b complete dim=0
-#pragma HLS ARRAY_RESHAPE variable=a complete dim=0
-#pragma HLS PIPELINE
-  Rows: for (int i = 0; i < M; i++) {
-    Cols: for (int j = 0; j < N; j++) {
-    res[i][j] = a[i][j] + b[i][j];
+#pragma HLS ARRAY_RESHAPE variable = res complete dim = 2
+#pragma HLS ARRAY_RESHAPE variable = b complete dim = 2
+#pragma HLS ARRAY_RESHAPE variable = a complete dim = 2
+Rows:
+  for (int i = 0; i < M; i++) {
+  Cols:
+    for (int j = 0; j < N; j++) {
+#pragma HLS PIPELINE II = 2
+      res[i][j] = a[i][j] + b[i][j];
     }
   }
 }
