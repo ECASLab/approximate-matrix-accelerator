@@ -17,9 +17,15 @@ template <typename T>
  */
 static T mul(const T a, const T b) {
 #pragma HLS INLINE off
-	return a * b;
+  return a * b;
 }
 
+/**
+ * @brief Template Parameters
+ * @param T Data type
+ * @param M Rows size of matriz a
+ * @param N Columns size of matriz a
+ */
 template <typename T, int M, int N>
 /**
  * @brief Matrix multiplication
@@ -29,13 +35,35 @@ template <typename T, int M, int N>
  * @param res Matrix with the result
  */
 void matmul(const T a[M][N], const T b[N][M], T res[M][M]) {
-	T tmp = 0;
-  Row: for (int i = 0; i < M; i++) {
-    Col: for (int j = 0; j < M; j++) {
-#pragma HLS PIPELINE II = 2
+#pragma HLS ARRAY_RESHAPE variable = b complete dim = 1
+#pragma HLS ARRAY_RESHAPE variable = a complete dim = 2
+#pragma HLS INTERFACE ap_fifo port = a
+#pragma HLS INTERFACE ap_fifo port = b
+#pragma HLS INTERFACE ap_fifo port = res
+  T a_row[M];
+  T b_copy[N][M];
+  T tmp = 0;
+Row:
+  for (int i = 0; i < M; i++) {
+  Col:
+    for (int j = 0; j < M; j++) {
+#pragma HLS PIPELINE
       tmp = 0;
-      Res: for (int k = 0; k < N; k++) {
-        tmp += mul(a[i][k], b[k][j]);
+      if (j == 0) {
+      Cache_Row:
+        for (int k = 0; k < M; k++) {
+          a_row[k] = a[i][k];
+        }
+      }
+      if (i == 0) {
+      Cache_Col:
+        for (int k = 0; k < N; k++) {
+          b_copy[k][j] = b[k][j];
+        }
+      }
+    Res:
+      for (int k = 0; k < N; k++) {
+        tmp += mul(a_row[k], b_copy[k][j]);
       }
       res[i][j] = tmp;
     }

@@ -9,6 +9,12 @@
 namespace ama {
 namespace sw {
 
+/**
+ * @brief Template Parameters
+ * @param T Data type
+ * @param M Rows size of matriz a
+ * @param N Columns size of matriz a
+ */
 template <typename T, int M, int N>
 /**
  * @brief Matrix multiplication
