@@ -27,6 +27,7 @@ void matadd(const T a[M][N], const T b[M][N], T res[M][N]) {
 #pragma HLS ARRAY_RESHAPE variable = res complete dim = 2
 #pragma HLS ARRAY_RESHAPE variable = b complete dim = 2
 #pragma HLS ARRAY_RESHAPE variable = a complete dim = 2
+//#pragma HLS INTERFACE ap_fifo port = a
 Rows:
   for (int i = 0; i < M; i++) {
   Cols:

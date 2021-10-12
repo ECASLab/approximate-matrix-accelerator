@@ -23,8 +23,8 @@ static T mul(const T a, const T b) {
 /**
  * @brief Template Parameters
  * @param T Data type
- * @param M Rows size of matriz a
- * @param N Columns size of matriz a
+ * @param M Rows size of matrix a
+ * @param N Columns size of matrix a
  */
 template <typename T, int M, int N>
 /**
@@ -35,9 +35,9 @@ template <typename T, int M, int N>
  * @param res Matrix with the result
  */
 void matmul(const T a[M][N], const T b[N][M], T res[M][M]) {
-
 #pragma HLS ARRAY_RESHAPE variable = b complete dim = 1
 #pragma HLS ARRAY_RESHAPE variable = a complete dim = 2
+//#pragma HLS ARRAY_RESHAPE variable = res complete dim = 2
 #pragma HLS INTERFACE ap_fifo port = a
 #pragma HLS INTERFACE ap_fifo port = b
 //#pragma HLS INTERFACE ap_fifo port = res
