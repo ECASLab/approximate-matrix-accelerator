@@ -20,4 +20,4 @@
 #define kSeed 10
 #endif
 
-using ExactType = ap_fixed<16, 5>;
+using ExactType = ap_fixed<8, 0>;

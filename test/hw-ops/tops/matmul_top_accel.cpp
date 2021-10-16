@@ -5,7 +5,7 @@
  */
 
 #include "linear.hpp"
-#include "matmac_top_accel.hpp"
+#include "matmul_top_accel.hpp"
 
 void matmul_top_accel(const ExactType a[kRows][kCols],
                       const ExactType b[kCols][kRows],
