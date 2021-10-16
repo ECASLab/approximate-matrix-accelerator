@@ -24,15 +24,19 @@ template <typename T, int M, int N>
  * @param res Matrix with the result
  */
 void matadd(const T a[M][N], const T b[M][N], T res[M][N]) {
-#pragma HLS ARRAY_RESHAPE variable = res complete dim = 2
-#pragma HLS ARRAY_RESHAPE variable = b complete dim = 2
-#pragma HLS ARRAY_RESHAPE variable = a complete dim = 2
+#pragma HLS ARRAY_PARTITION variable = res complete dim = 0
+#pragma HLS ARRAY_PARTITION variable = b complete dim = 0
+#pragma HLS ARRAY_PARTITION variable = a complete dim = 0
+//#pragma HLS INTERFACE ap_fifo depth=2 port=a
+//#pragma HLS INTERFACE ap_fifo depth=2 port=res
 //#pragma HLS INTERFACE ap_fifo port = a
+//#pragma HLS INTERFACE ap_fifo port = res
+
+#pragma HLS PIPELINE
 Rows:
   for (int i = 0; i < M; i++) {
   Cols:
     for (int j = 0; j < N; j++) {
-#pragma HLS PIPELINE II = 2
       res[i][j] = a[i][j] + b[i][j];
     }
   }
