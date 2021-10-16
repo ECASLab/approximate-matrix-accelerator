@@ -8,9 +8,9 @@
 template <typename T, int M, int N>
 
 void load_matrix(const T fifo[M][N], T reg[M][N]){
-#pragma HLS ARRAY_PARTITION variable=fifo complete dim=0
+//#pragma HLS ARRAY_PARTITION variable=fifo complete dim=0
 #pragma HLS INLINE off
-#pragma HLS PIPELINE
+//#pragma HLS PIPELINE
   for(int i = 0; i < M; i++){
     for(int j = 0; j < N; j++){
       reg[i][j] = fifo[i][j];
@@ -53,10 +53,13 @@ void matmul(const T a[M][N], const T b[N][M], T res[M][M]) {
 #pragma HLS INTERFACE ap_fifo port = a
 #pragma HLS INTERFACE ap_fifo port = b
 #pragma HLS INTERFACE ap_fifo port = res
+#pragma HLS ARRAY_PARTITION variable=res complete dim=0
   T a_buff[M][N];
+  //T a_row[M];
 #pragma HLS ARRAY_PARTITION variable=a_buff complete dim=0
   //T a_row[M];
   T b_buff[N][M];
+  //T b_copy[N][M];
 #pragma HLS ARRAY_PARTITION variable=b_buff complete dim=0
   T tmp = 0;
 
@@ -64,9 +67,9 @@ void matmul(const T a[M][N], const T b[N][M], T res[M][M]) {
   load_matrix<T, N, M>(b,b_buff);
 Row:
   for (int i = 0; i < M; i++) {
+#pragma HLS PIPELINE II=1
   Col:
     for (int j = 0; j < M; j++) {
-#pragma HLS PIPELINE II=1
       //res_buff[i][j] = 0;
       tmp = 0;
       /*
