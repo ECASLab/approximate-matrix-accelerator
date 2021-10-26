@@ -12,19 +12,16 @@ namespace ama {
 namespace hw {
 
 /**
- * @brief Template Parameters
- * @param T Data type
- * @param M Rows size of matrix a
- * @param N Columns size of matrix a
- */
-template <typename T, int M, int N>
-/**
  * @brief Matrix multiplication
  * It performs the multiplication of two matrices
+ * @tparam T Data type
+ * @tparam M Rows size of matrix a
+ * @tparam N Columns size of matrix a
  * @param a Left Matrix to multiply
  * @param b Right Matrix to multiply
  * @param res Matrix with the result
  */
+template <typename T, int M, int N>
 void matmul(const T a[M][N], const T b[N][M], T res[M][M]) {
 #pragma HLS INTERFACE ap_fifo port = a
 #pragma HLS INTERFACE ap_fifo port = b
@@ -39,13 +36,13 @@ void matmul(const T a[M][N], const T b[N][M], T res[M][M]) {
   load_matrix<T, M, N>(a, a_buff);
   load_matrix<T, N, M>(b, b_buff);
 Row:
-  for (int i = 0; i < M; i++) {
+  for (int i = 0; i < M; ++i) {
   Col:
-    for (int j = 0; j < M; j++) {
+    for (int j = 0; j < M; ++j) {
 #pragma HLS PIPELINE
       tmp = 0;
     Res:
-      for (int k = 0; k < N; k++) {
+      for (int k = 0; k < N; ++k) {
         tmp += mul(a_buff[i][k], b_buff[k][j]);
       }
       res[i][j] = tmp;

@@ -13,20 +13,17 @@ namespace ama {
 namespace hw {
 
 /**
- * @brief Template Parameters
- * @param T Data type
- * @param M Rows size of matrix a
- * @param N Columns size of matrix a
- */
-template <typename T, int M, int N>
-/**
  * @brief Fused Multiply-Add
  * It performs the multiplication and the addition in one step.
+ * @tparam T Data type
+ * @tparam M Rows size of matrix a
+ * @tparam N Columns size of matrix a
  * @param a Left Matrix to multiply
  * @param b Right Matrix to multiply
  * @param c Right Matrix to add
  * @param res Matrix with the result
  */
+template <typename T, int M, int N>
 void matfma(const T a[M][N], const T b[N][M], const T c[M][M], T res[M][M]) {
 // Uncomment the following section for not
 // register parallelism scenario (scenario 1)
@@ -49,7 +46,7 @@ void matfma(const T a[M][N], const T b[N][M], const T c[M][M], T res[M][M]) {
 
   // Uncomment the following section for scenario complete
   // register parallelism scenario (scenario 2)
-  /*
+/*
 #pragma HLS INTERFACE register port=a
 #pragma HLS ARRAY_PARTITION variable=a complete dim=0
 #pragma HLS INTERFACE register port=b
@@ -58,25 +55,25 @@ void matfma(const T a[M][N], const T b[N][M], const T c[M][M], T res[M][M]) {
 #pragma HLS ARRAY_PARTITION variable=c complete dim=0
 #pragma HLS INTERFACE register port=res
 #pragma HLS ARRAY_PARTITION variable=res complete dim=0
-  */
+*/
   T tmp = 0;
 Rows:
-  for (int i = 0; i < M; i++) {
+  for (int i = 0; i < M; ++i) {
 #pragma HLS PIPELINE
   Cols:
-    for (int j = 0; j < M; j++) {
+    for (int j = 0; j < M; ++j) {
       // Uncomment following line for scenario 1
-      tmp = c_buff[i][j];
+       tmp = c_buff[i][j];
 
     // Uncomment following line for scenario 2
     // tmp = c[i][j];
     Res:
-      for (int k = 0; k < N; k++) {
+      for (int k = 0; k < N; ++k) {
         // Uncomment following line for scenario 1
-        tmp += mul(a_buff[i][k], b_buff[k][j]);
+         tmp += mul(a_buff[i][k], b_buff[k][j]);
 
         // Uncomment following line for scenario 2
-        // tmp += mul(a[i][k], b[k][j]);
+        //tmp += mul(a[i][k], b[k][j]);
       }
       res[i][j] = tmp;
     }
