@@ -30,5 +30,6 @@ CoreOps modifiers:
 - Q_kRows: rows of each matrix. Def: $(Q_kRows)
 - Q_kSeed: seed uses for generating random numbers. Def: $(Q_kSeed)
 - Q_USE_HLS_MATH: enables the hls math library. Def: $(Q_USE_HLS_MATH)
+- Q_USE_REG_UNROLLING: selects which scenario use in matfma operation. Def: $(Q_USE_REG_UNROLLING)
 ------------------------------------------
 endef

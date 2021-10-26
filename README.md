@@ -93,6 +93,7 @@ and where the environment variables are:
 * Q_kCols: Number of columns. Default: 12
 * Q_kSeed: Seed for generating random numbers. Default: 10
 * Q_USE_HLS_MATH: enables the hls math library. Default: 1
+* Q_USE_REG_UNROLLING: selects which scenario use in matfma operation. Default: 0, for scenario 1.
 * SYN_TOOL: name of the synthesis tool. By default, it is `vivado_hls`
 
 > If something fails and it is related to `vivado_hls not found`, please, make sure of having it in the environment. Usually, it requires:
