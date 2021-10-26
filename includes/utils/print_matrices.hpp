@@ -11,14 +11,17 @@
 namespace ama {
 namespace utils {
 
-template <typename T, int M, int N>
 /**
  * @brief Prints a matrix
+ * @tparam T Data type
+ * @tparam M Rows size of matrix
+ * @tparam N Cols size of matrix
  * @param hw_result A result matrix produced in
  * the hardware implementation to be printed
  * @param sw_result A result matrix produced in
  * the software implementation
  */
+template <typename T, int M, int N>
 void print_matrices(const T result[M][N]) {
   for (int i = 0; i < M; i++) {
     for (int j = 0; j < N; j++) {

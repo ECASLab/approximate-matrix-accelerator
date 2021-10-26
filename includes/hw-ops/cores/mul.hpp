@@ -9,13 +9,14 @@
 namespace ama{
 namespace core{
 
-template <typename T>
 /**
  * @brief Multiply
  * It performs a multiplication of two numbers.
+ * @tparam T Data type
  * @param a Left parameter to multiply
  * @param b Right parameter to multiply
  */
+template <typename T>
 T mul(const T a, const T b) {
 #pragma HLS INLINE off
   return a * b;
