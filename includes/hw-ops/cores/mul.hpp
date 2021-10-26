@@ -7,7 +7,7 @@
 #pragma once
  
 namespace ama{
-namespace hw{
+namespace core{
 
 template <typename T>
 /**

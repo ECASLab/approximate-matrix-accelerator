@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "mul.hpp"
+#include "cores/mul.hpp"
 #include "utils/load_matrix.hpp"
 
 namespace ama {
@@ -70,7 +70,7 @@ Rows:
     Res:
       for (int k = 0; k < N; ++k) {
         // Uncomment following line for scenario 1
-         tmp += mul(a_buff[i][k], b_buff[k][j]);
+         tmp += ama::core::mul(a_buff[i][k], b_buff[k][j]);
 
         // Uncomment following line for scenario 2
         //tmp += mul(a[i][k], b[k][j]);
