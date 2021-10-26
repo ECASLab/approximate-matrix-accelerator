@@ -7,7 +7,7 @@
 #pragma once 
 
 namespace ama{
-namespace hw{
+namespace utils{
 
 /**
  * @brief Load_Matrix

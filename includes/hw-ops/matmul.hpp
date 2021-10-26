@@ -5,8 +5,8 @@
 
 #pragma once
 
-#include "load_matrix.hpp"
 #include "mul.hpp"
+#include "utils/load_matrix.hpp"
 
 namespace ama {
 namespace hw {
@@ -32,9 +32,10 @@ void matmul(const T a[M][N], const T b[N][M], T res[M][M]) {
   T b_buff[N][M];
 #pragma HLS ARRAY_PARTITION variable = b_buff complete dim = 1
   T tmp = 0;
+  
+  ama::utils::load_matrix<T, M, N>(a, a_buff);
+  ama::utils::load_matrix<T, N, M>(b, b_buff);
 
-  load_matrix<T, M, N>(a, a_buff);
-  load_matrix<T, N, M>(b, b_buff);
 Row:
   for (int i = 0; i < M; ++i) {
   Col:

@@ -6,8 +6,8 @@
 
 #pragma once
 
-#include "load_matrix.hpp"
 #include "mul.hpp"
+#include "utils/load_matrix.hpp"
 
 namespace ama {
 namespace hw {
@@ -40,9 +40,9 @@ void matfma(const T a[M][N], const T b[N][M], const T c[M][M], T res[M][M]) {
   T c_buff[M][M];
 #pragma HLS ARRAY_PARTITION variable = c_buff complete dim = 2
 
-  load_matrix<T, M, N>(a, a_buff);
-  load_matrix<T, N, M>(b, b_buff);
-  load_matrix<T, M, M>(c, c_buff);
+  ama::utils::load_matrix<T, M, N>(a, a_buff);
+  ama::utils::load_matrix<T, N, M>(b, b_buff);
+  ama::utils::load_matrix<T, M, M>(c, c_buff);
 
   // Uncomment the following section for scenario complete
   // register parallelism scenario (scenario 2)
