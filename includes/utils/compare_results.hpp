@@ -19,9 +19,12 @@
 namespace ama {
 namespace utils {
 
-template <typename TH, typename TS, int M, int N>
 /**
  * @brief Results test comparison
+ * @tparam TH Data type for hardware implementation
+ * @tparam TS Data type for software implementation
+ * @tparam M Rows size of matrices
+ * @tparam N Cols size of matrices
  * @param hw_result Left Matrix to compare
  * It represents the result of hardware
  * implementation
@@ -30,6 +33,7 @@ template <typename TH, typename TS, int M, int N>
  * implementation
  * @param err_cnt accumulate the total amount of errors
  */
+template <typename TH, typename TS, int M, int N>
 void compare_results(const TH hw_result[M][N], const TS sw_result[M][N],
                      int &err_cnt, const float tolerance) {
   float relative_error = 0;

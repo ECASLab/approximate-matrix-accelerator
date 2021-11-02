@@ -8,16 +8,16 @@
 
 #include <ap_fixed.h>
 
-#ifndef kRows
-#define kRows 12
+#ifndef ROWS
+#define ROWS 12
 #endif
 
-#ifndef kCols
-#define kCols 12
+#ifndef COLS
+#define COLS 12
 #endif
 
-#ifndef kSeed
-#define kSeed 10
+#ifndef SEED
+#define SEED 10
 #endif
 
-using ExactType = ap_fixed<16, 5>;
+using ExactType = ap_fixed<8, 0>;

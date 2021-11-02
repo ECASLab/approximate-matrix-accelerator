@@ -5,10 +5,10 @@
  */
 
 #include "linear.hpp"
-#include "matmac_top_accel.hpp"
+#include "matmul_top_accel.hpp"
 
-void matmul_top_accel(const ExactType a[kRows][kCols],
-                      const ExactType b[kCols][kRows],
-                      ExactType res[kRows][kRows]) {
-  ama::hw::matmul<ExactType, kRows, kCols>(a, b, res);
+void matmul_top_accel(const ExactType a[ROWS][COLS],
+                      const ExactType b[COLS][ROWS],
+                      ExactType res[ROWS][ROWS]) {
+  ama::hw::matmul<ExactType, ROWS, COLS>(a, b, res);
 }
