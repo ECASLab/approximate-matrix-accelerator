@@ -15,6 +15,6 @@
  * @param b Matrix of NxM dimensions
  * @param res Matrix with the result
  */
-void matmul_top_accel(const ExactType a[kRows][kCols],
-                      const ExactType b[kCols][kRows],
-                      ExactType res[kRows][kRows]);
+void matmul_top_accel(const ExactType a[ROWS][COLS],
+                      const ExactType b[COLS][ROWS],
+                      ExactType res[ROWS][ROWS]);

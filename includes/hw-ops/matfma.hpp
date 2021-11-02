@@ -25,9 +25,6 @@ namespace hw {
  */
 template <typename T, int M, int N>
 void matfma(const T a[M][N], const T b[N][M], const T c[M][M], T res[M][M]) {
-// Uncomment the following section for not
-// register parallelism scenario (scenario 1)
-
 #if USE_REG_UNROLLING
 #pragma HLS INTERFACE register port=a
 #pragma HLS ARRAY_PARTITION variable=a complete dim=0

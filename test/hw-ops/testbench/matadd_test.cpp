@@ -12,17 +12,17 @@
 #include "matadd_top_accel.hpp"
 
 int main(int argc, char **argv) {
-  float in_mat_a[kRows][kCols];
-  float in_mat_b[kRows][kCols];
-  float sw_result[kRows][kCols];
-  ExactType hw_in_mat_a[kRows][kCols];
-  ExactType hw_in_mat_b[kRows][kCols];
-  ExactType hw_result[kRows][kCols];
+  float in_mat_a[ROWS][COLS];
+  float in_mat_b[ROWS][COLS];
+  float sw_result[ROWS][COLS];
+  ExactType hw_in_mat_a[ROWS][COLS];
+  ExactType hw_in_mat_b[ROWS][COLS];
+  ExactType hw_result[ROWS][COLS];
   int err_cnt = 0;
 
-  srand(kSeed);
-  for (int i = 0; i < kRows; i++) {
-    for (int j = 0; j < kCols; j++) {
+  srand(SEED);
+  for (int i = 0; i < ROWS; ++i) {
+    for (int j = 0; j < COLS; ++j) {
       in_mat_a[i][j] = 0.5f * (float)std::rand() / (float)RAND_MAX;
       in_mat_b[i][j] = 0.5f * (float)std::rand() / (float)RAND_MAX;
       in_mat_a[i][j] *= (j % 2 == 0 ? -1 : 1);
@@ -32,11 +32,11 @@ int main(int argc, char **argv) {
     }
   }
 
-  ama::sw::matadd<float, kRows, kCols>(in_mat_a, in_mat_b, sw_result);
+  ama::sw::matadd<float, ROWS, COLS>(in_mat_a, in_mat_b, sw_result);
   matadd_top_accel(hw_in_mat_a, hw_in_mat_b, hw_result);
 
-  ama::utils::compare_results<ExactType, float, kRows, kCols>(
+  ama::utils::compare_results<ExactType, float, ROWS, COLS>(
       hw_result, sw_result, err_cnt, 0.05);
-  ama::utils::print_matrices<ExactType, kRows, kCols>(hw_result);
-  ama::utils::print_matrices<float, kRows, kCols>(sw_result);
+  ama::utils::print_matrices<ExactType, ROWS, COLS>(hw_result);
+  ama::utils::print_matrices<float, ROWS, COLS>(sw_result);
 }

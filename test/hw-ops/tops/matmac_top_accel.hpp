@@ -16,7 +16,7 @@
  * @param C Matrix of MxM dimensions
  * @param res Matrix with the result
  */
-void matmac_top_accel(const ExactType a[kRows][kCols],
-                      const ExactType b[kCols][kRows],
-                      const ExactType c[kRows][kCols],
-                      ExactType res[kRows][kRows]);
+void matmac_top_accel(const ExactType a[ROWS][COLS],
+                      const ExactType b[COLS][ROWS],
+                      const ExactType c[ROWS][ROWS],
+                      ExactType res[ROWS][ROWS]);

@@ -9,16 +9,16 @@ include helpers/help.mk
 SYN_TOOL?=vivado_hls
 
 # Define environment variables for the script
-PROJECT_NAME=hls_project_$(TEST)_$(Q_kRows)_$(Q_kCols)
+PROJECT_NAME=hls_project_$(TEST)_$(Q_ROWS)_$(Q_COLS)
 TOP_FUNCTION=$(TEST)_top_accel
 SRC_FILES=$(wildcard tops/$(TOP_FUNCTION).cpp) $(wildcard tops/$(TOP_FUNCTION).hpp)
 TB_FILE=testbench/$(TEST)_test.cpp
 DIRECTIVE_FILE=directives/$(TEST).tcl
 
 # Files for the reports
-RPT_FILE=measurements/$(TEST)_$(Q_kRows)_$(Q_kCols).rpt
-REPORT_FILE=measurements/$(TEST)_$(Q_kRows)_$(Q_kCols).xml
-SIMULATION_FILE=measurements/$(TEST)_$(Q_kRows)_$(Q_kCols).log
+RPT_FILE=measurements/$(TEST)_$(Q_ROWS)_$(Q_COLS).rpt
+REPORT_FILE=measurements/$(TEST)_$(Q_ROWS)_$(Q_COLS).xml
+SIMULATION_FILE=measurements/$(TEST)_$(Q_ROWS)_$(Q_COLS).log
 
 SYNTHESIS_RPT=$(PROJECT_NAME)/solution/syn/report/$(TOP_FUNCTION)_csynth.rpt
 SYNTHESIS_REPORT=$(PROJECT_NAME)/solution/syn/report/$(TOP_FUNCTION)_csynth.xml

@@ -7,9 +7,9 @@
 #include "linear.hpp"
 #include "matmac_top_accel.hpp"
 
-void matmac_top_accel(const ExactType a[kRows][kCols],
-                      const ExactType b[kCols][kRows],
-                      const ExactType c[kRows][kCols],
-                      ExactType res[kRows][kRows]) {
-  ama::hw::matmac<ExactType, kRows, kCols>(a, b, c, res);
+void matmac_top_accel(const ExactType a[ROWS][COLS],
+                      const ExactType b[COLS][ROWS],
+                      const ExactType c[ROWS][ROWS],
+                      ExactType res[ROWS][ROWS]) {
+  ama::hw::matmac<ExactType, ROWS, COLS>(a, b, c, res);
 }
