@@ -5,8 +5,14 @@
 
 #pragma once
 
+#include <ap_int.h>
+#include <typeinfo>
+
 #include "cores/mul.hpp"
 #include "utils/load_matrix.hpp"
+#include "../../test/hw-ops/tops/testbench.hpp"
+
+//#define WL 8
 
 namespace ama {
 namespace hw {
@@ -31,7 +37,11 @@ void matmul(const T a[M][N], const T b[N][M], T res[M][M]) {
 #pragma HLS ARRAY_PARTITION variable = a_buff complete dim = 2
   T b_buff[N][M];
 #pragma HLS ARRAY_PARTITION variable = b_buff complete dim = 1
-  T tmp = 0;
+  //const bool cond = std::is_same<ap_int<WL>, T>::value;
+  typename std::conditional<std::is_same<ap_int<WL>, T>::value, ap_int<2 * WL>, T>::type tmp;
+  //std::cout << cond << std::endl;
+  std::cout << typeid(tmp).name() << std::endl;
+  tmp = 0;
 
   ama::utils::load_matrix<T, M, N>(a, a_buff);
   ama::utils::load_matrix<T, N, M>(b, b_buff);
@@ -46,7 +56,11 @@ Row:
       for (int k = 0; k < N; ++k) {
         tmp += ama::core::mul(a_buff[i][k], b_buff[k][j]);
       }
-      res[i][j] = tmp;
+      if (std::is_same<ap_int<WL>, T>::value) {
+        res[i][j] = tmp[2 * WL - 1, WL];
+      } else {
+        res[i][j] = tmp;
+      }
     }
   }
 }
