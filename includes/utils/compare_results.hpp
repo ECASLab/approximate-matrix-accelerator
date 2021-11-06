@@ -34,7 +34,7 @@ namespace utils {
  * @param err_cnt accumulate the total amount of errors
  */
 template <typename TH, typename TS, int M, int N>
-void compare_results(const TH hw_result[M][N], const TS sw_result[M][N],
+void compare_results(TH hw_result[M][N], TS sw_result[M][N],
                      int &err_cnt, const float tolerance) {
   float relative_error = 0;
   float maxerr = 0;

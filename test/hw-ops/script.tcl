@@ -11,6 +11,6 @@ set_part {xc7z020clg484-1}
 create_clock -period 10 -name default
 source "$::env(DIRECTIVE_FILE)"
 csim_design -clean
-csynth_design
-cosim_design
+#csynth_design
+#cosim_design
 exit

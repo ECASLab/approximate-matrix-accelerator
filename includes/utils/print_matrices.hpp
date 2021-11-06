@@ -22,7 +22,7 @@ namespace utils {
  * the software implementation
  */
 template <typename T, int M, int N>
-void print_matrices(const T result[M][N]) {
+void print_matrices(T result[M][N]) {
   for (int i = 0; i < M; i++) {
     for (int j = 0; j < N; j++) {
       std::cout << result[i][j] << ' ';

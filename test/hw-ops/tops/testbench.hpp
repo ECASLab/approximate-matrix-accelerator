@@ -9,16 +9,7 @@
 #include <ap_fixed.h>
 #include <ap_int.h>
 
-#define WL 8
-/*
-#ifndef DATATYPE 
-#define DATATYPE "fixed"
-using ExactType = ap_fixed<8, 0>;
-#else 
-#define DATATYPE "int"
-using ExactType = ap_int<8>;
-#endif 
-*/
+/* For getting WL */
 
 #ifndef ROWS
 #define ROWS 12
@@ -32,5 +23,18 @@ using ExactType = ap_int<8>;
 #define SEED 10
 #endif
 
-//using ExactType = ap_fixed<WL, 0>;
+#ifndef WL
+#define WL 8
+#endif 
+
+
+#if DATATYPE == 0
+using ExactType = ap_fixed<WL, 0>;
+#elif DATATYPE == 1 
 using ExactType = ap_int<WL>;
+#else
+#error Unknown datatype. Please, use 0 for fixed and 1 for int
+#endif 
+
+//using ExactType = ap_fixed<WL, 0>;
+//using ExactType = ap_int<WL>;
