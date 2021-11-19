@@ -53,23 +53,17 @@ Row:
       tmp = 0;
     Res:
       for (int k = 0; k < N; ++k) {
-        //std::cout<<b_buff[i][k]<<std::endl;
-        decltype(tmp) a__ = a_buff[i][k], b__ = b_buff[k][j];
-        decltype(tmp) tmp2 = ama::core::mul(a__, b__);
-        //std::cout<<a_buff[i][k] << " " << b_buff[k][j] << " " << tmp2 << std::endl;
-        tmp2 = tmp2.range(2 * kDataWidth - 2, kDataWidth - 1);
-        tmp += tmp2;
-        
-        //std::cout<<tmp<<std::endl;
+        if(cond){
+          decltype(tmp) a__ = a_buff[i][k], b__ = b_buff[k][j];
+          decltype(tmp) tmp2 = ama::core::mul(a__, b__);
+          tmp2 = tmp2.range(2 * kDataWidth - 2, kDataWidth - 1);
+          tmp += tmp2;
+        }
+        else{
+          tmp += ama::core::mul(a_buff[i][k], b_buff[k][j]);
+        }
       }
-      if (cond) {
-        std::cout<<tmp<<std::endl;
-        //std::cout<<tmp.range(kDataWidth, 0)<<std::endl;
-        res[i][j] = tmp;
-        //std::cout<<res[i][j]<<std::endl;
-      } else {
-        res[i][j] = tmp;
-      }
+      res[i][j] = tmp;
     }
   }
 }

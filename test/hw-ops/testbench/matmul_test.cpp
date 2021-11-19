@@ -47,6 +47,7 @@ int main(int argc, char **argv) {
 
 #if DATATYPE == 0
   ama::utils::compare_results<ExactType, float, ROWS, COLS>(hw_result, sw_result, err_cnt, 0.05);
+  ama::utils::sign_changes<ExactType, float, ROWS, COLS>(hw_result, sw_result);
   ama::utils::print_matrices<ExactType, ROWS, COLS>(hw_result);
 #else
   float hw_result_f[ROWS][ROWS];
