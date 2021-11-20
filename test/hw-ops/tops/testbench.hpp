@@ -29,9 +29,9 @@
 
 
 #if DATATYPE == 0
-using ExactType = ap_fixed<WL, 0>;
+using ExactType = ap_fixed<WL+1, 1, AP_RND>;
 #elif DATATYPE == 1 
-using ExactType = ap_int<WL>;
+using ExactType = ap_int<WL+1>;
 #else
 #error Unknown datatype. Please, use 0 for fixed and 1 for int
 #endif 
