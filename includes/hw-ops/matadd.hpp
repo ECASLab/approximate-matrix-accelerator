@@ -33,7 +33,7 @@ Rows:
   for (int i = 0; i < M; ++i) {
   Cols:
     for (int j = 0; j < N; ++j) {
-      res[i][j] = (a[i][j] + b[i][j]) * alpha;
+      res[i][j] = (a[i][j] * alpha * alpha) + (b[i][j] * alpha);
     }
   }
 }
