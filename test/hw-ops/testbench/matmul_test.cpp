@@ -28,8 +28,8 @@ int main(int argc, char **argv) {
     for (int j = 0; j < COLS; ++j) {
       in_mat_a[i][j] = limit_factor * (float)std::rand() / (float)RAND_MAX;
       in_mat_b[j][i] = limit_factor * (float)std::rand() / (float)RAND_MAX;
-      in_mat_a[i][j] *= (j % 2 ? -1 : 1);
-      in_mat_b[j][i] *= (j % 3 ? -1 : 1);
+      in_mat_a[i][j] *= (j % 2 == 0 ? -1 : 1);
+      in_mat_b[j][i] *= (j % 3 == 0 ? -1 : 1);
       #if DATATYPE == 0
         hw_in_mat_a[i][j] = in_mat_a[i][j];
         hw_in_mat_b[j][i] = in_mat_b[j][i];
