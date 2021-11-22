@@ -6,6 +6,9 @@
 
 #pragma once
 
+#include <ap_fixed.h>
+#include <ap_int.h>
+
 #include "cores/mul.hpp"
 #include "utils/load_matrix.hpp"
 
@@ -26,20 +29,28 @@ namespace hw {
 template <typename T, int M, int N>
 void matfma(const T a[M][N], const T b[N][M], const T c[M][M], T res[M][M]) {
 #if USE_REG_UNROLLING
-#pragma HLS INTERFACE register port=a
-#pragma HLS ARRAY_PARTITION variable=a complete dim=0
-#pragma HLS INTERFACE register port=b
-#pragma HLS ARRAY_PARTITION variable=b complete dim=0
-#pragma HLS INTERFACE register port=c
-#pragma HLS ARRAY_PARTITION variable=c complete dim=0
-#pragma HLS INTERFACE register port=res
-#pragma HLS ARRAY_PARTITION variable=res complete dim=0
+#pragma HLS INTERFACE register port = a
+#pragma HLS ARRAY_PARTITION variable = a complete dim = 0
+#pragma HLS INTERFACE register port = b
+#pragma HLS ARRAY_PARTITION variable = b complete dim = 0
+#pragma HLS INTERFACE register port = c
+#pragma HLS ARRAY_PARTITION variable = c complete dim = 0
+#pragma HLS INTERFACE register port = res
+#if WL >= 10
+#pragma HLS RESOURCE variable = res core = RAM_2P_BRAM
+#else
+#pragma HLS ARRAY_PARTITION variable = res complete dim = 0
+#endif
 #else
 #pragma HLS INTERFACE ap_fifo port = a
 #pragma HLS INTERFACE ap_fifo port = b
 #pragma HLS INTERFACE ap_fifo port = c
 #pragma HLS INTERFACE ap_fifo port = res
+#if WL >= 10
+#pragma HLS RESOURCE variable = res core = FIFO_BRAM
+#else
 #pragma HLS ARRAY_PARTITION variable = res complete dim = 2
+#endif
   T a_buff[M][N];
 #pragma HLS ARRAY_PARTITION variable = a_buff complete dim = 0
   T b_buff[N][M];
@@ -50,24 +61,47 @@ void matfma(const T a[M][N], const T b[N][M], const T c[M][M], T res[M][M]) {
   ama::utils::load_matrix<T, N, M>(b, b_buff);
   ama::utils::load_matrix<T, M, M>(c, c_buff);
 #endif
-  T tmp = 0;
+  constexpr int kDataWidth = T::width; /* Only supports ap_base datatypes */
+  const ap_fixed<WL + 1, 1, AP_RND> alpha = 1.f / M; /* Transform factor to avoid overflow */
+  const bool cond = std::is_same<ap_int<kDataWidth>, T>::value;
+  typename std::conditional<cond, ap_int<2 * kDataWidth>, T>::type tmp;
+  tmp = 0;
+
 Rows:
   for (int i = 0; i < M; ++i) {
+#if WL >= 10
+#pragma HLS PIPELINE II = M
+#else
 #pragma HLS PIPELINE
+#endif
   Cols:
     for (int j = 0; j < M; ++j) {
-       #if USE_REG_UNROLLING
-       tmp = c[i][j];
-       #else
-       tmp = c_buff[i][j];
-       #endif
+#if USE_REG_UNROLLING
+      tmp = c[i][j] * alpha;
+#else
+      tmp = c_buff[i][j] * alpha;
+#endif
     Res:
       for (int k = 0; k < N; ++k) {
-         #if USE_REG_UNROLLING
-         tmp += ama::core::mul(a[i][k], b[k][j]);
-         #else
-         tmp += ama::core::mul(a_buff[i][k], b_buff[k][j]);
-         #endif
+#if USE_REG_UNROLLING
+        decltype(tmp) a__ = a[i][k] * alpha, b__ = b[k][j];
+        if (cond) {
+          decltype(tmp) tmp2 = ama::core::mul<decltype(tmp)>(a__, b__);
+          tmp2 = tmp2.range(2 * kDataWidth - 2, kDataWidth - 1);
+          tmp += tmp2;
+        } else {
+          tmp += ama::core::mul<decltype(tmp)>(a__, b__);
+        }
+#else
+        decltype(tmp) a__ = a_buff[i][k] * alpha, b__ = b_buff[k][j];
+        if (cond) {
+          decltype(tmp) tmp2 = (ama::core::mul<decltype(tmp)>(a__, b__));
+          tmp2 = tmp2.range(2 * kDataWidth - 2, kDataWidth - 1);
+          tmp += tmp2;
+        } else {
+          tmp += ama::core::mul<decltype(tmp)>(a__, b__);
+        }
+#endif
       }
       res[i][j] = tmp;
     }
