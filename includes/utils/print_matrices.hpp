@@ -6,8 +6,8 @@
 
 #pragma once
 
-#include <iostream>
 #include <iomanip>
+#include <iostream>
 
 namespace ama {
 namespace utils {

@@ -68,7 +68,8 @@ int main(int argc, char **argv) {
           static_cast<float>(hw_result[i][j]) * scale * inv_alpha;
     }
   }
-  ama::utils::compare_results<float, ROWS, ROWS>(hw_result_f, sw_result, err_cnt, 0.05);
+  ama::utils::compare_results<float, ROWS, ROWS>(hw_result_f, sw_result,
+                                                 err_cnt, 0.05);
   ama::utils::sign_changes<float, ROWS, ROWS>(hw_result_f, sw_result);
   ama::utils::print_matrices<float, ROWS, ROWS>(hw_result_f);
   ama::utils::print_matrices<float, ROWS, ROWS>(sw_result);
