@@ -11,9 +11,6 @@
 
 #include "cores/mul.hpp"
 #include "utils/load_matrix.hpp"
-//#include "../../test/hw-ops/tops/testbench.hpp"
-
-//#define WL 8
 
 namespace ama {
 namespace hw {
@@ -31,7 +28,7 @@ namespace hw {
 template <typename T, int M, int N>
 void matmul(const T a[M][N], const T b[N][M], T res[M][M]) {
   constexpr int kDataWidth = T::width; /* Only supports ap_base datatypes */
-  const ap_fixed<WL+1, 1, AP_RND> alpha = 1.f / M; /* Transform factor to avoid overflow */
+  const ap_fixed<WL + 1, 1, AP_RND> alpha = 1.f / M; /* Transform factor to avoid overflow */
 #pragma HLS INTERFACE ap_fifo port = a
 #pragma HLS INTERFACE ap_fifo port = b
 #pragma HLS ARRAY_PARTITION variable = res complete dim = 0

@@ -26,14 +26,14 @@ void matadd(const T a[M][N], const T b[M][N], T res[M][N]) {
 #pragma HLS ARRAY_PARTITION variable = res complete dim = 0
 #pragma HLS ARRAY_PARTITION variable = b complete dim = 0
 #pragma HLS ARRAY_PARTITION variable = a complete dim = 0
-const ap_fixed<WL+1, 1, AP_RND> alpha = 1.f / M; /* Transform factor to avoid overflow */
+  const ap_fixed<WL + 1, 1, AP_RND> alpha = 1.f / M; /* Transform factor to avoid overflow */
 
 #pragma HLS PIPELINE
 Rows:
   for (int i = 0; i < M; ++i) {
   Cols:
     for (int j = 0; j < N; ++j) {
-      res[i][j] = (a[i][j] * alpha * alpha) + (b[i][j] * alpha);
+      res[i][j] = (a[i][j] * alpha + b[i][j]) * 1 / 2;
     }
   }
 }
