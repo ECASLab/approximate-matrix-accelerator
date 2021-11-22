@@ -7,14 +7,14 @@
 #pragma once
 
 #include <iostream>
+#include <iomanip>
 
 namespace ama{
 namespace utils{
 
 /**
  * @brief Results test comparison
- * @tparam TH Data type for hardware implementation
- * @tparam TS Data type for software implementation
+ * @tparam T Data type
  * @tparam M Rows size of matrices
  * @tparam N Cols size of matrices
  * @param hw_result Left Matrix to compare
@@ -24,16 +24,16 @@ namespace utils{
  * It represents the result of software
  * implementation
  */
-template <typename TH, typename TS, int M, int N>
-void sign_changes(const TH hw_result[M][N], const TS sw_result[M][N]){
-    TS tmp = 0;
+template <typename T, int M, int N>
+void sign_changes(const T hw_result[M][N], const T sw_result[M][N]){
+    T tmp = 0;
     std::cout << std::setprecision(6) << std::fixed;
     for(int i = 0; i < M; ++i){
         for(int j = 0; j < N; ++j){
-            tmp = static_cast<TS>(hw_result[i][j]) * sw_result[i][j];
+            tmp = hw_result[i][j] * sw_result[i][j];
             if(tmp < 0){
                 std::cout << "Sign changes in indices " << '[' << i << ']' 
-                          << '[' << j << ']' << " hw_value " << static_cast<TS>(hw_result[i][j])
+                          << '[' << j << ']' << " hw_value " << hw_result[i][j]
                           << ", " << "sw_value " <<  sw_result[i][j] << std::endl;
             }
         }

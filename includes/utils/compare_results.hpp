@@ -21,8 +21,7 @@ namespace utils {
 
 /**
  * @brief Results test comparison
- * @tparam TH Data type for hardware implementation
- * @tparam TS Data type for software implementation
+ * @tparam T Data type
  * @tparam M Rows size of matrices
  * @tparam N Cols size of matrices
  * @param hw_result Left Matrix to compare
@@ -33,8 +32,8 @@ namespace utils {
  * implementation
  * @param err_cnt accumulate the total amount of errors
  */
-template <typename TH, typename TS, int M, int N>
-void compare_results(TH hw_result[M][N], TS sw_result[M][N],
+template <typename T, int M, int N>
+void compare_results(const T hw_result[M][N], const T sw_result[M][N],
                      int &err_cnt, const float tolerance) {
   float relative_error = 0;
   float maxerr = 0;
@@ -43,9 +42,9 @@ void compare_results(TH hw_result[M][N], TS sw_result[M][N],
     for (int j = 0; j < N; j++) {
       if (sw_result[i][j] != 0) {
         relative_error =
-            ABS((float)hw_result[i][j] - sw_result[i][j]) / sw_result[i][j];
+            ABS(hw_result[i][j] - sw_result[i][j]) / sw_result[i][j];
       } else {
-        relative_error = ABS((float)hw_result[i][j] - sw_result[i][j]) / 1.f;
+        relative_error = ABS(hw_result[i][j] - sw_result[i][j]) / 1.f;
       }
       if (relative_error > tolerance) {
         std::cout << "It occurs a mismatches in indices " << '[' << i << ']'
