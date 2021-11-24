@@ -7,7 +7,6 @@
 
 #include <ap_fixed.h>
 #include <ap_int.h>
-#include <typeinfo>
 
 #include "cores/mul.hpp"
 #include "utils/load_matrix.hpp"
