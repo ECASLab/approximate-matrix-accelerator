@@ -10,8 +10,7 @@
 
 #include "linear.hpp"
 #include "matfma_top_accel.hpp"
-
-using namespace std;
+#include "utils/measure.hpp"
 
 int main(int argc, char **argv) {
   float in_mat_a[ROWS][COLS];
@@ -23,8 +22,8 @@ int main(int argc, char **argv) {
   ExactType hw_in_mat_c[ROWS][ROWS];
   ExactType hw_result[ROWS][ROWS];
   int err_cnt = 0;
-  float inv_alpha = ROWS;
   float limit_factor = float(((1ul << WL) - 1)) / float((1ul << WL));
+  ama::utils::StatsMeter meter{};
 
   srand(SEED);
   for (int i = 0; i < ROWS; ++i) {
@@ -56,9 +55,11 @@ int main(int argc, char **argv) {
   matfma_top_accel(hw_in_mat_a, hw_in_mat_b, hw_in_mat_c, hw_result);
 
 #if DATATYPE == 0
-  float scale = float(1ul);
+  float scale = float(1);
+  const float inv_alpha = 2 * ROWS;
 #else
   float scale = float(1ul) / (float)(1ul << WL);
+  const int inv_alpha = (1ul << (static_cast<int>(std::ceil(std::log2(ROWS)) + 1)));
 #endif
 
   float hw_result_f[ROWS][ROWS];
@@ -66,6 +67,11 @@ int main(int argc, char **argv) {
     for (int j = 0; j < ROWS; ++j) {
       hw_result_f[i][j] =
           static_cast<float>(hw_result[i][j]) * scale * inv_alpha;
+      if (sw_result[i][j] != 0) {
+        meter.Register(sw_result[i][j], hw_result_f[i][j], sw_result[i][j]);
+      } else {
+        meter.Register(sw_result[i][j], hw_result_f[i][j], 1.f);
+      }
     }
   }
   ama::utils::compare_results<float, ROWS, ROWS>(hw_result_f, sw_result,

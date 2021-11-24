@@ -42,7 +42,7 @@ void compare_results(const T hw_result[M][N], const T sw_result[M][N],
     for (int j = 0; j < N; j++) {
       if (sw_result[i][j] != 0) {
         relative_error =
-            ABS(hw_result[i][j] - sw_result[i][j]) / sw_result[i][j];
+            ABS(hw_result[i][j] - sw_result[i][j]) / ABS(sw_result[i][j]);
       } else {
         relative_error = ABS(hw_result[i][j] - sw_result[i][j]) / 1.f;
       }

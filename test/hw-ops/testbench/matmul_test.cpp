@@ -10,8 +10,6 @@
 #include "linear.hpp"
 #include "matmul_top_accel.hpp"
 
-using namespace std;
-
 int main(int argc, char **argv) {
   float in_mat_a[ROWS][COLS];
   float in_mat_b[COLS][ROWS];

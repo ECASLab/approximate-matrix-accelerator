@@ -4,7 +4,6 @@
  * Supervisor: Luis G. Leon-Vega <lleon95@estudiantec.cr>
  */
 
-//#include <cstdlib>
 #include <ctime>
 #include <iostream>
 
@@ -21,7 +20,6 @@ int main(int argc, char **argv) {
   int err_cnt = 0;
   float inv_alpha = ROWS;
   float limit_factor = float(((1 << WL) - 1)) / float((1 << WL));
-  // std::cout << limit_factor << std::endl;
 
   srand(SEED);
   for (int i = 0; i < ROWS; ++i) {

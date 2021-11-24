@@ -36,21 +36,13 @@ void matfma(const T a[M][N], const T b[N][M], const T c[M][M], T res[M][M]) {
 #pragma HLS INTERFACE register port = c
 #pragma HLS ARRAY_PARTITION variable = c complete dim = 0
 #pragma HLS INTERFACE register port = res
-#if WL >= 10
-#pragma HLS RESOURCE variable = res core = RAM_2P_BRAM
-#else
 #pragma HLS ARRAY_PARTITION variable = res complete dim = 0
-#endif
 #else
 #pragma HLS INTERFACE ap_fifo port = a
 #pragma HLS INTERFACE ap_fifo port = b
 #pragma HLS INTERFACE ap_fifo port = c
 #pragma HLS INTERFACE ap_fifo port = res
-#if WL >= 10
-#pragma HLS RESOURCE variable = res core = FIFO_BRAM
-#else
 #pragma HLS ARRAY_PARTITION variable = res complete dim = 2
-#endif
   T a_buff[M][N];
 #pragma HLS ARRAY_PARTITION variable = a_buff complete dim = 0
   T b_buff[N][M];
@@ -62,43 +54,50 @@ void matfma(const T a[M][N], const T b[N][M], const T c[M][M], T res[M][M]) {
   ama::utils::load_matrix<T, M, M>(c, c_buff);
 #endif
   constexpr int kDataWidth = T::width; /* Only supports ap_base datatypes */
-  const ap_fixed<WL + 1, 1, AP_RND> alpha = 1.f / M; /* Transform factor to avoid overflow */
   const bool cond = std::is_same<ap_int<kDataWidth>, T>::value;
   typename std::conditional<cond, ap_int<2 * kDataWidth>, T>::type tmp;
   tmp = 0;
+  const ap_fixed<WL + 1, 1, AP_RND> alpha_f = 1.f / (2 * M); /* Transform factor to avoid overflow when working with ap_fixed */
+  const int alpha_c = std::ceil(std::log2(M)) + 1; /* Transform factor to avoid overflow when working with ap_int */
 
 Rows:
   for (int i = 0; i < M; ++i) {
-#if WL >= 10
-#pragma HLS PIPELINE II = M
-#else
 #pragma HLS PIPELINE
-#endif
   Cols:
     for (int j = 0; j < M; ++j) {
 #if USE_REG_UNROLLING
-      tmp = c[i][j] * alpha;
+      if (cond) {
+        tmp = c[i][j] >> alpha_c;
+      } else {
+        tmp = c[i][j] * alpha_f;
+      }
 #else
-      tmp = c_buff[i][j] * alpha;
+      if (cond) {
+        tmp = c_buff[i][j] >> alpha_c;
+      } else {
+        tmp = c_buff[i][j] * alpha_f;
+      }
 #endif
     Res:
       for (int k = 0; k < N; ++k) {
 #if USE_REG_UNROLLING
-        decltype(tmp) a__ = a[i][k] * alpha, b__ = b[k][j];
         if (cond) {
+          decltype(tmp) a__ = a[i][k] >> alpha_c, b__ = b[k][j];
           decltype(tmp) tmp2 = ama::core::mul<decltype(tmp)>(a__, b__);
           tmp2 = tmp2.range(2 * kDataWidth - 2, kDataWidth - 1);
           tmp += tmp2;
         } else {
+          decltype(tmp) a__ = a[i][k] * alpha_f, b__ = b[k][j];
           tmp += ama::core::mul<decltype(tmp)>(a__, b__);
         }
 #else
-        decltype(tmp) a__ = a_buff[i][k] * alpha, b__ = b_buff[k][j];
         if (cond) {
+          decltype(tmp) a__ = a_buff[i][k] >> alpha_c, b__ = b_buff[k][j];
           decltype(tmp) tmp2 = (ama::core::mul<decltype(tmp)>(a__, b__));
           tmp2 = tmp2.range(2 * kDataWidth - 2, kDataWidth - 1);
           tmp += tmp2;
         } else {
+          decltype(tmp) a__ = a_buff[i][k] * alpha_f, b__ = b_buff[k][j];
           tmp += ama::core::mul<decltype(tmp)>(a__, b__);
         }
 #endif
