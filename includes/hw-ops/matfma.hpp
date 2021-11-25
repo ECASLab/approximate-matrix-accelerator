@@ -57,8 +57,12 @@ void matfma(const T a[M][N], const T b[N][M], const T c[M][M], T res[M][M]) {
   const bool cond = std::is_same<ap_int<kDataWidth>, T>::value;
   typename std::conditional<cond, ap_int<2 * kDataWidth>, T>::type tmp;
   tmp = 0;
-  const ap_fixed<WL + 1, 1, AP_RND> alpha_f = 1.f / (2 * M); /* Transform factor to avoid overflow when working with ap_fixed */
-  const int alpha_c = std::ceil(std::log2(M)) + 1; /* Transform factor to avoid overflow when working with ap_int */
+
+#if DATATYPE == 0
+  const ap_fixed<WL + 1, 1, AP_RND> alpha = 1.f /(2 *M); /* Transform factor to avoid overflow when working with ap_fixed */
+#else
+  const int alpha = (static_cast<int>(std::ceil(std::log2(ROWS)) + 1)); /* Transform factor to avoid overflow when working with ap_int */
+#endif
 
 Rows:
   for (int i = 0; i < M; ++i) {
@@ -66,40 +70,40 @@ Rows:
   Cols:
     for (int j = 0; j < M; ++j) {
 #if USE_REG_UNROLLING
-      if (cond) {
-        tmp = c[i][j] >> alpha_c;
-      } else {
-        tmp = c[i][j] * alpha_f;
-      }
+      #if DATATYPE == 1
+        tmp = c[i][j] >> alpha;
+      #else 
+        tmp = c[i][j] * alpha;
+      #endif
 #else
-      if (cond) {
-        tmp = c_buff[i][j] >> alpha_c;
-      } else {
-        tmp = c_buff[i][j] * alpha_f;
-      }
+      #if DATATYPE == 1
+        tmp = c_buff[i][j] >> alpha;
+      #else 
+        tmp = c_buff[i][j] * alpha;
+      #endif
 #endif
     Res:
       for (int k = 0; k < N; ++k) {
 #if USE_REG_UNROLLING
-        if (cond) {
-          decltype(tmp) a__ = a[i][k] >> alpha_c, b__ = b[k][j];
+        #if DATATYPE == 1
+          decltype(tmp) a__ = a[i][k] >> alpha, b__ = b[k][j];
           decltype(tmp) tmp2 = ama::core::mul<decltype(tmp)>(a__, b__);
           tmp2 = tmp2.range(2 * kDataWidth - 2, kDataWidth - 1);
           tmp += tmp2;
-        } else {
-          decltype(tmp) a__ = a[i][k] * alpha_f, b__ = b[k][j];
+        #else
+          decltype(tmp) a__ = a[i][k] * alpha, b__ = b[k][j];
           tmp += ama::core::mul<decltype(tmp)>(a__, b__);
-        }
+        #endif
 #else
-        if (cond) {
-          decltype(tmp) a__ = a_buff[i][k] >> alpha_c, b__ = b_buff[k][j];
+        #if DATATYPE == 1
+          decltype(tmp) a__ = a_buff[i][k] >> alpha, b__ = b_buff[k][j];
           decltype(tmp) tmp2 = (ama::core::mul<decltype(tmp)>(a__, b__));
           tmp2 = tmp2.range(2 * kDataWidth - 2, kDataWidth - 1);
           tmp += tmp2;
-        } else {
-          decltype(tmp) a__ = a_buff[i][k] * alpha_f, b__ = b_buff[k][j];
+        #else
+          decltype(tmp) a__ = a_buff[i][k] * alpha, b__ = b_buff[k][j];
           tmp += ama::core::mul<decltype(tmp)>(a__, b__);
-        }
+        #endif
 #endif
       }
       res[i][j] = tmp;
