@@ -9,6 +9,7 @@
 
 #include "linear.hpp"
 #include "matmul_top_accel.hpp"
+#include "utils/measure.hpp"
 
 int main(int argc, char **argv) {
   float in_mat_a[ROWS][COLS];
@@ -18,8 +19,8 @@ int main(int argc, char **argv) {
   ExactType hw_in_mat_b[COLS][ROWS];
   ExactType hw_result[ROWS][ROWS];
   int err_cnt = 0;
-  float inv_alpha = ROWS;
   float limit_factor = float(((1 << WL) - 1)) / float((1 << WL));
+  ama::utils::StatsMeter meter{};
 
   srand(SEED);
   for (int i = 0; i < ROWS; ++i) {
@@ -51,7 +52,12 @@ int main(int argc, char **argv) {
   for (int i = 0; i < ROWS; ++i) {
     for (int j = 0; j < ROWS; ++j) {
       hw_result_f[i][j] =
-          static_cast<float>(hw_result[i][j]) * scale * inv_alpha;
+          static_cast<float>(hw_result[i][j]) * scale;
+      if (sw_result[i][j] != 0) {
+        meter.Register(sw_result[i][j], hw_result_f[i][j], sw_result[i][j]);
+      } else {
+        meter.Register(sw_result[i][j], hw_result_f[i][j], 1.f);
+      }
     }
   }
   ama::utils::compare_results<float, ROWS, ROWS>(hw_result_f, sw_result,

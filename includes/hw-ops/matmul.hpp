@@ -27,11 +27,9 @@ namespace hw {
 template <typename T, int M, int N>
 void matmul(const T a[M][N], const T b[N][M], T res[M][M]) {
   constexpr int kDataWidth = T::width; /* Only supports ap_base datatypes */
-  const ap_fixed<WL + 1, 1, AP_RND> alpha = 1.f / M; /* Transform factor to avoid overflow */
 #pragma HLS INTERFACE ap_fifo port = a
 #pragma HLS INTERFACE ap_fifo port = b
 #pragma HLS ARRAY_PARTITION variable = res complete dim = 0
-
   T a_buff[M][N];
 #pragma HLS ARRAY_PARTITION variable = a_buff complete dim = 2
   T b_buff[N][M];
@@ -52,12 +50,12 @@ Row:
     Res:
       for (int k = 0; k < N; ++k) {
         if (cond) {
-          decltype(tmp) a__ = a_buff[i][k] * alpha, b__ = b_buff[k][j];
+          decltype(tmp) a__ = a_buff[i][k], b__ = b_buff[k][j];
           decltype(tmp) tmp2 = ama::core::mul<decltype(tmp)>(a__, b__);
           tmp2 = tmp2.range(2 * kDataWidth - 2, kDataWidth - 1);
           tmp += tmp2;
         } else {
-          decltype(tmp) a__ = a_buff[i][k] * alpha;
+          decltype(tmp) a__ = a_buff[i][k];
           tmp += ama::core::mul<decltype(tmp)>(a__, b_buff[k][j]);
         }
       }
