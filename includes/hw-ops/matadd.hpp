@@ -6,8 +6,6 @@
 
 #pragma once
 
-#include <ap_fixed.h>
-
 namespace ama {
 namespace hw {
 

@@ -55,11 +55,11 @@ void matfma(const T a[M][N], const T b[N][M], const T c[M][M], T res[M][M]) {
 #endif
   constexpr int kDataWidth = T::width; /* Only supports ap_base datatypes */
   const bool cond = std::is_same<ap_int<kDataWidth>, T>::value;
-  typename std::conditional<cond, ap_int<2 * kDataWidth>, T>::type tmp;
-  tmp = 0;
+  typename std::conditional<cond, ap_int<2 * kDataWidth>, T>::type mult_result;
+  mult_result = 0;
 
 #if DATATYPE == 0
-  const ap_fixed<WL + 1, 1, AP_RND> alpha = 1.f /(2 *M); /* Transform factor to avoid overflow when working with ap_fixed */
+  const ap_fixed<WL + 1, 1, AP_RND> alpha = 1.f / (2 * M); /* Transform factor to avoid overflow when working with ap_fixed */
 #else
   const int alpha = (static_cast<int>(std::ceil(std::log2(ROWS)) + 1)); /* Transform factor to avoid overflow when working with ap_int */
 #endif
@@ -70,43 +70,33 @@ Rows:
   Cols:
     for (int j = 0; j < M; ++j) {
 #if USE_REG_UNROLLING
-      #if DATATYPE == 1
-        tmp = c[i][j] >> alpha;
-      #else 
-        tmp = c[i][j] * alpha;
-      #endif
+#define A_OPERAND a[i][k]
+#define B_OPERAND b[k][j]
+#define C_OPERAND c[i][j]
 #else
-      #if DATATYPE == 1
-        tmp = c_buff[i][j] >> alpha;
-      #else 
-        tmp = c_buff[i][j] * alpha;
-      #endif
+#define A_OPERAND a_buff[i][k]
+#define B_OPERAND b_buff[k][j]
+#define C_OPERAND c_buff[i][j]
+#endif
+
+#if DATATYPE == 1
+      mult_result = C_OPERAND >> alpha;
+#else
+      mult_result = C_OPERAND * alpha;
 #endif
     Res:
       for (int k = 0; k < N; ++k) {
-#if USE_REG_UNROLLING
-        #if DATATYPE == 1
-          decltype(tmp) a__ = a[i][k] >> alpha, b__ = b[k][j];
-          decltype(tmp) tmp2 = ama::core::mul<decltype(tmp)>(a__, b__);
-          tmp2 = tmp2.range(2 * kDataWidth - 2, kDataWidth - 1);
-          tmp += tmp2;
-        #else
-          decltype(tmp) a__ = a[i][k] * alpha, b__ = b[k][j];
-          tmp += ama::core::mul<decltype(tmp)>(a__, b__);
-        #endif
+#if DATATYPE == 1
+        decltype(mult_result) a_scaled = A_OPERAND >> alpha, b_scaled = B_OPERAND;
+        decltype(mult_result) mult_element = ama::core::mul<decltype(mult_result)>(a_scaled, b_scaled);
+        mult_element = mult_element.range(2 * kDataWidth - 2, kDataWidth - 1);
+        mult_result += mult_element;
 #else
-        #if DATATYPE == 1
-          decltype(tmp) a__ = a_buff[i][k] >> alpha, b__ = b_buff[k][j];
-          decltype(tmp) tmp2 = (ama::core::mul<decltype(tmp)>(a__, b__));
-          tmp2 = tmp2.range(2 * kDataWidth - 2, kDataWidth - 1);
-          tmp += tmp2;
-        #else
-          decltype(tmp) a__ = a_buff[i][k] * alpha, b__ = b_buff[k][j];
-          tmp += ama::core::mul<decltype(tmp)>(a__, b__);
-        #endif
+        decltype(mult_result) a_scaled = A_OPERAND * alpha, b_scaled = B_OPERAND;
+        mult_result += ama::core::mul<decltype(mult_result)>(a_scaled, b_scaled);
 #endif
       }
-      res[i][j] = tmp;
+      res[i][j] = mult_result;
     }
   }
 }

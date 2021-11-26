@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
   ExactType hw_in_mat_c[ROWS][ROWS];
   ExactType hw_result[ROWS][ROWS];
   int err_cnt = 0;
-  float limit_factor = float(((1ul << WL) - 1)) / float((1ul << WL));
+  const float limit_factor = float(((1ul << WL) - 1)) / float((1ul << WL));
   ama::utils::StatsMeter meter{};
 
   srand(SEED);

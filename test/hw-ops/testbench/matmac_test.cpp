@@ -21,7 +21,9 @@ int main(int argc, char **argv) {
   ExactType hw_in_mat_c[ROWS][ROWS];
   ExactType hw_result[ROWS][ROWS];
   int err_cnt = 0;
-  float limit_factor = float(((1ul << WL) - 1)) / float((1ul << WL));
+  const float alpha = 1.f / (2 * ROWS);
+  const int inv_alpha = 2 * ROWS;
+  const float limit_factor = float(((1ul << WL) - 1)) / float((1ul << WL));
   ama::utils::StatsMeter meter{};
 
   srand(SEED);
@@ -32,10 +34,10 @@ int main(int argc, char **argv) {
       in_mat_a[i][j] *= (j % 2 == 0 ? -1 : 1);
       in_mat_b[j][i] *= (j % 3 == 0 ? -1 : 1);
 #if DATATYPE == 0
-      hw_in_mat_a[i][j] = in_mat_a[i][j];
+      hw_in_mat_a[i][j] = in_mat_a[i][j] * alpha;
       hw_in_mat_b[j][i] = in_mat_b[j][i];
 #else
-      hw_in_mat_a[i][j] = in_mat_a[i][j] * (1ul << WL);
+      hw_in_mat_a[i][j] = in_mat_a[i][j] * alpha * (1ul << WL);
       hw_in_mat_b[j][i] = in_mat_b[j][i] * (1ul << WL);
 #endif
     }
@@ -43,9 +45,9 @@ int main(int argc, char **argv) {
       in_mat_c[i][k] = limit_factor * (float)std::rand() / (float)RAND_MAX;
       in_mat_c[i][k] *= (k % 5 == 0 ? -1 : 1);
 #if DATATYPE == 0
-      hw_in_mat_c[i][k] = in_mat_c[i][k];
+      hw_in_mat_c[i][k] = in_mat_c[i][k] * alpha;
 #else
-      hw_in_mat_c[i][k] = in_mat_c[i][k] * (1ul << WL);
+      hw_in_mat_c[i][k] = in_mat_c[i][k] * alpha * (1ul << WL);
 #endif
     }
   }
@@ -63,7 +65,7 @@ int main(int argc, char **argv) {
   for (int i = 0; i < ROWS; ++i) {
     for (int j = 0; j < ROWS; ++j) {
       hw_result_f[i][j] =
-          static_cast<float>(hw_result[i][j]) * scale;
+          static_cast<float>(hw_result[i][j]) * scale * inv_alpha;
       if (sw_result[i][j] != 0) {
         meter.Register(sw_result[i][j], hw_result_f[i][j], sw_result[i][j]);
       } else {

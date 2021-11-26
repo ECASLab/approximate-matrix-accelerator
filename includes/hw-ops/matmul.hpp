@@ -5,9 +5,6 @@
 
 #pragma once
 
-#include <ap_fixed.h>
-#include <ap_int.h>
-
 #include "cores/mul.hpp"
 #include "utils/load_matrix.hpp"
 
@@ -35,8 +32,8 @@ void matmul(const T a[M][N], const T b[N][M], T res[M][M]) {
   T b_buff[N][M];
 #pragma HLS ARRAY_PARTITION variable = b_buff complete dim = 1
   const bool cond = std::is_same<ap_int<kDataWidth>, T>::value;
-  typename std::conditional<cond, ap_int<2 * kDataWidth>, T>::type tmp;
-  tmp = 0;
+  typename std::conditional<cond, ap_int<2 * kDataWidth>, T>::type mult_result;
+  mult_result = 0;
 
   ama::utils::load_matrix<T, M, N>(a, a_buff);
   ama::utils::load_matrix<T, N, M>(b, b_buff);
@@ -46,20 +43,19 @@ Row:
   Col:
     for (int j = 0; j < M; ++j) {
 #pragma HLS PIPELINE
-      tmp = 0;
+      mult_result = 0;
     Res:
       for (int k = 0; k < N; ++k) {
+        decltype(mult_result) a_operand = a_buff[i][k], b_operand = b_buff[k][j];
         if (cond) {
-          decltype(tmp) a__ = a_buff[i][k], b__ = b_buff[k][j];
-          decltype(tmp) tmp2 = ama::core::mul<decltype(tmp)>(a__, b__);
-          tmp2 = tmp2.range(2 * kDataWidth - 2, kDataWidth - 1);
-          tmp += tmp2;
+          decltype(mult_result) mult_element = ama::core::mul<decltype(mult_result)>(a_operand, b_operand);
+          mult_element = mult_element.range(2 * kDataWidth - 2, kDataWidth - 1);
+          mult_result += mult_element;
         } else {
-          decltype(tmp) a__ = a_buff[i][k];
-          tmp += ama::core::mul<decltype(tmp)>(a__, b_buff[k][j]);
+          mult_result += ama::core::mul<decltype(mult_result)>(a_operand, b_operand);
         }
       }
-      res[i][j] = tmp;
+      res[i][j] = mult_result;
     }
   }
 }
