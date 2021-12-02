@@ -11,6 +11,7 @@ sudo apt update
 sudo apt install python3 python3-pip ninja-build
 sudo pip3 install meson
 sudo apt install openmpi-common libopenmpi2 or libopenmpi-dev
+sudo apt-get install openmpi-bin
 pip3 install matplotlib numpy
 ```
 #### Note for Ubuntu 16.04
