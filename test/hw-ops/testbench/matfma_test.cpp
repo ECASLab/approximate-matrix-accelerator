@@ -67,15 +67,11 @@ int main(int argc, char **argv) {
     for (int j = 0; j < ROWS; ++j) {
       hw_result_f[i][j] =
           static_cast<float>(hw_result[i][j]) * scale * inv_alpha;
-      if (sw_result[i][j] != 0) {
-        meter.Register(sw_result[i][j], hw_result_f[i][j], sw_result[i][j]);
-      } else {
-        meter.Register(sw_result[i][j], hw_result_f[i][j], 1.f);
-      }
+      meter.Register(sw_result[i][j], hw_result_f[i][j], 2.f);
     }
   }
   ama::utils::compare_results<float, ROWS, ROWS>(hw_result_f, sw_result,
-                                                 err_cnt, 0.05);
+                                                 err_cnt, 0.2);
   ama::utils::sign_changes<float, ROWS, ROWS>(hw_result_f, sw_result);
   ama::utils::print_matrices<float, ROWS, ROWS>(hw_result_f);
   ama::utils::print_matrices<float, ROWS, ROWS>(sw_result);

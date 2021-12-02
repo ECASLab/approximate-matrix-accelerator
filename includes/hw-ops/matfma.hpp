@@ -61,7 +61,7 @@ void matfma(const T a[M][N], const T b[N][M], const T c[M][M], T res[M][M]) {
 #if DATATYPE == 0
   const ap_fixed<WL + 1, 1, AP_RND> alpha = 1.f / (2 * M); /* Transform factor to avoid overflow when working with ap_fixed */
 #else
-  const int alpha = (static_cast<int>(std::ceil(std::log2(ROWS)) + 1)); /* Transform factor to avoid overflow when working with ap_int */
+  const int alpha = (static_cast<int>(std::ceil(std::log2(M)) + 1)); /* Transform factor to avoid overflow when working with ap_int */
 #endif
 
 Rows:

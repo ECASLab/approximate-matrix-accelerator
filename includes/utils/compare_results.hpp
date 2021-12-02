@@ -40,12 +40,7 @@ void compare_results(const T hw_result[M][N], const T sw_result[M][N],
 
   for (int i = 0; i < M; i++) {
     for (int j = 0; j < N; j++) {
-      if (sw_result[i][j] != 0) {
-        relative_error =
-            ABS(hw_result[i][j] - sw_result[i][j]) / ABS(sw_result[i][j]);
-      } else {
-        relative_error = ABS(hw_result[i][j] - sw_result[i][j]) / 1.f;
-      }
+      relative_error = ABS(hw_result[i][j] - sw_result[i][j]) / 2.f;
       if (relative_error > tolerance) {
         std::cout << "It occurs a mismatches in indices " << '[' << i << ']'
                   << '[' << j << ']' << std::endl;
