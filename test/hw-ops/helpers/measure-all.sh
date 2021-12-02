@@ -13,8 +13,7 @@ MAX_Q_DIM=${MAX_Q_DIM:-16}
 STEP=${STEP_Q_DIM:-2}
 
 # Accelerators - Discretised because of Bash limitations in unrolling
-#ACCELS=${ACCELS:-"matadd matmac matmul matfma"}
-ACCELS=${ACCELS:-"matfma"}
+ACCELS=${ACCELS:-"matadd matmac matmul matfma"}
 
 # Offsets
 START_IDX=$((${CID}*${STEP}+${MIN_Q_DIM}))
