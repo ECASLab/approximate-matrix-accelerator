@@ -13,19 +13,19 @@
 using namespace std;
 
 int main(int argc, char **argv) {
-  float in_mat_a[kRows][kCols];
-  float in_mat_b[kCols][kRows];
-  float in_mat_c[kRows][kRows];
-  float sw_result[kRows][kRows];
-  ExactType hw_in_mat_a[kRows][kCols];
-  ExactType hw_in_mat_b[kCols][kRows];
-  ExactType hw_in_mat_c[kRows][kRows];
-  ExactType hw_result[kRows][kRows];
+  float in_mat_a[ROWS][COLS];
+  float in_mat_b[COLS][ROWS];
+  float in_mat_c[ROWS][ROWS];
+  float sw_result[ROWS][ROWS];
+  ExactType hw_in_mat_a[ROWS][COLS];
+  ExactType hw_in_mat_b[COLS][ROWS];
+  ExactType hw_in_mat_c[ROWS][ROWS];
+  ExactType hw_result[ROWS][ROWS];
   int err_cnt = 0;
 
-  srand(kSeed);
-  for (int i = 0; i < kRows; i++) {
-    for (int j = 0; j < kCols; j++) {
+  srand(SEED);
+  for (int i = 0; i < ROWS; ++i) {
+    for (int j = 0; j < COLS; ++j) {
       in_mat_a[i][j] = 0.5f * (float)std::rand() / (float)RAND_MAX;
       in_mat_b[j][i] = 0.5f * (float)std::rand() / (float)RAND_MAX;
       in_mat_a[i][j] *= (j % 2 ? -1 : 1);
@@ -33,18 +33,18 @@ int main(int argc, char **argv) {
       hw_in_mat_a[i][j] = in_mat_a[i][j];
       hw_in_mat_b[j][i] = in_mat_b[j][i];
     }
-    for (int k = 0; k < kRows; k++) {
+    for (int k = 0; k < ROWS; ++k) {
       in_mat_c[i][k] = 0.5f * (float)std::rand() / (float)RAND_MAX;
       in_mat_c[i][k] *= (k % 5 ? -1 : 1);
       hw_in_mat_c[i][k] = in_mat_c[i][k];
     }
   }
 
-  ama::sw::matmac<float, kRows, kCols>(in_mat_a, in_mat_b, in_mat_c, sw_result);
+  ama::sw::matmac<float, ROWS, COLS>(in_mat_a, in_mat_b, in_mat_c, sw_result);
   matmac_top_accel(hw_in_mat_a, hw_in_mat_b, hw_in_mat_c, hw_result);
 
-  ama::utils::compare_results<ExactType, float, kRows, kCols>(
+  ama::utils::compare_results<ExactType, float, ROWS, COLS>(
       hw_result, sw_result, err_cnt, 0.05);
-  ama::utils::print_matrices<ExactType, kRows, kCols>(hw_result);
-  ama::utils::print_matrices<float, kRows, kCols>(sw_result);
+  ama::utils::print_matrices<ExactType, ROWS, COLS>(hw_result);
+  ama::utils::print_matrices<float, ROWS, COLS>(sw_result);
 }

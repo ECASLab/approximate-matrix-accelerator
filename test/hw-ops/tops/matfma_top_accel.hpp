@@ -22,7 +22,7 @@
  * @param c Matrix of MxN dimensions
  * @param res Matrix with the result
  */
-void matfma_top_accel(const ExactType a[kRows][kCols],
-                      const ExactType b[kCols][kRows],
-                      const ExactType c[kRows][kRows],
-                      ExactType res[kRows][kRows]);
+void matfma_top_accel(const ExactType a[ROWS][COLS],
+                      const ExactType b[COLS][ROWS],
+                      const ExactType c[ROWS][ROWS],
+                      ExactType res[ROWS][ROWS]);

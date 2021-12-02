@@ -4,28 +4,28 @@
  * Supervisor: Luis G. Leon-Vega <lleon95@estudiantec.cr>
  */
 
-#pragma once
+#pragma once 
 
-namespace ama {
-namespace sw {
+namespace ama{
+namespace utils{
 
 /**
- * @brief Matrix addition
- * It performs the addition of two matrices.
+ * @brief Load_Matrix
+ * It loads the input matrix to a local matrix.
  * @tparam T Data type
  * @tparam M Rows size of matrices
  * @tparam N Columns size of matrices
- * @param a Left Matrix to add
- * @param b Right Matrix to add
- * @param res Matrix with the result
+ * @param fifo Matrix with fifo pragma
+ * @param reg  Local matrix
  */
 template <typename T, int M, int N>
-void matadd(const T a[M][N], const T b[M][N], T res[M][N]) {
+void load_matrix(const T fifo[M][N], T reg[M][N]) {
+#pragma HLS INLINE off
   for (int i = 0; i < M; ++i) {
     for (int j = 0; j < N; ++j) {
-      res[i][j] = a[i][j] + b[i][j];
+      reg[i][j] = fifo[i][j];
     }
   }
 }
-}  // namespace sw
-}  // namespace ama
+}
+}
