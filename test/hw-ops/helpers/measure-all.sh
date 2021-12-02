@@ -25,6 +25,6 @@ do
   for accel in ${ACCELS};
   do
     echo "[Measuring all]: Computing ${accel} with Dims ${i} in processor ${CID}"
-    Q_kCols=${i} Q_kRows=${i} TEST=${accel} CUSTOM_FLAGS=-DOVERRIDE_TH make measure || echo "Failed executing make"
+    Q_ROWS=${i} Q_COLS=${i} TEST=${accel} CUSTOM_FLAGS=-DOVERRIDE_TH make measure || echo "Failed executing make"
   done
 done
