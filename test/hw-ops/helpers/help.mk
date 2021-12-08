@@ -29,6 +29,8 @@ CoreOps modifiers:
 - Q_COLS: cols of each matrix. Def: $(Q_COLS)
 - Q_ROWS: rows of each matrix. Def: $(Q_ROWS)
 - Q_SEED: seed uses for generating random numbers. Def: $(Q_SEED)
+- Q_DATATYPE: datatype of hardware matrices. Def: $(Q_DATATYPE)
+- Q_WL: word length of datatype. Def: $(Q_WL) 
 - Q_USE_HLS_MATH: enables the hls math library. Def: $(Q_USE_HLS_MATH)
 - Q_USE_REG_UNROLLING: selects which scenario use in matfma operation. Def: $(Q_USE_REG_UNROLLING)
 ------------------------------------------

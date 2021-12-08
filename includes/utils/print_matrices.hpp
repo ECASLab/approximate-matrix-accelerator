@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include <iomanip>
 #include <iostream>
 
 namespace ama {
@@ -16,16 +17,14 @@ namespace utils {
  * @tparam T Data type
  * @tparam M Rows size of matrix
  * @tparam N Cols size of matrix
- * @param hw_result A result matrix produced in
- * the hardware implementation to be printed
- * @param sw_result A result matrix produced in
- * the software implementation
+ * @param result A result matrix to be printed
  */
 template <typename T, int M, int N>
-void print_matrices(const T result[M][N]) {
+void print_matrices(T result[M][N]) {
+  std::cout << std::setprecision(6) << std::fixed;
   for (int i = 0; i < M; i++) {
     for (int j = 0; j < N; j++) {
-      std::cout << result[i][j] << ' ';
+      std::cout << static_cast<float>(result[i][j]) << ' ';
     }
     std::cout << std::endl;
   }

@@ -4,10 +4,10 @@
  * Supervisor: Luis G. Leon-Vega <lleon95@estudiantec.cr>
  */
 
-#pragma once 
+#pragma once
 
-namespace ama{
-namespace utils{
+namespace ama {
+namespace utils {
 
 /**
  * @brief Load_Matrix
