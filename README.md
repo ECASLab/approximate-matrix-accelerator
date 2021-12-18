@@ -93,6 +93,8 @@ and where the environment variables are:
 * Q_ROWS: Number of rows. Default: 12
 * Q_COLS: Number of columns. Default: 12
 * Q_SEED: Seed for generating random numbers. Default: 10
+* Q_DATATYPE: datatype of hardware matrices. Default: ap_fixed
+* Q_WL: word length of datatype. Default: 8
 * Q_USE_HLS_MATH: enables the hls math library. Default: 1
 * Q_USE_REG_UNROLLING: selects which scenario use in matfma operation. Default: 0, for scenario 1.
 * SYN_TOOL: name of the synthesis tool. By default, it is `vivado_hls`
