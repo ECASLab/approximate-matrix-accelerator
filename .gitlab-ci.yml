@@ -15,6 +15,6 @@ deploy_zenodo:
   script:
     - gitlab_prepare_upload_zenodo.sh $CI_PROJECT_NAME $CI_PROJECT_DIR zenodo_build
     - ls zenodo_build
-    - eossr-upload-repository -t $ZENODO_TOKEN -s False -i zenodo_build [-id $ZENODO_PROJECT_ID]
+    - eossr-upload-repository -t $ZENODO_TOKEN -s False -i zenodo_build -id $ZENODO_PROJECT_ID
   only:
     - tags
