@@ -1,0 +1,61 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "license": "https://spdx.org/licenses/Apache-2.0",
+  "codeRepository": "https://gitlab.com/msee2/approximate-flexible-acceleration-ml/approximate-gemm-accelerator",
+  "contIntegration": "https://gitlab.com/msee2/approximate-flexible-acceleration-ml/approximate-gemm-accelerator/-/pipelines",
+  "dateCreated": "2021-12-18",
+  "datePublished": "2021-12-18",
+  "dateModified": "2021-12-18",
+  "downloadUrl": "https://gitlab.com/msee2/approximate-flexible-acceleration-ml/approximate-gemm-accelerator/-/archive/v0.3.1/approximate-gemm-accelerator-v0.3.1.tar.gz",
+  "issueTracker": "https://gitlab.com/msee2/approximate-flexible-acceleration-ml/approximate-gemm-accelerator/-/issues",
+  "name": "Approximate GEMM Accelerator",
+  "version": "0.3.1",
+  "identifier": "10.5281/zenodo.5797105",
+  "description": "This project develops a processing element (PE) with configurable precision with respect to the data type for matrix-matrix multiplication, intended for FPGAs and using high-level synthesis (HLS).",
+  "applicationCategory": "Computer Engineering",
+  "keywords": [
+      "high-level synthesis",
+      "hardware acceleration",
+      "machine learning",
+      "convolutional neural networks"
+  ],
+  "programmingLanguage": [
+      "C++",
+      "Python",
+      "Makefile"
+  ],
+  "runtimePlatform": [
+      "Vivado HLS"
+  ],
+  "operatingSystem": [
+      "Linux"
+  ],
+  "softwareRequirements": [
+      "https://gitlab.com/msee2/approximate-flexible-acceleration-ml/approximate-gemm-accelerator/-/blob/main/README.md"
+  ],
+  "author": [
+      {
+          "@type": "Person",
+          "@id": "http://orcid.org/0000-0002-3263-7853",
+          "givenName": "Eduardo",
+          "familyName": "Salazar-Villalobos",
+          "email": "eduarsalazar@estudiantec.cr",
+          "affiliation": {
+              "@type": "Organization",
+              "name": "Instituto Tecnológico de Costa Rica"
+          }
+      },
+      {
+          "@type": "Person",
+          "@id": "http://orcid.org/0000-0002-1715-4546",
+          "givenName": "Luis G.",
+          "familyName": "Leon-Vega",
+          "email": "lleon95@estudiantec.cr",
+          "affiliation": {
+              "@type": "Organization",
+              "name": "Instituto Tecnológico de Costa Rica"
+          }
+      }
+  ]
+}
