@@ -22,3 +22,5 @@
 #include "utils/compare_results.hpp"
 #include "utils/print_matrices.hpp"
 #include "utils/sign_changes.hpp"
+
+#include "version.hpp"
