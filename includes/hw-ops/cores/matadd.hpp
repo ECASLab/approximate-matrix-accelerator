@@ -8,6 +8,7 @@
 
 namespace ama {
 namespace hw {
+namespace core {
 
 /**
  * @brief Matrix addition
@@ -34,5 +35,7 @@ ama_hw_matadd_rows:
     }
   }
 }
+
+}  // namespace core
 }  // namespace hw
 }  // namespace ama

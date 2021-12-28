@@ -10,6 +10,7 @@
 
 namespace ama {
 namespace hw {
+namespace core {
 
 /**
  * @brief Matrix multiplication
@@ -46,18 +47,23 @@ Row:
       mult_result = 0;
     Res:
       for (int k = 0; k < N; ++k) {
-        decltype(mult_result) a_operand = a_buff[i][k], b_operand = b_buff[k][j];
+        decltype(mult_result) a_operand = a_buff[i][k],
+                              b_operand = b_buff[k][j];
         if (cond) {
-          decltype(mult_result) mult_element = ama::core::mul<decltype(mult_result)>(a_operand, b_operand);
+          decltype(mult_result) mult_element =
+              ama::core::mul<decltype(mult_result)>(a_operand, b_operand);
           mult_element = mult_element.range(2 * kDataWidth - 2, kDataWidth - 1);
           mult_result += mult_element;
         } else {
-          mult_result += ama::core::mul<decltype(mult_result)>(a_operand, b_operand);
+          mult_result +=
+              ama::core::mul<decltype(mult_result)>(a_operand, b_operand);
         }
       }
       res[i][j] = mult_result;
     }
   }
 }
+
+}  // namespace core
 }  // namespace hw
 }  // namespace ama

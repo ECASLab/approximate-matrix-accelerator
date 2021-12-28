@@ -42,7 +42,7 @@ class PassThru {
   }
 };
 
-} /* exact */
-} /* arithmetic */
-} /* hw */
-} /* ama */
+}  // namespace exact
+}  // namespace arithmetic
+}  // namespace hw
+}  // namespace ama

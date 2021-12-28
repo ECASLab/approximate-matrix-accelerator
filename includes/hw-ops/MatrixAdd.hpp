@@ -58,7 +58,7 @@ void MatrixAdd<T, M, N, ADD, MULT, NL>::Execute(
                 [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
     T op_c[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
           [MatrixOperator<T, M, N, ADD, MULT, NL>::columns]) {
-  matadd(op_a, op_b, op_c);
+  core::matadd<T, M, N>(op_a, op_b, op_c);
 }
 
 } /* namespace operators */
