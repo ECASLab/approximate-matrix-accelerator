@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "cores/mul.hpp"
+#include "hw-ops/cores/mul.hpp"
 #include "utils/load_matrix.hpp"
 
 namespace ama {
