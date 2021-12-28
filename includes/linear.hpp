@@ -7,10 +7,10 @@
 #pragma once
 
 /* Hardware ops */
-#include "hw-ops/matadd.hpp"
-#include "hw-ops/matfma.hpp"
-#include "hw-ops/matmac.hpp"
-#include "hw-ops/matmul.hpp"
+#include "hw-ops/cores/matadd.hpp"
+#include "hw-ops/cores/matfma.hpp"
+#include "hw-ops/cores/matmac.hpp"
+#include "hw-ops/cores/matmul.hpp"
 
 /* Software ops */
 #include "sw-ops/matadd.hpp"
