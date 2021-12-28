@@ -1,0 +1,20 @@
+###################################################################
+## Copyright 2021
+## Author: Luis G. Leon-Vega <lleon95@estudiantec.cr>
+##         Eduardo Salazar-Villalobos <eduarsalazar@estudiantec.cr>
+###################################################################
+
+stages:
+  - deploy 
+ 
+deploy_zenodo:
+  stage: deploy
+  image: gitlab-registry.in2p3.fr/escape2020/wp3/eossr:latest
+  before_script:
+    - eossr-check-connection-zenodo --token $ZENODO_TOKEN --sandbox False -p $CI_PROJECT_DIR
+  script:
+    - gitlab_prepare_upload_zenodo.sh $CI_PROJECT_NAME $CI_PROJECT_DIR zenodo_build
+    - ls zenodo_build
+    - eossr-upload-repository -t $ZENODO_TOKEN -s False -i zenodo_build -id $ZENODO_PROJECT_ID
+  only:
+    - tags
