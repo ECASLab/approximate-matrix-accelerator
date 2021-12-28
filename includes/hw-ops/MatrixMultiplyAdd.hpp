@@ -46,11 +46,6 @@ class MatrixMultiplyAdd : public MatrixOperator<T, M, N, ADD, MULT, NL> {
                   [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],  
       T op_d[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
             [MatrixOperator<T, M, N, ADD, MULT, NL>::columns]) override;
-
- private:
-  ADD add_{};
-  MULT mult_{};
-  NL non_linearity_{};
 };
 
 template <typename T, int M, int N, class ADD, class MULT, class NL>
