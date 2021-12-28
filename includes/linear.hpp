@@ -12,6 +12,9 @@
 #include "hw-ops/cores/matmac.hpp"
 #include "hw-ops/cores/matmul.hpp"
 
+/* Interfaces */
+#include "hw-ops/MatrixOperators.hpp"
+
 /* Software ops */
 #include "sw-ops/matadd.hpp"
 #include "sw-ops/matfma.hpp"

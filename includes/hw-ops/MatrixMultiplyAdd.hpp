@@ -6,7 +6,7 @@
 #pragma once
 
 #include "MatrixOperator.hpp"
-#include "cores/matadd.hpp"
+#include "cores/matfma.hpp"
 
 namespace ama {
 namespace hw {
@@ -15,7 +15,7 @@ namespace operators {
 using namespace ama::hw;
 
 /**
- * Matrix operator for element-wise addition class
+ * Matrix operator for matrix multiply-add
  * It defines the interface for any operator engine. It also defines
  * the matrix dimensions
  * @tparam T datatype to work with.
@@ -28,20 +28,23 @@ using namespace ama::hw;
 template <typename T, int M, int N, class ADD = arithmetic::exact::Add<T>,
           class MULT = arithmetic::exact::Mult<T>,
           class NL = arithmetic::exact::PassThru<T>>
-class MatrixAdd : public MatrixOperator<T, M, N, ADD, MULT, NL> {
+class MatrixMultiplyAdd : public MatrixOperator<T, M, N, ADD, MULT, NL> {
  public:
   /**
    * Execute the exact implementation for three-operand operators
-   * @param op_a input operand A
-   * @param op_b input operand B
-   * @param op_c output operand C
+   * @param op_a input operand A to multiply with
+   * @param op_b input operand B to multiply with
+   * @param op_c input operand C to add with
+   * @param op_d output operand D
    */
   virtual void Execute(
       const T op_a[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
                   [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
       const T op_b[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
                   [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
-      T op_c[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
+      const T op_c[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
+                  [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],  
+      T op_d[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
             [MatrixOperator<T, M, N, ADD, MULT, NL>::columns]) override;
 
  private:
@@ -51,14 +54,16 @@ class MatrixAdd : public MatrixOperator<T, M, N, ADD, MULT, NL> {
 };
 
 template <typename T, int M, int N, class ADD, class MULT, class NL>
-void MatrixAdd<T, M, N, ADD, MULT, NL>::Execute(
+void MatrixMultiplyAdd<T, M, N, ADD, MULT, NL>::Execute(
     const T op_a[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
                 [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
     const T op_b[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
                 [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
-    T op_c[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
-          [MatrixOperator<T, M, N, ADD, MULT, NL>::columns]) {
-  core::matadd<T, M, N>(op_a, op_b, op_c);
+    const T op_c[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
+                  [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],  
+      T op_d[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
+            [MatrixOperator<T, M, N, ADD, MULT, NL>::columns]) {
+  core::matfma<T, M, N>(op_a, op_b, op_c, op_d);
 }
 
 } /* namespace operators */
