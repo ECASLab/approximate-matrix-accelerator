@@ -5,8 +5,8 @@
 
 # Set your custom C-flags here
 # For example:
-Q_ROWS ?= 12
-Q_COLS ?= 12
+Q_ROWS ?= 8
+Q_COLS ?= 8
 Q_SEED ?= 10
 Q_DATATYPE ?= 0
 Q_WL ?= 8

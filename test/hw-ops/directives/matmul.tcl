@@ -12,8 +12,6 @@ set_directive_array_partition -type complete -dim 0 "matmul_top_accel" res
 
 # Unroll and pipeline
 set_directive_pipeline "MatrixMultiply<T, M, N, ADD, MULT, NL>::Execute/ama_hw_matrix_mult_rows"
-set_directive_unroll "MatrixMultiply<T, M, N, ADD, MULT, NL>::Execute/ama_hw_matrix_mult_reduce"
-set_directive_loop_flatten -off "MatrixMultiply<T, M, N, ADD, MULT, NL>::Execute/ama_hw_matrix_mult_rows"
 
 # No-inline
 set_directive_inline -off "MatrixMultiply<T, M, N, ADD, MULT, NL>::Execute"
