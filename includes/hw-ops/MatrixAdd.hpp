@@ -43,17 +43,27 @@ class MatrixAdd : public MatrixOperator<T, M, N, ADD, MULT, NL> {
                   [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
       T op_c[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
             [MatrixOperator<T, M, N, ADD, MULT, NL>::columns]) override;
+
+ private:
+  ADD add_{};
+  NL non_linearity_{};
 };
 
 template <typename T, int M, int N, class ADD, class MULT, class NL>
-void MatrixAdd<T, M, N, ADD, MULT, NL>::Execute(
+inline void MatrixAdd<T, M, N, ADD, MULT, NL>::Execute(
     const T op_a[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
                 [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
     const T op_b[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
                 [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
     T op_c[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
           [MatrixOperator<T, M, N, ADD, MULT, NL>::columns]) {
-  core::matadd<T, M, N>(op_a, op_b, op_c);
+ama_hw_matrix_add_rows:
+  for (int i = 0; i < M; ++i) {
+  ama_hw_matrix_add_cols:
+    for (int j = 0; j < N; ++j) {
+      op_c[i][j] = non_linearity_(add_(op_a[i][j], op_b[i][j]));
+    }
+  }
 }
 
 } /* namespace operators */
