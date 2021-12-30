@@ -32,6 +32,7 @@ class MatrixMultiplyAdd : public MatrixOperator<T, M, N, ADD, MULT, NL> {
  public:
   /**
    * Execute the exact implementation for three-operand operators
+   * Hard-wired to be ap_fixed provided that it is the most efficient
    * @param op_a input operand A to multiply with
    * @param op_b input operand B to multiply with
    * @param op_c input operand C to add with
@@ -46,6 +47,11 @@ class MatrixMultiplyAdd : public MatrixOperator<T, M, N, ADD, MULT, NL> {
                   [MatrixOperator<T, M, N, ADD, MULT, NL>::rows],
       T op_d[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
             [MatrixOperator<T, M, N, ADD, MULT, NL>::rows]);
+
+ private:
+  ADD add_{};
+  MULT mult_{};
+  NL non_linearity_{};
 };
 
 template <typename T, int M, int N, class ADD, class MULT, class NL>
@@ -58,7 +64,20 @@ void MatrixMultiplyAdd<T, M, N, ADD, MULT, NL>::Execute(
                 [MatrixOperator<T, M, N, ADD, MULT, NL>::rows],
     T op_d[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
           [MatrixOperator<T, M, N, ADD, MULT, NL>::rows]) {
-  core::matfma<T, M, N>(op_a, op_b, op_c, op_d);
+  const T alpha = 1.f / (2 * M);
+
+ama_hw_matrix_fma_rows:
+  for (int i = 0; i < M; ++i) {
+  ama_hw_matrix_fma_cols:
+    for (int j = 0; j < N; ++j) {
+      T val = mult_(op_c[i][j], alpha);
+    ama_hw_matrix_fma_reduce_mult:
+      for (int k = 0; k < N; ++k) {
+        val = add_(val, mult_(mult_(op_a[i][k], alpha), op_b[k][j]));
+      }
+      op_d[i][j] = non_linearity_(val);
+    }
+  }
 }
 
 } /* namespace operators */
