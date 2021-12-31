@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
   ExactType hw_in_mat_c[ROWS][ROWS];
   ExactType hw_result[ROWS][ROWS];
   int err_cnt = 0;
-  const float limit_factor = float(((1ul << WL) - 1)) / float((1ul << WL));
+  const float limit_factor = float(1ul << (WL - 1)) / float((1ul << WL));
   ama::utils::StatsMeter meter{};
 
   srand(SEED);
@@ -59,7 +59,8 @@ int main(int argc, char **argv) {
   const float inv_alpha = 2 * ROWS;
 #else
   float scale = float(1ul) / (float)(1ul << WL);
-  const int inv_alpha = (1ul << (static_cast<int>(std::ceil(std::log2(ROWS)) + 1)));
+  const int inv_alpha =
+      (1ul << (static_cast<int>(std::ceil(std::log2(ROWS)) + 1)));
 #endif
 
   float hw_result_f[ROWS][ROWS];
