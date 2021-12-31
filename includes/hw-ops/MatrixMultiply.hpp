@@ -35,7 +35,6 @@ class MatrixMultiply : public MatrixOperator<T, M, N, ADD, MULT, NL> {
    * The matrix multiplication in ap_fixed<> is better than the ap_int<>
    * without paying significant overhead.
    * It is constraint to MxN * NxM matrices
-   * TODO: make it as efficient as the original implementation
    * @param op_a input operand A
    * @param op_b input operand B
    * @param op_c output operand C
