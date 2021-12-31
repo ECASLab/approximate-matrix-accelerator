@@ -41,8 +41,8 @@ class MatrixMultiplyAdd : public MatrixOperator<T, M, N, ADD, MULT, NL> {
   virtual void Execute(
       const T op_a[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
                   [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
-      const T op_b[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
-                  [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
+      const T op_b[MatrixOperator<T, M, N, ADD, MULT, NL>::columns]
+                  [MatrixOperator<T, M, N, ADD, MULT, NL>::rows],
       const T op_c[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
                   [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
       T op_d[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
@@ -58,8 +58,8 @@ template <typename T, int M, int N, class ADD, class MULT, class NL>
 void MatrixMultiplyAdd<T, M, N, ADD, MULT, NL>::Execute(
     const T op_a[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
                 [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
-    const T op_b[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
-                [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
+    const T op_b[MatrixOperator<T, M, N, ADD, MULT, NL>::columns]
+                [MatrixOperator<T, M, N, ADD, MULT, NL>::rows],
     const T op_c[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
                 [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
     T op_d[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
