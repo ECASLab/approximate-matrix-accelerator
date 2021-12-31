@@ -8,6 +8,7 @@ set_directive_top -name $::env(TOP_FUNCTION) "$::env(TOP_FUNCTION)"
 # Register Mappings
 set_directive_array_partition -type complete -dim 0 "matfma_top_accel" a
 set_directive_array_partition -type complete -dim 0 "matfma_top_accel" b
+set_directive_array_partition -type complete -dim 0 "matfma_top_accel" c
 set_directive_array_partition -type complete -dim 0 "matfma_top_accel" res
 
 # Interface
