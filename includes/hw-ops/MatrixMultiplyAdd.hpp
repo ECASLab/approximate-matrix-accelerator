@@ -33,7 +33,6 @@ class MatrixMultiplyAdd : public MatrixOperator<T, M, N, ADD, MULT, NL> {
   /**
    * Execute the exact implementation for three-operand operators
    * Hard-wired to be ap_fixed provided that it is the most efficient
-   * TODO: make it as efficient as the original implementation
    * @param op_a input operand A to multiply with
    * @param op_b input operand B to multiply with
    * @param op_c input operand C to add with
