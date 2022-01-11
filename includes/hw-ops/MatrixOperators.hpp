@@ -6,5 +6,6 @@
 #pragma once
 
 #include "MatrixAdd.hpp"
+#include "MatrixElementWise.hpp"
 #include "MatrixMultiply.hpp"
 #include "MatrixMultiplyAdd.hpp"
