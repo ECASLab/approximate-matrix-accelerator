@@ -61,6 +61,15 @@ class PassThru {
   }
 };
 
+template <typename T>
+class ReLU {
+  public:
+   T operator()(const T lhs) {
+#pragma HLS INLINE 
+     return lhs > 0 ? lhs : T{0};
+   }
+};
+
 }  // namespace exact
 }  // namespace arithmetic
 }  // namespace hw
