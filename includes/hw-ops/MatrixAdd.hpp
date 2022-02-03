@@ -29,20 +29,20 @@ template <typename T, int M, int N, class ADD = arithmetic::exact::Add<T>,
           class MULT = arithmetic::exact::Mult<T>,
           class NL = arithmetic::exact::PassThru<T>>
 class MatrixAdd : public MatrixOperator<T, M, N, ADD, MULT, NL> {
- public:
+public:
   /**
    * Execute the exact implementation for three-operand operators
    * @param op_a input operand A
    * @param op_b input operand B
    * @param op_c output operand C
    */
-  virtual void Execute(
-      const T op_a[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
-                  [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
-      const T op_b[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
-                  [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
-      T op_c[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
-            [MatrixOperator<T, M, N, ADD, MULT, NL>::columns]) override;
+  virtual void
+  Execute(const T op_a[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
+                      [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
+          const T op_b[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
+                      [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
+          T op_c[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
+                [MatrixOperator<T, M, N, ADD, MULT, NL>::columns]) override;
 };
 
 template <typename T, int M, int N, class ADD, class MULT, class NL>

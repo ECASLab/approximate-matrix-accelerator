@@ -29,30 +29,30 @@ template <typename T, int M, int N, class ADD = arithmetic::exact::Add<T>,
           class MULT = arithmetic::exact::Mult<T>,
           class NL = arithmetic::exact::PassThru<T>>
 class MatrixMultiplication : public MatrixOperator<T, M, N, ADD, MULT, NL> {
- public:
+public:
   /**
    * Execute the exact implementation for three-operand operators
    * @param op_a input operand A
    * @param op_b input operand B
    * @param op_c output operand C
    */
-  virtual void Execute(
-      const T op_a[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
-                  [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
-      const T op_b[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
-                  [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
-      T op_c[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
-            [MatrixOperator<T, M, N, ADD, MULT, NL>::columns]) override;
+  virtual void
+  Execute(const T op_a[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
+                      [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
+          const T op_b[MatrixOperator<T, M, N, ADD, MULT, NL>::columns]
+                      [MatrixOperator<T, M, N, ADD, MULT, NL>::rows],
+          T op_c[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
+                [MatrixOperator<T, M, N, ADD, MULT, NL>::rows]) override;
 };
 
 template <typename T, int M, int N, class ADD, class MULT, class NL>
 void MatrixMultiplication<T, M, N, ADD, MULT, NL>::Execute(
     const T op_a[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
                 [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
-    const T op_b[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
-                [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
+    const T op_b[MatrixOperator<T, M, N, ADD, MULT, NL>::columns]
+                [MatrixOperator<T, M, N, ADD, MULT, NL>::rows],
     T op_c[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
-          [MatrixOperator<T, M, N, ADD, MULT, NL>::columns]) {
+          [MatrixOperator<T, M, N, ADD, MULT, NL>::rows]) {
   core::matmul<T, M, N>(op_a, op_b, op_c);
 }
 
