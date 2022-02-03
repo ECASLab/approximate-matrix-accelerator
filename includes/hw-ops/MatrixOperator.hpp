@@ -32,6 +32,8 @@ class MatrixOperator {
   static const int rows = M;
   static const int columns = N;
   static const int elements = rows * columns;
+  static const int side = M;
+  typedef T datatype;
 };
 
 } /* namespace hw */

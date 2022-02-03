@@ -14,6 +14,7 @@
 
 /* Interfaces */
 #include "hw-ops/MatrixOperators.hpp"
+#include "hw-ops/VectorMatrix.hpp"
 
 /* Software ops */
 #include "sw-ops/matadd.hpp"
