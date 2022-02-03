@@ -29,7 +29,7 @@ template <typename T, int M, int N, class ADD = arithmetic::exact::Add<T>,
           class MULT = arithmetic::exact::Mult<T>,
           class NL = arithmetic::exact::PassThru<T>>
 class MatrixMultiplyAdd : public MatrixOperator<T, M, N, ADD, MULT, NL> {
-public:
+ public:
   /**
    * Execute the exact implementation for three-operand operators
    * @param op_a input operand A to multiply with
@@ -37,15 +37,15 @@ public:
    * @param op_c input operand C to add with
    * @param op_d output operand D
    */
-  virtual void
-  Execute(const T op_a[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
-                      [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
-          const T op_b[MatrixOperator<T, M, N, ADD, MULT, NL>::columns]
-                      [MatrixOperator<T, M, N, ADD, MULT, NL>::rows],
-          const T op_c[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
-                      [MatrixOperator<T, M, N, ADD, MULT, NL>::rows],
-          T op_d[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
-                [MatrixOperator<T, M, N, ADD, MULT, NL>::rows]) override;
+  virtual void Execute(
+      const T op_a[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
+                  [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
+      const T op_b[MatrixOperator<T, M, N, ADD, MULT, NL>::columns]
+                  [MatrixOperator<T, M, N, ADD, MULT, NL>::rows],
+      const T op_c[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
+                  [MatrixOperator<T, M, N, ADD, MULT, NL>::rows],
+      T op_d[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
+            [MatrixOperator<T, M, N, ADD, MULT, NL>::rows]);
 };
 
 template <typename T, int M, int N, class ADD, class MULT, class NL>

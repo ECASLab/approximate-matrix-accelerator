@@ -25,51 +25,13 @@ template <typename T, int M, int N, class ADD = arithmetic::exact::Add<T>,
           class MULT = arithmetic::exact::Mult<T>,
           class NL = arithmetic::exact::PassThru<T>>
 class MatrixOperator {
-public:
+ public:
   /*
    * Define some useful variables for implementation purposes
    */
   static const int rows = M;
   static const int columns = N;
   static const int elements = rows * columns;
-
-  /**
-   * Execute the exact implementation for three-operand operators
-   * @param op_a input operand A
-   * @param op_b input operand B
-   * @param op_c output operand C
-   */
-  virtual void Execute(const T op_a[rows][columns], const T op_b[rows][columns],
-                       T op_c[rows][columns]) {}
-
-  /**
-   * Execute the exact implementation for three-operand operators, override
-   * @param op_a input operand A
-   * @param op_b input operand B
-   * @param op_c output operand C
-   */
-  virtual void Execute(const T op_a[rows][columns], const T op_b[columns][rows],
-                       T op_c[rows][rows]) {}
-
-  /**
-   * Execute the exact implementation for four-operand operators
-   * @param op_a input operand A
-   * @param op_b input operand B
-   * @param op_c input operand C
-   * @param op_d output operand D
-   */
-  virtual void Execute(const T op_a[rows][columns], const T op_b[rows][columns],
-                       const T op_c[rows][columns], T op_d[rows][columns]) {}
-
-  /**
-   * Execute the exact implementation for four-operand operators, override
-   * @param op_a input operand A
-   * @param op_b input operand B
-   * @param op_c input operand C
-   * @param op_d output operand D
-   */
-  virtual void Execute(const T op_a[rows][columns], const T op_b[columns][rows],
-                       const T op_c[rows][rows], T op_d[rows][rows]) {}
 };
 
 } /* namespace hw */

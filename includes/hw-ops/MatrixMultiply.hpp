@@ -28,25 +28,25 @@ using namespace ama::hw;
 template <typename T, int M, int N, class ADD = arithmetic::exact::Add<T>,
           class MULT = arithmetic::exact::Mult<T>,
           class NL = arithmetic::exact::PassThru<T>>
-class MatrixMultiplication : public MatrixOperator<T, M, N, ADD, MULT, NL> {
-public:
+class MatrixMultiply : public MatrixOperator<T, M, N, ADD, MULT, NL> {
+ public:
   /**
    * Execute the exact implementation for three-operand operators
    * @param op_a input operand A
    * @param op_b input operand B
    * @param op_c output operand C
    */
-  virtual void
-  Execute(const T op_a[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
-                      [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
-          const T op_b[MatrixOperator<T, M, N, ADD, MULT, NL>::columns]
-                      [MatrixOperator<T, M, N, ADD, MULT, NL>::rows],
-          T op_c[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
-                [MatrixOperator<T, M, N, ADD, MULT, NL>::rows]) override;
+  virtual void Execute(
+      const T op_a[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
+                  [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
+      const T op_b[MatrixOperator<T, M, N, ADD, MULT, NL>::columns]
+                  [MatrixOperator<T, M, N, ADD, MULT, NL>::rows],
+      T op_c[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
+            [MatrixOperator<T, M, N, ADD, MULT, NL>::rows]);
 };
 
 template <typename T, int M, int N, class ADD, class MULT, class NL>
-void MatrixMultiplication<T, M, N, ADD, MULT, NL>::Execute(
+void MatrixMultiply<T, M, N, ADD, MULT, NL>::Execute(
     const T op_a[MatrixOperator<T, M, N, ADD, MULT, NL>::rows]
                 [MatrixOperator<T, M, N, ADD, MULT, NL>::columns],
     const T op_b[MatrixOperator<T, M, N, ADD, MULT, NL>::columns]
