@@ -22,3 +22,4 @@ set_directive_pipeline "MatrixMultiplyAdd<T, M, N, ADD, MULT, NL>::Execute/ama_h
 
 # Important! Inlining the execution allows parallelism
 set_directive_inline "MatrixMultiplyAdd<T, M, N, ADD, MULT, NL>::Execute"
+set_directive_dataflow "vecfma_top_accel"
