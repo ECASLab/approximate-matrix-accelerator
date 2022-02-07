@@ -11,8 +11,19 @@
 namespace ama {
 namespace sw {
 
+/**
+ * @brief Softmax
+ * It performs the softmax activation function
+ * @tparam T Data type
+ * @tparam K size of vector z
+ * @param z Input data vector
+ * @param res Vector with the result
+ */
+
+/* Float constant that represents the 1/3! factor, needed for the taylor approximation */
 const float TAYLOR_FACTOR = 1.0f/6.0f;
 
+/* Exact version of Softmax */
 template <typename T, int K>
 void softmax(const T z[K], T res[K]) {
   T exp_sum;
@@ -32,6 +43,7 @@ void softmax(const T z[K], T res[K]) {
   }
 }
 
+/* Taylor approximation Softmax, order 3 */
 template<typename T, int K>
 void taylor_sotfmax(const T z[K], T res[K]) {
   T exp_sum;
@@ -45,6 +57,7 @@ void taylor_sotfmax(const T z[K], T res[K]) {
   }
 }
 
+/* Pade approximation Softmax, order 3/3 */
 template<typename T, int K>
 void pade_softmax(const T z[K], T res[K]) {
   T exp_sum;
