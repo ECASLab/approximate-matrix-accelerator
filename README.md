@@ -57,6 +57,7 @@ cd builddir/tests/sw-ops
 ./matmul # For multiplication
 ./matmac # For multiply-add
 ./matfma # For fused multiply-add
+./softmax # For softmax 
 ```
 
 ## Hardware version
@@ -67,7 +68,7 @@ You can run the tests in the following way:
 
 ```bash
 # Run a synthesis + simulation
-cd tests/hw-ops/
+cd test/hw-ops/
 TEST=matadd make test
 
 # Run everything
@@ -89,7 +90,7 @@ where the possible targets are:
 
 and where the environment variables are:
 
-* TEST: name of the tests. Please, inspect `tests/hw-ops/tops/*.cpp` for the possible tests. You can also use `make help`.
+* TEST: name of the tests. Please, inspect `test/hw-ops/tops/*.cpp` for the possible tests. You can also use `make help`.
 * Q_ROWS: Number of rows. Default: 12
 * Q_COLS: Number of columns. Default: 12
 * Q_SEED: Seed for generating random numbers. Default: 10
