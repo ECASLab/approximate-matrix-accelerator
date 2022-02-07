@@ -25,4 +25,7 @@ int main() {
   ama::sw::taylor_sotfmax<ExactType, kCols>(z, res);
   ama::utils::print_vectors<ExactType, kCols>(z);
   ama::utils::print_vectors<ExactType, kCols>(res);
+  ama::sw::pade_softmax<ExactType, kCols>(z, res);
+  ama::utils::print_vectors<ExactType, kCols>(z);
+  ama::utils::print_vectors<ExactType, kCols>(res);
 }
