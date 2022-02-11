@@ -22,4 +22,7 @@ int main() {
   ama::sw::softmax<ExactType, kCols>(z, res);
   ama::utils::print_vectors<ExactType, kCols>(z);
   ama::utils::print_vectors<ExactType, kCols>(res);
+  ExactType x{1.5};
+  ExactType exp_approx = ama::sw::interpolation::linear<ExactType>(x, false);
+  std::cout << exp_approx << std::endl;
 }

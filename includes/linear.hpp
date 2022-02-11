@@ -21,6 +21,7 @@
 #include "sw-ops/matmac.hpp"
 #include "sw-ops/matmul.hpp"
 #include "sw-ops/softmax.hpp"
+#include "sw-ops/interpolation_softmax.hpp"
 
 /* Utils */
 #include "utils/compare_results.hpp"
