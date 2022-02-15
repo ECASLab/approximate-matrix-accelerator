@@ -95,5 +95,23 @@ T quadratic(const T x) {
 }
 
 } /* namespace interpolation */
+
+namespace core{
+
+template<typename T, int K, bool OP>
+void interpolation_softmax(const T z[K], T res[K]) {
+  T exp_sum{0};
+
+  for (int i = 0; i < K; ++i) {
+    res[i] = OP ? interpolation::linear<T>(z[i]) : interpolation::quadratic<T>(z[i]);
+    exp_sum += res[i];
+  }
+
+  for (int i = 0; i < K; ++i) {
+    res[i] /= exp_sum;
+  }
+}
+
+} /* namespace core */
 } /* namespace sw */
 } /* namespace ama */
