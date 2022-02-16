@@ -4,12 +4,21 @@
  * Supervisor: Luis G. Leon-Vega <lleon95@estudiantec.cr>
  */
 
-#include "linear.hpp"
 #include "matfma_top_accel.hpp"
+
+#include "linear.hpp"
+
+/* Toggle the USE_V0 switch to use the former version */
+// #define USE_V0
 
 void matfma_top_accel(const ExactType a[ROWS][COLS],
                       const ExactType b[COLS][ROWS],
                       const ExactType c[ROWS][ROWS],
                       ExactType res[ROWS][ROWS]) {
-  ama::hw::matfma<ExactType, ROWS, COLS>(a, b, c, res);
+#ifdef USE_V0
+  ama::hw::core::matfma<ExactType, ROWS, COLS>(a, b, c, res);
+#else
+  auto engine = ama::hw::operators::MatrixMultiplyAdd<ExactType, ROWS, COLS>{};
+  engine.Execute(a, b, c, res);
+#endif
 }
