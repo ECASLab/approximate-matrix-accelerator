@@ -90,8 +90,8 @@ where the possible targets are:
 and where the environment variables are:
 
 * TEST: name of the tests. Please, inspect `tests/hw-ops/tops/*.cpp` for the possible tests. You can also use `make help`.
-* Q_ROWS: Number of rows. Default: 12
-* Q_COLS: Number of columns. Default: 12
+* Q_ROWS: Number of rows. Default: 8
+* Q_COLS: Number of columns. Default: 8
 * Q_SEED: Seed for generating random numbers. Default: 10
 * Q_DATATYPE: datatype of hardware matrices. Default: ap_fixed
 * Q_WL: word length of datatype. Default: 8
