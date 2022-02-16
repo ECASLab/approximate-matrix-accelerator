@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
   ExactType hw_in_mat_b[ROWS][COLS];
   ExactType hw_result[ROWS][COLS];
   int err_cnt = 0;
-  const float limit_factor = float(1 << (WL - 1)) / float((1 << WL));
+  const float limit_factor = float(1ul << (WL - 1)) / float((1ul << WL));
   ama::utils::StatsMeter meter{};
 
   /* Generate the matrices */

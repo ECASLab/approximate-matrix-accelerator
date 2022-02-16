@@ -1,7 +1,6 @@
 /*
  * Copyright 2021
- * Author: Eduardo Salazar Villalobos <eduarsalazar@estudiantec.cr>
- * Supervisor: Luis G. Leon-Vega <lleon95@estudiantec.cr>
+ * Author: Luis G. Leon-Vega <lleon95@estudiantec.cr>
  */
 
 #include "linear.hpp"
