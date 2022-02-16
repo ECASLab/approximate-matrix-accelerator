@@ -7,6 +7,7 @@
 #pragma once
 
 /* Hardware ops */
+#ifndef FAL_SW_ONLY
 #include "hw-ops/cores/matadd.hpp"
 #include "hw-ops/cores/matfma.hpp"
 #include "hw-ops/cores/matmac.hpp"
@@ -15,6 +16,7 @@
 /* Interfaces */
 #include "hw-ops/MatrixOperators.hpp"
 #include "hw-ops/VectorMatrix.hpp"
+#endif
 
 /* Software ops */
 #include "sw-ops/matadd.hpp"
