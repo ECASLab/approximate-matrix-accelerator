@@ -53,14 +53,13 @@ int main(int argc, char **argv) {
 
   vecfma_top_accel(hw_in_mat_a, hw_in_mat_b, hw_in_mat_c, hw_result);
 
-  float scale = float(1);
   const float inv_alpha = 2 * ROWS;
 
   float hw_result_f[ACCEL * ROWS][ROWS];
   for (int i = 0; i < (ACCEL * ROWS); ++i) {
     for (int j = 0; j < ROWS; ++j) {
       hw_result_f[i][j] =
-          static_cast<float>(hw_result[i][j]) * scale * inv_alpha;
+          static_cast<float>(hw_result[i][j]) * inv_alpha;
       meter.Register(sw_result[i][j], hw_result_f[i][j], 2.f);
     }
   }
