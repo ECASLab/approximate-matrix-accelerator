@@ -21,6 +21,10 @@
 #define SEED 10
 #endif
 
+#ifndef ACCEL
+#define ACCEL 3
+#endif
+
 #ifndef WL
 #define WL 8
 #endif 
