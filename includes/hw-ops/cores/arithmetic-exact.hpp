@@ -34,6 +34,25 @@ class Add {
 };
 
 template <typename T>
+class Sub {
+ public:
+  T operator()(const T lhs, const T rhs) {
+#pragma HLS INLINE
+    return lhs - rhs;
+  }
+};
+
+template <typename T>
+class Div {
+ public:
+  T operator()(const T lhs, const T rhs) {
+#pragma HLS INLINE
+    T recp = T{1.} / rhs;
+    return lhs * recp;
+  }
+};
+
+template <typename T>
 class PassThru {
  public:
   T operator()(const T lhs) {
