@@ -1,10 +1,10 @@
-# Approximate Vector Accelerator
+# Approximate Matrix Accelerator
 
 ## Software version
 
 ### Compiling
 
-For compiling the code, no-dependencies are needed so far. You may only need the `meson` building system. Please, follow these steps to get it into your system:
+For compiling the code, no dependencies are needed so far. You may only need the `meson` building system. Please, follow these steps to get it into your system:
 
 ```bash
 sudo apt update
@@ -59,6 +59,12 @@ cd builddir/test/sw-ops
 ./matfma # For fused multiply-add
 ```
 
+or
+
+```bash
+ninja -C builddir test
+```
+
 ## Hardware version
 
 For the hardware version, you will need Vivado HLS 2018.2.
@@ -111,6 +117,8 @@ test/hw-ops/measurements/
   |_ *-report.data      -> Report about latency and resources
   |_ *-maxerrs_*.data   -> Report about the maximum error reported
 ```
+
+Documentation: available [here](https://msee2.gitlab.io/approximate-flexible-acceleration-ml/approximate-gemm-accelerator).
 
 Author:
 

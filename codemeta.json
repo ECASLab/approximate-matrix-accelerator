@@ -10,7 +10,7 @@
   "downloadUrl": "https://gitlab.com/msee2/approximate-flexible-acceleration-ml/approximate-gemm-accelerator/-/archive/v0.3.1/approximate-gemm-accelerator-v0.3.1.tar.gz",
   "issueTracker": "https://gitlab.com/msee2/approximate-flexible-acceleration-ml/approximate-gemm-accelerator/-/issues",
   "name": "Approximate GEMM Accelerator",
-  "version": "0.3.1",
+  "version": "1.0.0",
   "identifier": "10.5281/zenodo.5797105",
   "description": "This project develops a processing element (PE) with configurable precision with respect to the data type for matrix-matrix multiplication, intended for FPGAs and using high-level synthesis (HLS).",
   "applicationCategory": "Computer Engineering",

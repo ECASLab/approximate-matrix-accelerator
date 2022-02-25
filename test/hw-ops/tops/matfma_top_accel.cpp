@@ -4,6 +4,11 @@
  * Supervisor: Luis G. Leon-Vega <lleon95@estudiantec.cr>
  */
 
+/**
+ * @example matfma_top_accel.cpp
+ * Matrix addition example
+ */
+
 #include "matfma_top_accel.hpp"
 
 #include "linear.hpp"

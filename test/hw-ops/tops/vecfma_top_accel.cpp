@@ -3,6 +3,11 @@
  * Author: Luis G. Leon-Vega <lleon95@estudiantec.cr>
  */
 
+/**
+ * @example vecfma_top_accel.cpp
+ * Vectorised FMA example
+ */
+
 #include "vecfma_top_accel.hpp"
 
 #include "linear.hpp"
