@@ -4,3 +4,15 @@
 ## Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ############################################################
 set_directive_top -name $::env(TOP_FUNCTION) "$::env(TOP_FUNCTION)"
+
+# Register Mappings
+set_directive_array_partition -type complete -dim 0 "matadd_top_accel" a
+set_directive_array_partition -type complete -dim 0 "matadd_top_accel" b
+set_directive_array_partition -type complete -dim 0 "matadd_top_accel" res
+
+# Unroll
+set_directive_unroll "MatrixAdd<T, M, N, ADD, MULT, NL>::Execute/ama_hw_matrix_add_rows"
+set_directive_unroll "MatrixAdd<T, M, N, ADD, MULT, NL>::Execute/ama_hw_matrix_add_cols"
+
+# No-inline
+set_directive_inline -off "MatrixAdd<T, M, N, ADD, MULT, NL>::Execute"

@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
   int err_cnt = 0;
   const float alpha = 1.f / ROWS;
   const int inv_alpha = ROWS;
-  const float limit_factor = float(((1 << WL) - 1)) / float((1 << WL));
+  const float limit_factor = float(1 << (WL - 1)) / float((1 << WL));
   ama::utils::StatsMeter meter{};
 
   srand(SEED);
@@ -55,11 +55,7 @@ int main(int argc, char **argv) {
     for (int j = 0; j < ROWS; ++j) {
       hw_result_f[i][j] =
           static_cast<float>(hw_result[i][j]) * scale * inv_alpha;
-      if (sw_result[i][j] != 0) {
-        meter.Register(sw_result[i][j], hw_result_f[i][j], sw_result[i][j]);
-      } else {
-        meter.Register(sw_result[i][j], hw_result_f[i][j], 1.f);
-      }
+      meter.Register(sw_result[i][j], hw_result_f[i][j], 2.f);
     }
   }
   ama::utils::compare_results<float, ROWS, ROWS>(hw_result_f, sw_result,

@@ -6,10 +6,10 @@
 set_directive_top -name $::env(TOP_FUNCTION) "$::env(TOP_FUNCTION)"
 
 # Register Mappings
-set_directive_array_partition -type complete -dim 0 "matfma_top_accel" a
-set_directive_array_partition -type complete -dim 0 "matfma_top_accel" b
-set_directive_array_partition -type complete -dim 0 "matfma_top_accel" c
-set_directive_array_partition -type complete -dim 0 "matfma_top_accel" res
+set_directive_array_partition -type complete -dim 0 "vecfma_top_accel" a
+set_directive_array_partition -type complete -dim 0 "vecfma_top_accel" b
+set_directive_array_partition -type complete -dim 0 "vecfma_top_accel" c
+set_directive_array_partition -type complete -dim 0 "vecfma_top_accel" res
 
 # Interface
 set_directive_interface -register "MatrixMultiplyAdd<T, M, N, ADD, MULT, NL>::Execute" op_a
@@ -20,5 +20,6 @@ set_directive_interface -register "MatrixMultiplyAdd<T, M, N, ADD, MULT, NL>::Ex
 # Unroll and pipeline
 set_directive_pipeline "MatrixMultiplyAdd<T, M, N, ADD, MULT, NL>::Execute/ama_hw_matrix_fma_rows"
 
-# No-inline
-set_directive_inline -off "MatrixMultiplyAdd<T, M, N, ADD, MULT, NL>::Execute"
+# Important! Inlining the execution allows parallelism
+set_directive_inline "MatrixMultiplyAdd<T, M, N, ADD, MULT, NL>::Execute"
+set_directive_dataflow "vecfma_top_accel"

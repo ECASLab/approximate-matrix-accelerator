@@ -9,11 +9,12 @@
 #include <ap_fixed.h>
 #include <ap_int.h>
 
-#include "cores/mul.hpp"
+#include "hw-ops/cores/mul.hpp"
 #include "utils/load_matrix.hpp"
 
 namespace ama {
 namespace hw {
+namespace core {
 
 /**
  * @brief Fused Multiply-Add
@@ -59,9 +60,11 @@ void matfma(const T a[M][N], const T b[N][M], const T c[M][M], T res[M][M]) {
   mult_result = 0;
 
 #if DATATYPE == 0
-  const ap_fixed<WL + 1, 1, AP_RND> alpha = 1.f / (2 * M); /* Transform factor to avoid overflow when working with ap_fixed */
+  /* Transform factor to avoid overflow when working with ap_fixed */
+  const ap_fixed<WL + 1, 1, AP_RND> alpha = 1.f / (2 * M); 
 #else
-  const int alpha = (static_cast<int>(std::ceil(std::log2(M)) + 1)); /* Transform factor to avoid overflow when working with ap_int */
+  /* Transform factor to avoid overflow when working with ap_int */
+  const int alpha = (static_cast<int>(std::ceil(std::log2(M)) + 1));
 #endif
 
 Rows:
@@ -87,18 +90,24 @@ Rows:
     Res:
       for (int k = 0; k < N; ++k) {
 #if DATATYPE == 1
-        decltype(mult_result) a_scaled = A_OPERAND >> alpha, b_scaled = B_OPERAND;
-        decltype(mult_result) mult_element = ama::core::mul<decltype(mult_result)>(a_scaled, b_scaled);
+        decltype(mult_result) a_scaled = A_OPERAND >> alpha,
+                              b_scaled = B_OPERAND;
+        decltype(mult_result) mult_element =
+            ama::core::mul<decltype(mult_result)>(a_scaled, b_scaled);
         mult_element = mult_element.range(2 * kDataWidth - 2, kDataWidth - 1);
         mult_result += mult_element;
 #else
-        decltype(mult_result) a_scaled = A_OPERAND * alpha, b_scaled = B_OPERAND;
-        mult_result += ama::core::mul<decltype(mult_result)>(a_scaled, b_scaled);
+        decltype(mult_result) a_scaled = A_OPERAND * alpha,
+                              b_scaled = B_OPERAND;
+        mult_result +=
+            ama::core::mul<decltype(mult_result)>(a_scaled, b_scaled);
 #endif
       }
       res[i][j] = mult_result;
     }
   }
 }
+
+}  // namespace core
 }  // namespace hw
 }  // namespace ama

@@ -10,15 +10,19 @@
 #include <ap_int.h>
 
 #ifndef ROWS
-#define ROWS 12
+#define ROWS 8
 #endif
 
 #ifndef COLS
-#define COLS 12
+#define COLS 8
 #endif
 
 #ifndef SEED
 #define SEED 10
+#endif
+
+#ifndef ACCEL
+#define ACCEL 3
 #endif
 
 #ifndef WL

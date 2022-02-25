@@ -1,10 +1,10 @@
-# Approximate Vector Accelerator
+# Approximate Matrix Accelerator
 
 ## Software version
 
 ### Compiling
 
-For compiling the code, no-dependencies are needed so far. You may only need the `meson` building system. Please, follow these steps to get it into your system:
+For compiling the code, no dependencies are needed so far. You may only need the `meson` building system. Please, follow these steps to get it into your system:
 
 ```bash
 sudo apt update
@@ -52,11 +52,17 @@ ninja -C builddir
 You can test the code by using:
 
 ```bash
-cd builddir/tests/sw-ops
+cd builddir/test/sw-ops
 ./matadd # For addition
 ./matmul # For multiplication
 ./matmac # For multiply-add
 ./matfma # For fused multiply-add
+```
+
+or
+
+```bash
+ninja -C builddir test
 ```
 
 ## Hardware version
@@ -67,7 +73,7 @@ You can run the tests in the following way:
 
 ```bash
 # Run a synthesis + simulation
-cd tests/hw-ops/
+cd test/hw-ops/
 TEST=matadd make test
 
 # Run everything
@@ -89,9 +95,9 @@ where the possible targets are:
 
 and where the environment variables are:
 
-* TEST: name of the tests. Please, inspect `tests/hw-ops/tops/*.cpp` for the possible tests. You can also use `make help`.
-* Q_ROWS: Number of rows. Default: 12
-* Q_COLS: Number of columns. Default: 12
+* TEST: name of the tests. Please, inspect `test/hw-ops/tops/*.cpp` for the possible tests. You can also use `make help`.
+* Q_ROWS: Number of rows. Default: 8
+* Q_COLS: Number of columns. Default: 8
 * Q_SEED: Seed for generating random numbers. Default: 10
 * Q_DATATYPE: datatype of hardware matrices. Default: ap_fixed
 * Q_WL: word length of datatype. Default: 8
@@ -111,6 +117,8 @@ test/hw-ops/measurements/
   |_ *-report.data      -> Report about latency and resources
   |_ *-maxerrs_*.data   -> Report about the maximum error reported
 ```
+
+Documentation: available [here](https://msee2.gitlab.io/approximate-flexible-acceleration-ml/approximate-gemm-accelerator).
 
 Author:
 

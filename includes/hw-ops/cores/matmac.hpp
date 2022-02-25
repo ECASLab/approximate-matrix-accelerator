@@ -11,6 +11,7 @@
 
 namespace ama {
 namespace hw {
+namespace core {
 
 /**
  * @brief Matrix multiplication-addition
@@ -30,5 +31,7 @@ void matmac(const T a[M][N], const T b[N][M], const T c[M][M], T res[M][M]) {
   matmul<T, M, N>(a, b, res_tmp);
   matadd<T, M, M>(c, res_tmp, res);
 }
+
+}  // namespace core
 }  // namespace hw
 }  // namespace ama

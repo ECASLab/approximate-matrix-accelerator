@@ -5,9 +5,9 @@
  */
 
 #pragma once
- 
-namespace ama{
-namespace core{
+
+namespace ama {
+namespace core {
 
 /**
  * @brief Multiply
@@ -21,5 +21,5 @@ T mul(const T a, const T b) {
 #pragma HLS INLINE off
   return a * b;
 }
-}
-}
+}  // namespace core
+}  // namespace ama

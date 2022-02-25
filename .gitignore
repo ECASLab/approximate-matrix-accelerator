@@ -1,2 +1,4 @@
 hls_project_*
 *.log
+html
+builddir

@@ -60,7 +60,7 @@ def write_reports(accels):
         f = open('measurements/{}-report.data'.format(i), 'w')
         files[i] = f
         # First row
-        row = ["rows", "cols", "min_lat", "avg_lat", "max_lat",
+        row = ["dims", "bw", "min_lat", "avg_lat", "max_lat",
                "dsp", "lut", "bram", "ff"]
         writer = csv.writer(f, delimiter=' ')
         writer.writerow(row)
@@ -71,8 +71,8 @@ def write_reports(accels):
         writer = csv.writer(files[accel], delimiter=' ')
 
         row = []
-        row.append(label[1])  # rows
-        row.append(label[2])  # cols
+        row.append(label[1])  # dims
+        row.append(label[2])  # bw
         # Latency
         row.append(latency["min"][count])
         row.append(latency["avg"][count])
@@ -105,11 +105,11 @@ if __name__ == "__main__":
 
     for i in files:
         name = i.split('_')[0].split('/')[1]
-        rows = i.split('_')[1]
-        cols = i.split('_')[2].split('.')[0]
+        dims = i.split('_')[1]
+        bw = i.split('_')[3].split('.')[0]
         if name not in accels:
             accels.append(name)
 
-        fill_data(i, (name, rows, cols))
+        fill_data(i, (name, dims, bw))
     write_reports(accels)
     print("Finished")

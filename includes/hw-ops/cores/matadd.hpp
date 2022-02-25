@@ -8,6 +8,7 @@
 
 namespace ama {
 namespace hw {
+namespace core {
 
 /**
  * @brief Matrix addition
@@ -26,13 +27,15 @@ void matadd(const T a[M][N], const T b[M][N], T res[M][N]) {
 #pragma HLS ARRAY_PARTITION variable = a complete dim = 0
 
 #pragma HLS PIPELINE
-Rows:
+ama_hw_matadd_rows:
   for (int i = 0; i < M; ++i) {
-  Cols:
+  ama_hw_matadd_cols:
     for (int j = 0; j < N; ++j) {
       res[i][j] = a[i][j] + b[i][j];
     }
   }
 }
+
+}  // namespace core
 }  // namespace hw
 }  // namespace ama
