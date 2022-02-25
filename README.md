@@ -1,10 +1,10 @@
-# Approximate Vector Accelerator
+# Approximate Matrix Accelerator
 
 ## Software version
 
 ### Compiling
 
-For compiling the code, no-dependencies are needed so far. You may only need the `meson` building system. Please, follow these steps to get it into your system:
+For compiling the code, no dependencies are needed so far. You may only need the `meson` building system. Please, follow these steps to get it into your system:
 
 ```bash
 sudo apt update
