@@ -4,6 +4,11 @@
  * Supervisor: Luis G. Leon-Vega <lleon95@estudiantec.cr>
  */
 
+/**
+ * @example matmul_top_accel.cpp
+ * Matrix Multiplication example
+ */
+
 #include "matmul_top_accel.hpp"
 
 #include "linear.hpp"

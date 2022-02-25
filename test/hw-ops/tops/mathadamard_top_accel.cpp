@@ -3,6 +3,11 @@
  * Author: Luis G. Leon-Vega <lleon95@estudiantec.cr>
  */
 
+/**
+ * @example mathadamard_top_accel.cpp
+ * Matrix hadamard example
+ */
+
 #include "linear.hpp"
 #include "matadd_top_accel.hpp"
 
