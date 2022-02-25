@@ -118,6 +118,8 @@ test/hw-ops/measurements/
   |_ *-maxerrs_*.data   -> Report about the maximum error reported
 ```
 
+Documentation: available [here](https://msee2.gitlab.io/approximate-flexible-acceleration-ml/approximate-gemm-accelerator).
+
 Author:
 
 Eduardo Salazar Villalobos <eduarsalazar@estudiantec.cr>
