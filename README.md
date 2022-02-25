@@ -59,6 +59,12 @@ cd builddir/test/sw-ops
 ./matfma # For fused multiply-add
 ```
 
+or
+
+```bash
+ninja -C builddir test
+```
+
 ## Hardware version
 
 For the hardware version, you will need Vivado HLS 2018.2.

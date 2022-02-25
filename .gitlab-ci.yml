@@ -4,17 +4,42 @@
 ##         Eduardo Salazar-Villalobos <eduarsalazar@estudiantec.cr>
 ###################################################################
 
-stages:
-  - deploy 
- 
-deploy_zenodo:
-  stage: deploy
-  image: gitlab-registry.in2p3.fr/escape2020/wp3/eossr:latest
+image: gcc:9.4
+
+sw-build:  
+  stage: build
   before_script:
-    - eossr-check-connection-zenodo --token $ZENODO_TOKEN --sandbox False -p $CI_PROJECT_DIR
+    - apt update
+    - apt install python3-pip ninja-build -y
+    - pip3 install meson
+
   script:
-    - gitlab_prepare_upload_zenodo.sh $CI_PROJECT_NAME $CI_PROJECT_DIR zenodo_build
-    - ls zenodo_build
-    - eossr-upload-repository -t $ZENODO_TOKEN -s False -i zenodo_build -id $ZENODO_PROJECT_ID
-  only:
-    - tags
+    - meson builddir
+    - ninja -C builddir
+
+  artifacts:
+    paths:
+      - builddir
+
+sw-test:  
+  stage: test
+  before_script:
+    - apt update
+    - apt install python3-pip ninja-build -y
+    - pip3 install meson
+
+  script:
+    - ninja test -C builddir
+
+pages:
+  image: alpine
+  stage: deploy
+  script:
+    - apk update && apk add make doxygen graphviz ttf-freefont
+    - mkdir public
+    - cd docs && doxygen && cd -
+    - cp -r docs/html/* public
+
+  artifacts:
+    paths:
+    - public
