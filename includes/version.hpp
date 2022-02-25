@@ -3,4 +3,4 @@
  * Author: Luis G. Leon-Vega <lleon95@estudiantec.cr>
  */
 
-#define VERSION 1.0
+#define VERSION "1.0.0"
