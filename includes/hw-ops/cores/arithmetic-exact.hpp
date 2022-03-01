@@ -1,6 +1,7 @@
 /*
- * Copyright 2021
- * Author: Luis G. Leon-Vega <lleon95@estudiantec.cr>
+ * Copyright 2022
+ * Author: Fabricio Elizondo Fernandez <faelizondo@estudiantec.cr>
+ * Based on the work by: Luis G. Leon-Vega <lleon95@estudiantec.cr>
  */
 
 #pragma once
