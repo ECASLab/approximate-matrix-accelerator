@@ -23,7 +23,7 @@ namespace hw {
  */
 template <typename T, int M, int N, class ADD = arithmetic::exact::Add<T>,
           class MULT = arithmetic::exact::Mult<T>,
-          class NL = arithmetic::exact::ReLU<T>>
+          class NL = arithmetic::exact::PassThru<T>>
 class MatrixOperator {
  public:
   /*
