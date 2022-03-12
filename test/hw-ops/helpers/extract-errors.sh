@@ -34,3 +34,4 @@ done
 # Process plots
 cd ${PROC_FOLDER}
 bash datatypes-histogram.sh
+bash consumptions.sh

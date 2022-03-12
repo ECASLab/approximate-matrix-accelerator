@@ -46,8 +46,8 @@ clean-data:
 
 # Extracts the errors and other useful data
 extract-data: clean-data
-	bash helpers/extract-errors.sh
 	python3 helpers/extract-report.py
+	bash helpers/extract-errors.sh
 
 help:
 	$(info $(HELP_MESSAGE))
