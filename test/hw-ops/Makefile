@@ -41,8 +41,11 @@ measure: $(RPT_FILE) $(REPORT_FILE) $(SIMULATION_FILE)
 measure-all:
 	mpirun bash helpers/measure-all.sh
 
+clean-data:
+	$(RM) measurements/processed/*.data measurements/processed/*.svg
+
 # Extracts the errors and other useful data
-extract-data:
+extract-data: clean-data
 	bash helpers/extract-errors.sh
 	python3 helpers/extract-report.py
 

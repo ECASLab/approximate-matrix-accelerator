@@ -89,6 +89,7 @@ inline std::vector<int> StatsMeter::compute_histogram(const int bins,
   /* Compute the histogram */
   for (const double val : values_) {
     int index = static_cast<int>(std::abs(val) / quantum);
+    if (index >= histogram.size()) continue;
     ++histogram.at(index);
   }
 
