@@ -7,14 +7,18 @@
 # dims bw min_lat avg_lat max_lat dsp lut bram ff
 
 # Join the consumptions for datatypes
-MSIZE=4
 ACCELS="matfma"
+for msize in $(seq 2 2 16);
+do
 for acc in ${ACCELS};
 do
   FILE="${acc}-report.data"
-  awk "{if (\$1 == ${MSIZE}) print \$0}" ${FILE} > "consumption_${acc}_${MSIZE}_dtypes.data"
-  gnuplot -e "accel='${acc}';msize='${MSIZE}'" plot_datatype_consumption.plt
+  awk "{if (\$1 == ${msize}) print \$0}" ${FILE} > "consumption_${acc}_${msize}_dtypes.data"
+  gnuplot -e "accel='${acc}';msize='${msize}'" plot_datatype_consumption.plt
 done
+done
+gnuplot -e "accel='${acc}';msize='${msize}'" plot_datatype_performance.plt
+gnuplot -e "accel='${acc}';msize='${msize}'" plot_datatype_efficiency.plt
 
 # Join the consumptions for matrix sizes
 DT=8

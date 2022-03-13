@@ -4,11 +4,11 @@
 ## Author: Luis G. Leon-Vega <lleon95@estudiantec.cr>
 ############################################################
 
-set term svg size 640, 480
+set term svg size 400, 300
 set output "plot_".dt."_".accel."_dtype_consumption.svg"
 
 set xlabel "Matrix size (NxN)"
-set ylabel "Relative consumption (Avnet Zedboard - ZYNQ 7z020)"
+set ylabel "Relative consumption (ZYNQ 7z020)"
 set y2label "Latency in clocks"
 set y2tics nomirror
 set ytics nomirror

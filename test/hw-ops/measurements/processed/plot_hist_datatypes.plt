@@ -4,11 +4,11 @@
 ## Author: Luis G. Leon-Vega <lleon95@estudiantec.cr>
 ############################################################
 
-set term svg size 640, 480
+set term svg size 400, 300
 set output "plot_hist_datatypes_".accel."_".msize.".svg"
 
 set xlabel "Normalised Error (0 to 1)"
-set ylabel "Scaled occurence (1/max)"
+set ylabel "Scaled occurrence (1/max)"
 
 # hist_${HIST_BINS}_${HIST_PERC}_${Q_DIM}_${Q_WL}_${ACCEL}.data
 # Type Kernel_Size Min Max Mean StdDev Variance
