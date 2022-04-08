@@ -1,5 +1,27 @@
 # Approximate Matrix Accelerator
 
+This repo presents:
+
+* A templated library for the automatic generation and specialisation of Matrix operations for High-Level Synthesis (with Vivado HLS). The Matrix operations can be specialised in:
+  * Matrix size
+  * Data type
+  * Operands
+* An comprehensive evaluation of the performance, design efficiency, and error. More information in [report](test/hw-ops/measurements/processed)
+
+
+The design efficiency is a home-made figure of merit for comparing the PE design in terms of: *performance, number of operation, and resource ocupation*.
+
+To use the library, you can install the include in your project and use:
+
+```c++
+#include "linear.hpp"
+```
+
+Some examples are in [tests](test/hw-ops).
+
+The documentation is available [here](https://msee2.gitlab.io/approximate-flexible-acceleration-ml/approximate-gemm-accelerator).
+
+
 ## Software version
 
 ### Compiling
@@ -112,7 +134,7 @@ and where the environment variables are:
 
 ## Important data
 
-After the extraction, the relevant files are in [report](./report/)
+After the extraction, the relevant files are in [report](test/hw-ops/measurements/processed)
 
 Documentation: available [here](https://msee2.gitlab.io/approximate-flexible-acceleration-ml/approximate-gemm-accelerator).
 
@@ -153,7 +175,7 @@ Please, feel free to cite any of the following sources:
 }
 
 % Software-only
-@software{salazar_villalobos_eduardo_v1_1_0,
+@software{gemma_v1.1.0_sw,
 author  = {Salazar-Villalobos, Eduardo,
            Leon-Vega, Luis G.
            Castro-Godinez, Jorge},
