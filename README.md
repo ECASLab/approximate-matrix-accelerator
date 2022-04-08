@@ -1,5 +1,28 @@
 # Approximate Matrix Accelerator
 
+This repo presents:
+
+* A templated library for the automatic generation and specialisation of Matrix operations for High-Level Synthesis (with Vivado HLS). The Matrix operations can be specialised in:
+  * Matrix size
+  * Data type
+  * Operands
+* An comprehensive evaluation of the performance, design efficiency, and error. More information in [report](test/hw-ops/measurements/processed)
+
+
+The design efficiency is a home-made figure of merit for comparing the PE design in terms of: *performance, number of operation, and resource ocupation*.
+
+To use the library, you can install the include in your project and use:
+
+```c++
+#include "linear.hpp"
+```
+
+Some examples are in [tests](test/hw-ops).
+
+The documentation is available [here](https://ecas-lab-tec.gitlab.io/approximate-flexible-acceleration-ml/approximate-gemm-accelerator).
+
+The latest source code is available in our [GitLab](https://gitlab.com/ecas-lab-tec/approximate-flexible-acceleration-ml/approximate-gemm-accelerator)
+
 ## Software version
 
 ### Compiling
@@ -65,6 +88,8 @@ or
 ninja -C builddir test
 ```
 
+> Deprecation warning. In next releases, the SW version will be deprecated.
+
 ## Hardware version
 
 For the hardware version, you will need Vivado HLS 2018.2.
@@ -110,20 +135,71 @@ and where the environment variables are:
 
 ## Important data
 
-After the extraction, the relevant files are:
+After the extraction, the relevant files are in [report](test/hw-ops/measurements/processed)
 
+Documentation: available [here](https://ecas-lab-tec.gitlab.io/approximate-flexible-acceleration-ml/approximate-gemm-accelerator).
+
+
+## How to cite
+
+Please, feel free to cite any of the following sources:
+
+### Plain Text
+
+* Salazar-Villalobos, Eduardo, Leon-Vega Luis G., Castro-Godinez Jorge. 2022. Automatic Generation of Matrix Multiply-Add Architectures using High-Level Synthesis [Under review]. *IEEE Embedded Systems Letters (ESL)* (2022)
+* Leon-Vega Luis G., Salazar-Villalobos, Eduardo, Rodriguez-Figueroa, Alejandro, Castro-Godinez Jorge, Salazar-Villalobos, Eduardo. 2022. Automatic Generation of Resource and Accuracy Configurable Processing Elements for Deep CNNs [Under review]. *ACM Transactions on Embedded Computing Systems* (2022)
+
+### BibTeX
+
+```bibtex
+% GEMMA Paper: For the v1.0.0 of the project
+@article{gemma_v1.0.0,
+  author = {Salazar-Villalobos, Eduardo,
+            Leon-Vega, Luis G.
+            Castro-Godinez, Jorge},
+  journal = {IEEE Embedded Systems Letters (ESL)},
+  publisher = {IEEE},
+  title = {{Automatic Generation of Matrix Multiply-Add Architectures using High-Level Synthesis [Under review]}},
+  year = {2022}
+}
+
+% Automating the PE generation for GEMMA and Convolutions
+@article{gemma_v1.0.0,
+  author = {Leon-Vega, Luis G.,
+            Salazar-Villalobos, Eduardo,
+            Rodriguez-Figueroa, Alejandro,
+            Castro-Godinez, Jorge},
+  journal = {ACM Transactions on Embedded Computing Systems},
+  publisher = {ACM},
+  title = {{Automatic Generation of Resource and Accuracy Configurable Processing Elements for Deep CNNs}},
+  year = {2022}
+}
+
+% Software-only
+@software{gemma_v1.1.0_sw,
+  author  = {Salazar-Villalobos, Eduardo,
+           Leon-Vega, Luis G.
+           Castro-Godinez, Jorge},
+  title = {{Flexible Accelerator Library: Approximate Matrix Accelerator}},
+  month = March,
+  year = 2022,
+  publisher = {Zenodo},
+  version = {v1.1.0},
+  doi = {10.5281/zenodo.6413238},
+  url = {https://doi.org/10.5281/zenodo.6413238}
+}
 ```
-test/hw-ops/measurements/
-  |_ *-report.data      -> Report about latency and resources
-  |_ *-maxerrs_*.data   -> Report about the maximum error reported
-```
 
-Documentation: available [here](https://msee2.gitlab.io/approximate-flexible-acceleration-ml/approximate-gemm-accelerator).
+## Aknowledgements:
 
-Author:
+This work was possible thanks to the Programmi Operativi Nazionali (PON) from Ministero dell'Università e della Ricerca, eXact Lab S.R.L, the postgraduate research scholarship from Instituto Tecnológico de Costa Rica, and the Master's scholarship programme from RidgeRun Embedded Solutions LLC.
 
-Eduardo Salazar Villalobos <eduarsalazar@estudiantec.cr>
+
+Authors:
+
+* Eduardo Salazar Villalobos <eduarsalazar@estudiantec.cr>
 
 Supervisor:
 
-Luis G. Leon Vega <lleon95@estudiantec.cr>
+* Luis G. Leon Vega <lleon95@estudiantec.cr>, <luis.leon@ieee.org>
+* Jorge Castro-Godinez <jocastro@tec.ac.cr>
