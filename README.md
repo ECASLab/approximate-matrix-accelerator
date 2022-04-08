@@ -147,7 +147,8 @@ Please, feel free to cite any of the following sources:
 ### Plain Text
 
 * Salazar-Villalobos, Eduardo, Leon-Vega Luis G., Castro-Godinez Jorge. 2022. Automatic Generation of Matrix Multiply-Add Architectures using High-Level Synthesis [Under review]. *IEEE Embedded Systems Letters (ESL)* (2022)
-* Leon-Vega Luis G., Salazar-Villalobos, Eduardo, Rodriguez-Figueroa, Alejandro, Castro-Godinez Jorge, Salazar-Villalobos, Eduardo. 2022. Automatic Generation of Resource and Accuracy Configurable Processing Elements for Deep CNNs [Under review]. *ACM Transactions on Embedded Computing Systems* (2022)
+* Leon-Vega Luis G., Salazar-Villalobos, Eduardo, Rodriguez-Figueroa, Alejandro, & Castro-Godinez Jorge. 2022. Automatic Generation of Resource and Accuracy Configurable Processing Elements for Deep CNNs [Under review]. *ACM Transactions on Embedded Computing Systems* (2022)
+* Salazar-Villalobos, Eduardo, Leon-Vega, Luis G., & Castro-Godinez, Jorge. (2022). Flexible Accelerator Library: Approximate Matrix Accelerator (v1.1.0). Zenodo. https://doi.org/10.5281/zenodo.6413238
 
 ### BibTeX
 
