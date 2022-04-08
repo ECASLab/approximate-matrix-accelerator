@@ -19,8 +19,9 @@ To use the library, you can install the include in your project and use:
 
 Some examples are in [tests](test/hw-ops).
 
-The documentation is available [here](https://msee2.gitlab.io/approximate-flexible-acceleration-ml/approximate-gemm-accelerator).
+The documentation is available [here](https://ecas-lab-tec.gitlab.io/approximate-flexible-acceleration-ml/approximate-gemm-accelerator).
 
+The latest source code is available in our [GitLab](https://gitlab.com/ecas-lab-tec/approximate-flexible-acceleration-ml/approximate-gemm-accelerator)
 
 ## Software version
 
@@ -136,7 +137,7 @@ and where the environment variables are:
 
 After the extraction, the relevant files are in [report](test/hw-ops/measurements/processed)
 
-Documentation: available [here](https://msee2.gitlab.io/approximate-flexible-acceleration-ml/approximate-gemm-accelerator).
+Documentation: available [here](https://ecas-lab-tec.gitlab.io/approximate-flexible-acceleration-ml/approximate-gemm-accelerator).
 
 
 ## How to cite
@@ -176,7 +177,7 @@ Please, feel free to cite any of the following sources:
 
 % Software-only
 @software{gemma_v1.1.0_sw,
-author  = {Salazar-Villalobos, Eduardo,
+  author  = {Salazar-Villalobos, Eduardo,
            Leon-Vega, Luis G.
            Castro-Godinez, Jorge},
   title = {{Flexible Accelerator Library: Approximate Matrix Accelerator}},
