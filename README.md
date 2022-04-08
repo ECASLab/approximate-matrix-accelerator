@@ -6,10 +6,10 @@ This repo presents:
   * Matrix size
   * Data type
   * Operands
-* An comprehensive evaluation of the performance, design efficiency, and error. More information in [report](test/hw-ops/measurements/processed)
+* A comprehensive evaluation of the performance, design efficiency, and error. More information in [report](test/hw-ops/measurements/processed)
 
 
-The design efficiency is a home-made figure of merit for comparing the PE design in terms of: *performance, number of operation, and resource ocupation*.
+The design efficiency is a home-made figure of merit for comparing the PE design in terms of: *performance, number of operations, and resource occupation*.
 
 To use the library, you can install the include in your project and use:
 
@@ -147,7 +147,8 @@ Please, feel free to cite any of the following sources:
 ### Plain Text
 
 * Salazar-Villalobos, Eduardo, Leon-Vega Luis G., Castro-Godinez Jorge. 2022. Automatic Generation of Matrix Multiply-Add Architectures using High-Level Synthesis [Under review]. *IEEE Embedded Systems Letters (ESL)* (2022)
-* Leon-Vega Luis G., Salazar-Villalobos, Eduardo, Rodriguez-Figueroa, Alejandro, Castro-Godinez Jorge, Salazar-Villalobos, Eduardo. 2022. Automatic Generation of Resource and Accuracy Configurable Processing Elements for Deep CNNs [Under review]. *ACM Transactions on Embedded Computing Systems* (2022)
+* Leon-Vega Luis G., Salazar-Villalobos, Eduardo, Rodriguez-Figueroa, Alejandro, & Castro-Godinez Jorge. 2022. Automatic Generation of Resource and Accuracy Configurable Processing Elements for Deep CNNs [Under review]. *ACM Transactions on Embedded Computing Systems* (2022)
+* Salazar-Villalobos, Eduardo, Leon-Vega, Luis G., & Castro-Godinez, Jorge. (2022). Flexible Accelerator Library: Approximate Matrix Accelerator (v1.1.0). Zenodo. https://doi.org/10.5281/zenodo.6413238
 
 ### BibTeX
 
@@ -178,8 +179,8 @@ Please, feel free to cite any of the following sources:
 % Software-only
 @software{gemma_v1.1.0_sw,
   author  = {Salazar-Villalobos, Eduardo,
-           Leon-Vega, Luis G.
-           Castro-Godinez, Jorge},
+             Leon-Vega, Luis G.
+             Castro-Godinez, Jorge},
   title = {{Flexible Accelerator Library: Approximate Matrix Accelerator}},
   month = March,
   year = 2022,
@@ -190,7 +191,7 @@ Please, feel free to cite any of the following sources:
 }
 ```
 
-## Aknowledgements:
+## Acknowledgements:
 
 This work was possible thanks to the Programmi Operativi Nazionali (PON) from Ministero dell'Università e della Ricerca, eXact Lab S.R.L, the postgraduate research scholarship from Instituto Tecnológico de Costa Rica, and the Master's scholarship programme from RidgeRun Embedded Solutions LLC.
 
