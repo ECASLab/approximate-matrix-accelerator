@@ -15,9 +15,17 @@ MAX_Q_DIM=${MAX_Q_DIM:-16}
 STEP_Q_DIM=${STEP_Q_DIM:-2}
 MSIZES=$(seq ${MIN_Q_DIM} ${STEP_Q_DIM} ${MAX_Q_DIM})
 ACCELS="matfma"
-for msize in ${MSIZES};
+for acc in ${ACCELS};
 do
-  for acc in ${ACCELS};
+  for msize in ${MSIZES};
+  do
+    gnuplot -e "accel='${acc}';msize='${msize}'" plot_hist_datatypes.plt
+  done
+done
+
+for acc in ${ACCELS};
+do
+  for msize in ${MSIZES};
   do
     gnuplot -e "accel='${acc}';msize='${msize}'" plot_hist_datatypes.plt
   done
