@@ -153,7 +153,6 @@ Please, feel free to cite any of the following sources:
 }
 
 % Software-only
-```bibtex
 @software{salazar_villalobos_eduardo_v1_1_0,
 author  = {Salazar-Villalobos, Eduardo,
            Leon-Vega, Luis G.
@@ -168,16 +167,16 @@ author  = {Salazar-Villalobos, Eduardo,
 }
 ```
 
-Author:
+## Aknowledgements:
 
-Eduardo Salazar Villalobos <eduarsalazar@estudiantec.cr>
+This work was possible thanks to the Programmi Operativi Nazionali (PON) from Ministero dell'Università e della Ricerca, eXact Lab S.R.L, the postgraduate research scholarship from Instituto Tecnológico de Costa Rica, and the Master's scholarship programme from RidgeRun Embedded Solutions LLC.
+
+
+Authors:
+
+* Eduardo Salazar Villalobos <eduarsalazar@estudiantec.cr>
 
 Supervisor:
 
-Luis G. Leon Vega <lleon95@estudiantec.cr>, <luis.leon@ieee.org>
-
-This project has been
-
-Aknowledgements:
-
-This work was possible thanks to the Programmi Operativi Nazionali (PON) from Ministero dell'Università e della Ricerca, eXact Lab S.R.L, the postgraduate research scholarship from Instituto Tecnológico de Costa Rica, and the Master's scholarship programme from RidgeRun Embedded Solutions LLC.
+* Luis G. Leon Vega <lleon95@estudiantec.cr>, <luis.leon@ieee.org>
+* Jorge Castro-Godinez <jocastro@tec.ac.cr>
