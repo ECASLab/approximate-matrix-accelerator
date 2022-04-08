@@ -18,7 +18,6 @@ do
 done
 done
 gnuplot -e "accel='${acc}';msize='${msize}'" plot_datatype_performance.plt
-gnuplot -e "accel='${acc}';msize='${msize}'" plot_datatype_efficiency.plt
 
 # Join the consumptions for matrix sizes
 DT=8
